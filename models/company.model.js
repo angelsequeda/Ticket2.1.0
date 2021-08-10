@@ -1,5 +1,6 @@
 //Este es el modelo de los usuarios registrados como compañias que pueden hacer ofertas de empleo
 const {Model,Deferrable, DataTypes} = require('sequelize');
+const sequelize = require('../db/connection');
 
 class companyModel extends Model{};
 
@@ -36,7 +37,8 @@ companyModel.init({
     sequelize,
     timestamps: false,
     createdAt: false,
-    updatedAt: false
+    updatedAt: false,
+    tableName: 'COMPANIES'
 });
 
 companyModel.sync();

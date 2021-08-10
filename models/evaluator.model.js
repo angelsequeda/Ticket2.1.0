@@ -1,6 +1,7 @@
 //Este es el modelo para los usuarios registrados de TECLA que podrán evaluar las habilidades de los teclers
 
 const {Model,Deferrable, DataTypes} = require('sequelize');
+const sequelize = require('../db/connection');
 
 class evaluatorModel extends Model{};
 
@@ -33,7 +34,8 @@ evaluatorModel.init({
     sequelize,
     timestamps: false,
     createdAt: false,
-    updatedAt: false
+    updatedAt: false,
+    tableName: 'EVALUATORS'
 });
 
 evaluatorModel.sync();

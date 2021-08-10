@@ -1,5 +1,6 @@
 //En este archivo se encuentra el modelo de los usuarios TECLERS de la app
 const {Model,Deferrable, DataTypes} = require('sequelize');
+const sequelize = require('../db/connection');
 
 class teclerModel extends Model{};
 
@@ -62,7 +63,8 @@ teclerModel.init({
     sequelize,
     createdAt: false,
     updatedAt: false,
-    timestamps: false
+    timestamps: false,
+    tableName:'TECLERS'
 });
 
 teclerModel.sync();

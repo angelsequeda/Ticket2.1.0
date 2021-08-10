@@ -3,6 +3,7 @@
 const cors = require('cors');
 const express = require('express');
 const sequelize = require('./db/connection');
+const routerTecler = require('./routes/teclers.routes');
 require('dotenv').config();
 const app = express();
 
@@ -23,3 +24,8 @@ app.listen(process.env.PORT, async()=> {
         console.log('Error de conexion a base de datos[connection.js]');
     }
 })
+
+
+//Rutas para los teclers
+app.use('/teclers', routerTecler);
+
