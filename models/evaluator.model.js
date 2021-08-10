@@ -7,7 +7,7 @@ class evaluatorModel extends Model{};
 
 evaluatorModel.init({
 
-    id: {
+    evaluatorNumber: {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true
@@ -27,6 +27,18 @@ evaluatorModel.init({
     },
     active: {
         type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    username:{
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    job: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    mail: {
+        type: DataTypes.STRING,
         allowNull: false
     }
 }, {

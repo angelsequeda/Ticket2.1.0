@@ -6,10 +6,14 @@ class companyModel extends Model{};
 
 companyModel.init({
 
-    id: {
+    companynumber: {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true
+    },
+    profilePhoto:{
+      type: DataTypes.STRING,
+      allowNull: true  
     },
     idCompanyUser:{
         type: DataTypes.STRING,
@@ -30,6 +34,18 @@ companyModel.init({
     },
     active: {
         type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    job: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    mail: {
+        type: DataTypes.STRING,
         allowNull: false
     }
 }, {

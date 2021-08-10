@@ -12,12 +12,16 @@ teclerModel.init({
     },
     idTecler: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         primaryKey: true
     },
     profilePhoto: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    tellUsSomething: {
+        type: DataTypes.STRING,
+        allowNull: true
     },
     name: {
         type: DataTypes.STRING,
@@ -57,6 +61,14 @@ teclerModel.init({
     },
     active: {
         type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    mail: {
+        type: DataTypes.STRING,
         allowNull: false
     }
 }, {

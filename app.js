@@ -3,7 +3,7 @@
 const cors = require('cors');
 const express = require('express');
 const sequelize = require('./db/connection');
-const routerTecler = require('./routes/teclers.routes');
+const {routerTecler, routerCompany} = require('./routes/usersroutes');
 require('dotenv').config();
 const app = express();
 
@@ -26,6 +26,6 @@ app.listen(process.env.PORT, async()=> {
 })
 
 
-//Rutas para los teclers
+//Rutas para los usuarios
 app.use('/teclers', routerTecler);
-
+app.use('/companies',routerCompany);
