@@ -1,6 +1,7 @@
 const Joi = require("joi");
-const { userTeclerDTO, userEvaluatorDTO, userCompanyDTO } = require("../dto/users.dto");
+const { userTeclerDTO, userEvaluatorDTO, userCompanyDTO, userDTOlogin } = require("../dto/users.dto");
 const { searchForCompanyEmployeeService } = require("../services/company.services");
+const { decryptPassword } = require("../services/security.services");
 const { searchForTeclaEvaluatorService } = require("../services/tecla.services");
 const { searchForTeclerService } = require("../services/teclers.services")
 
@@ -76,4 +77,63 @@ module.exports.isUserForregistrationRight = (req,res,next) => {
         }
     }
 
+};
+
+
+module.exports.isUserForLoginRight = async(req,res,next)=> {
+
+    try {
+        Joi.assert({username:req.query.username,password:req.body.password},userDTOlogin);
+
+        return next();
+    } catch (error) {
+        console.log(error.message);
+        return res.status(400).json('Alguno de los datos es incorrecto');
+    }
+
+};
+
+
+module.exports.isUserRegistered = async(req,res,next) => {
+
+    if (req.body.role === 'tecler') {
+       
+        let doesUserexist = await searchForTeclerService(req.query);
+        if(doesUserexist.result == null) {
+            return res.status(409).json('Este Tecler no se encuentra registrado');
+        }else{
+            if(decryptPassword(req.body.password,doesUserexist.result.password)) {
+                return next();
+            }else {
+                return res.status(400).json('Contraseña incorrecta');
+            }
+        }
+
+    }else if(req.body.role === 'evaluator') {
+      
+        let doesUserexist = await searchForTeclaEvaluatorService(req.query);
+        if(doesUserexist.result == null) {
+            return res.status(409).json('Este Evaluador no ha sido registrado');
+        }else {
+            if(decryptPassword(req.body.password,doesUserexist.result.password)) {
+                return next();
+            }else {
+                return res.status(400).json('Contraseña incorrecta');
+            }
+        }
+    }else if(req.body.role === 'company') {
+        
+        let doesUserexist = await searchForCompanyEmployeeService(req.query);
+        if(doesUserexist.result == null) {
+            return res.status(400).json('Este Solicitante no ha sido registrado');
+        }else {
+            if(decryptPassword(req.body.password,doesUserexist.result.password)) {
+                return next();
+            }else {
+                return res.status(400).json('Contraseña incorrecta');
+            }
+        }
+    }else {
+        return res.status(500).json('Se ha olvidado de asignar el role');
+    }
 }

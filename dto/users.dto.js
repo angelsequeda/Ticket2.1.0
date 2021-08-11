@@ -5,7 +5,7 @@ const Joi = require('joi');
 
 let userTeclerDTO =  Joi.object({
     profilePhoto : Joi.string(),
-    tellUsSomething: Joi.string(),
+    tellUsSomething: Joi.string().pattern(new RegExp("^(.*)")),
     name: Joi.string().required(),
     city: Joi.string().alphanum().required(),
     country: Joi.string().alphanum().required(),
@@ -26,7 +26,7 @@ let userTeclerDTO =  Joi.object({
 
 let userEvaluatorDTO = Joi.object({
     profilePhoto : Joi.string(),
-    tellUsSomething: Joi.string(),
+    tellUsSomething: Joi.string().pattern(new RegExp("^(.*)")),
     name: Joi.string().required(),
     username: Joi.string().alphanum().min(5).max(15).required(),
     job: Joi.string().required(),

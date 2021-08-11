@@ -1,6 +1,7 @@
 //Los servicios para aquellos usuarios que pertenezcan a tecla
 
-const evaluatorModel = require("../models/evaluator.model")
+const evaluatorModel = require("../models/evaluator.model");
+const { encryptPassword } = require("./security.services");
 
 module.exports.searchForTeclaEvaluatorService = async(data) => {
     
@@ -28,7 +29,7 @@ module.exports.addTeclaEvaluatorService = async(data) => {
         let todaydate = new Date();
         let code = todaydate.getFullYear() + todaydate.getMonth() + todaydate.getDate() + todaydate.getHours() + todaydate.getMinutes() + todaydate.getSeconds() + todaydate.getMilliseconds() + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5) + 'evaluator';
 
-        await evaluatorModel.create({idEvaluator: code, profilePhoto: data.profilePhoto, name: data.name,  registered: todaydate.getFullYear() + '-' + todaydate.getMonth() + '-'+ todaydate.getDate(), active: 1, username: data.username, mail: data.mail,job: data.job,tellUsSomething: data.tellUsSomething, password:data.password});
+        await evaluatorModel.create({idEvaluator: code, profilePhoto: data.profilePhoto, name: data.name,  registered: todaydate.getFullYear() + '-' + todaydate.getMonth() + '-'+ todaydate.getDate(), active: 1, username: data.username, mail: data.mail,job: data.job,tellUsSomething: data.tellUsSomething, password:encryptPassword(data.password)});
 
         return {message: 'Usuario registrado con éxito'}
 
