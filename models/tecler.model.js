@@ -41,19 +41,23 @@ teclerModel.init({
     },
     education: {
         type:DataTypes.STRING(4000),
-        allowNull: false
+        allowNull: true,
+        defaultValue: JSON.stringify([])
     },
     lenguages: {
         type: DataTypes.STRING(4000),
-        allowNull: false
+        allowNull: true,
+        defaultValue: JSON.stringify([])
     },
     social: {
         type: DataTypes.STRING(4000),
-        allowNull: false
+        allowNull: false,
+        defaultValue: JSON.stringify([])
     },
     hobbies: {
         type: DataTypes.STRING(4000),
-        allowNull: false
+        allowNull: true,
+        defaultValue: JSON.stringify([])
     },
     registered: {
         type: DataTypes.DATE,

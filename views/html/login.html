@@ -14,13 +14,160 @@
             <button id="loginbuttonplease">Quiero iniciar sesión</button>
             <button id="registerbuttonplease">Quiero empezar a trabajar con TECLA</button>
         </div>
-        <div id="imagesChoicLoginContainer">
-            <input class="imageLoginChoice" type="image" src="../images/imagenTeclainicio.jpg" id="TeclerInicio">
-            <input class="imageLoginChoice" type="image" src="../images/imagenTeclaEvaluadorinicio.jpg">
-            <input class="imageLoginChoice" type="image" src="../images/imagenTeclaColaboradorinicio.jpg">
+        <div id="imagesChoicLoginContainer" style="margin-top: 200px;">
+            <div class="image">
+                <h5 style="text-align: center">Soy un Tecler</h5>
+                <input class="imageLoginChoice" type="image" src="../images/imagenTeclainicio.jpg" id="teclerloginimage">
+            </div>
+            <div class="image">
+                <h5 style="text-align: center">Soy un evaluador</h5>
+                <input class="imageLoginChoice" type="image" src="../images/imagenTeclaEvaluadorinicio.jpg" id="evaluatorloginimage">
+            </div>
+            <div class="image">
+                <h5 style="text-align: center">Soy un colaborador</h5>
+                <input class="imageLoginChoice" type="image" src="../images/imagenTeclaColaboradorinicio.jpg" id="companyloginimage">
+            </div>
+            
         </div>
-
+        <div class="formats" id="form-register-tecler">
+            <h2 style="text-align: center;">Mucho gusto nuevo Tecler</h2>
+            <form action="" autocomplete="off">
+                <h3>Hablános de ti</h3>
+                <div class="form-group">
+                    <label for="nameRegistertecler" class="label">Nombre</label>
+                    <input type="text" id="nameRegistertecler" placeholder="¿Cómo te llamas?" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="ageRegsitertecler" class="label">Edad</label>
+                    <input type="text" id="ageRegsitertecler" placeholder="¿Qué edad tienes?" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="mailRegistertecler" class="label">E-mail</label>
+                    <input type="email" id="mailRegistertecler" placeholder="Tu correo va aquí" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="usernameRegistertecler" class="label">Nombre de usuario</label>
+                    <input type="text" id="usernameRegistertecler" placeholder="¿Cómo te gustaría que te digan?" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="passwordRegistertecler" class="label">Contraseña</label>
+                    <input type="password" id="passwordRegistertecler" placeholder="Agreguemos algo de seguridad" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="tellusRegistertecler" class="label">Dinos algo curioso sobre ti</label>
+                    <input type="text" id="tellusRegistertecler" placeholder="A mi me gusta..." class="form-control">
+                </div>
+                <h2>Tu lugar de trabajo</h2>
+                <div class="form-group">
+                    <label for="cityRegistertecler" class="label">Ciudad</label>
+                    <input type="text" id="cityRegistertecler" placeholder="¿En qué ciudad vives?" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="countryRegistertecler" class="label">País</label>
+                    <input type="text" id="countryRegistertecler" placeholder="¿En qué país está tu ciudad?" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="photoRegistertecler">Tu foto</label>
+                    <input id="photoRegistertecler" type="text" placeholder="Sube una foto para que tus amigos te reconozcan!" class="form-control">
+                </div>
+            </form>
+            <div class="buttons-container">
+                <button class="buttons" id="acceptRegisterButtonTecler">Comenzar</button>
+                <button class="button-cancel" id="">Regresar</button>
+            </div>
+        </div>
+        <div class="formats" id="form-register-evaluator">
+            <h2 style="text-align: center;">Mucho gusto nuevo Tecla-partner</h2>
+            <form action="">
+                <h3>Hablános de ti</h3>
+                <div class="form-group">
+                    <label for="nameRegisterevaluator">Nombre</label>
+                    <input type="text" id="nameRegisterevaluator" class="form-control" placeholder="¿Cómo te llamas?">
+                </div>
+                <div class="form-group">
+                    <label for="usernameRegisterevaluator">Nombre de usuario</label>
+                    <input type="text" id="usernameRegisterevaluator" class="form-control" placeholder="¿Cómo quieres que te digan?">
+                </div>
+                <div class="form-group">
+                    <label for="passwordRegisterevaluator">Contraseña </label>
+                    <input type="password" id="passwordRegisterevaluator" class="form-control" placeholder="Agrueguemos algo de seguridad">
+                </div>
+                <div class="form-group">
+                    <label for="mailRegisterevaluator">E-mail</label>
+                    <input type="email" id="mailRegisterevaluator" class="form-control" placeholder="Tu correo va a aquí">
+                </div>
+                <div class="form-group">
+                    <label for="jobRegisterevaluator">Rol</label>
+                    <input type="text" id="jobRegisterevaluator" class="form-control" placeholder="En TECLA yo soy...">
+                </div>
+                <div class="form-group">
+                    <label for="tellusRegisterevaluator">Dinos algo curioso sobre ti</label>
+                    <input type="text" id="tellusRegisterevaluator" class="form-control" placeholder="Yo quisiera aprender a...">
+                </div>
+                <div class="form-group">
+                    <label for="photoRegisterevaluator">Tu foto</label>
+                    <input type="text" id="photoRegisterevaluator" class="form-control" placeholder="Sube una foto para que tus amigos te reconozcan">
+                </div>
+            </form>
+            <div class="buttons-container">
+                <button class="buttons" id="acceptRegisterButtonEvaluator">Comenzar</button>
+                <button class="button-cancel" id="">Regresar</button>
+            </div>
+        </div>
+        <div class="formats" id="form-register-company">
+            <h2 style="text-align: center;">Un gusto nuevo colaborador</h2>
+            <form action="">
+                <div class="form-group">
+                    <label for="nameRegistercompany">Nombre</label>
+                    <input type="text" id="nameRegistercompany" class="form-control" placeholder="¿Cuál es su nombre?">
+                </div>
+                <div class="form-group">
+                    <label for="companynameRegistercompany">Empresa</label>
+                    <input type="text" id="companynameRegistercompany" class="form-control" placeholder="¿Cómo se llama tu empresa?">
+                </div>
+                <div class="form-group">
+                    <label for="jobRegistercompany">Rol</label>
+                    <input type="text" id="jobRegistercompany" class="form-control" placeholder="¿Cuál es tu rol dentro de tu empresa?">
+                </div>
+                <div class="form-group">
+                    <label for="usernameRegistercompany">Nombre de usuario</label>
+                    <input type="text" id="usernameRegistercompany" class="form-control" placeholder="¿Cómo te diremos de ahora en adelante?">
+                </div>
+                <div class="form-group">
+                    <label for="passwordRegistercompany">Contraseña</label>
+                    <input type="text" id="passwordRegistercompany" class="form-control" placeholder="Pongamos algo de seguridad">
+                </div>
+                <div class="form-group">
+                    <label for="mailRegistercompany">E-mail</label>
+                    <input type="text" id="mailRegistercompany" class="form-control" placeholder="Tu e-mail para estar en contacto">
+                </div>
+            </form>
+            <div class="buttons-container">
+                <button class="buttons" id="acceptRegisterButtonCompany">Comenzar</button>
+                <button class="button-cancel" id="">Regresar</button>
+            </div>
+        </div>
+        <div class="formats" id="form-login-user">
+            <form action="">
+                <div class="form-group">
+                    <label for="usernameLoginInput">Nombre de usuario</label>
+                    <input type="text" name="" class="form-control" id="usernameLoginInput" placeholder="Bienvenido de regreso...">
+                </div>
+                <div class="form-group">
+                    <label for="paswordLoginInput">Contraseña</label>
+                    <input type="text" name="" class="form-control" id="paswordLoginInput" placeholder="Alto...identifíquese">
+                </div>
+            </form>
+            <div class="buttons-container">
+                <button class="buttons" id="buttonAcceptLogin">Entrar</button>
+                <button class="button-cancel" id="buttonCancelLogin">Regresar</button>
+            </div>
+        </div>
     </div>
+    
+    <script src="../js/jquery-3.6.0.min.js" ></script>
+    <script src="../js/login.interactions.js" type="text/javascript"></script>
+    <script src="../js/login.functions.js" type="module"></script>
     <script src="../css/js/bootstrap.min.js"></script>
 </body>
 </html>
