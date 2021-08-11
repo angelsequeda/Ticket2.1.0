@@ -1,0 +1,13 @@
+.imageLoginChoice{
+    height: 200px;
+    width: 200px;
+    margin: 5px;
+}
+
+
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
