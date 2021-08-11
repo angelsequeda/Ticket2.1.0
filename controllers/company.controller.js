@@ -1,3 +1,5 @@
+//Los controladores para los usuarios que pertenecen a una compañia
+
 const {  addCompanyEmployeeService, updateCompanyEmployeeService, searchForCompanyEmployee, searchForCompanyEmployeeService, deleteCompanyEmployeeService } = require("../services/company.services")
 
 

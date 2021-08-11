@@ -8,6 +8,7 @@ module.exports.addTeclerController = async (req,res) => {
     try {
         
         let teclerNew =  await addTeclerService(req.body);
+        console.log(teclerNew);
         return res.status(200).json(teclerNew);
 
     } catch (error) {
@@ -42,7 +43,7 @@ module.exports.updateTeclerController = async(req,res) => {
     } catch (error) {
 
         console.log(error.message);
-        throw new Error('Algo ha salido mal con la actualización de Tecler');
+        return res.status(400).json('Algo ha salido mal con la actualización de Tecler');
         
     }
 };
@@ -59,4 +60,5 @@ module.exports.deleteTeclerController = async(req,res) => {
             console.log(error.message);
             return res.status(200).json({message:'Algo ha salido mal con la eliminación de Tecler'});
         }
-}
+};
+

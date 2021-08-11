@@ -8,9 +8,10 @@ module.exports.searchForCompanyEmployeeService = async(data) => {
         
         let result = await companyModel.findOne({
             where: {
-                idCompanyUser : data.idCompanyUser,
+                username : data.username,
                 active: 1
-            }
+            },
+            attributes:{exclude:['companynumber']}
         });
         return {message: 'Usuario encontrado',result: result};
 
@@ -28,7 +29,7 @@ module.exports.addCompanyEmployeeService = async(data) =>{
         let todaydate = new Date();
         let code = todaydate.getFullYear() + todaydate.getMonth() + todaydate.getDate() + todaydate.getHours() + todaydate.getMinutes() + todaydate.getSeconds() + todaydate.getMilliseconds() + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5) + 'company';
 
-        await companyModel.create({idCompanyUser: code, profilePhoto: data.profilePhoto, name: data.name, companyName: data.companyName,  registered: todaydate.getFullYear() + '-' + todaydate.getMonth() + '-'+ todaydate.getDate(), active: 1, username: data.username, mail: data.mail,job: data.job});
+        await companyModel.create({idCompanyUser: code, profilePhoto: data.profilePhoto, name: data.name, companyName: data.companyName,  registered: todaydate.getFullYear() + '-' + todaydate.getMonth() + '-'+ todaydate.getDate(), active: 1, username: data.username, mail: data.mail,job: data.job,password: data.password});
 
         return ({message: 'Usuario registrado con exito', id: code})
         

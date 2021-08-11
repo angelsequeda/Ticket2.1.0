@@ -20,7 +20,7 @@ teclerModel.init({
         allowNull: false
     },
     tellUsSomething: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
         allowNull: true
     },
     name: {
@@ -40,19 +40,19 @@ teclerModel.init({
         allowNull: false
     },
     education: {
-        type:DataTypes.STRING,
+        type:DataTypes.STRING(4000),
         allowNull: false
     },
     lenguages: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(4000),
         allowNull: false
     },
     social: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(4000),
         allowNull: false
     },
     hobbies: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(4000),
         allowNull: false
     },
     registered: {
@@ -68,6 +68,10 @@ teclerModel.init({
         allowNull: false
     },
     mail: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    password: {
         type: DataTypes.STRING,
         allowNull: false
     }
