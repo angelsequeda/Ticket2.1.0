@@ -1,5 +1,6 @@
 //Los controladores para los teclers
 
+const { encryptJsonToken, decryptJsonToken } = require('../services/security.services');
 const { addTeclerService, searchForTeclerService, updateTeclerService, deleteTeclerService } = require('../services/teclers.services');
 
 
@@ -9,24 +10,26 @@ module.exports.addTeclerController = async (req,res) => {
         
         let teclerNew =  await addTeclerService(req.body);
         console.log(teclerNew);
-        return res.status(200).json(teclerNew);
+        return res.status(200).json({message:'Correcto',result: encryptJsonToken(req.body.username,req.body.idTecler,'Tecler')});
 
     } catch (error) {
         
         console.log(error.message);
-        return res.status(400).json({message: 'Algo ha salido mal con el registro'})
+        return res.status(400).json({message: 'Error'})
     }
 };
+
 
 module.exports.searchForTeclerController = async(req,res) => {
     console.log(req.body);
     try {
         let TeclerFound = await searchForTeclerService(req.body);
-        return res.status(200).json(TeclerFound);
+        let token = encryptJsonToken(TeclerFound.result.username,TeclerFound.result.idTecler,'tecler');
+        return res.status(200).json({message:'Correcto',result:token});
 
     } catch (error) {
         console.log(error.message);
-        return res.status(400).json({message: 'Algo ha salido mal con la búsqueda'})
+        return res.status(400).json({message: 'Error'})
     }
 }
 
@@ -36,12 +39,12 @@ module.exports.updateTeclerController = async(req,res) => {
         
         let updatingTecler = await updateTeclerService(req.body);
         let updatedTecler = await searchForTeclerService(req.body);
-        return res.status(200).json({message: 'Usuario actualizado con exito', result: updatedTecler.result});
+        return res.status(200).json({message: 'Correcto', result: updatedTecler.result});
 
     } catch (error) {
 
         console.log(error.message);
-        return res.status(400).json('Algo ha salido mal con la actualización de Tecler');
+        return res.status(400).json({message:'Error'});
         
     }
 };
@@ -56,7 +59,7 @@ module.exports.deleteTeclerController = async(req,res) => {
         } catch (error) {
             
             console.log(error.message);
-            return res.status(200).json({message:'Algo ha salido mal con la eliminación de Tecler'});
+            return res.status(200).json({message:'Error'});
         }
 };
 
