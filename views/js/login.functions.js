@@ -66,4 +66,22 @@ document.getElementById('buttonAcceptLoginTecler').addEventListener('click',asyn
     
     let result = await RetrieveData.getTecler(username,password);
     console.log(result);
-})
+});
+
+document.getElementById('buttonAcceptLoginEvaluator').addEventListener('click', async()=> {
+
+    let username =  document.getElementById('usernameLoginInput').value;
+    let password =  document.getElementById('passwordLoginInput').value
+
+    let result = await RetrieveData.getEvaluator(username,password);
+    console.log(result);
+});
+
+document.getElementById('buttonAcceptLoginCompany').addEventListener('click', async()=> {
+
+    let username =  document.getElementById('usernameLoginInput').value;
+    let password =  document.getElementById('passwordLoginInput').value
+
+    let result = await RetrieveData.getCompany(username,password);
+    console.log(result);
+});

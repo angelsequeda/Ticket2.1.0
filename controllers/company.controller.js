@@ -53,7 +53,7 @@ module.exports.searchForCompanyEmployeeController = async (req,res) => {
     try {
         
         let userFound = await searchForCompanyEmployeeService(req.body);
-        let token = encryptJsonToken(userFound.result.username,userFound.result.idCompany,'comapny');
+        let token = encryptJsonToken(userFound.result.username,userFound.result.idCompanyUser,'comapny');
         return res.status(200).json({message:'correcto',result:userFound.result,token:token});
 
     } catch (error) {
