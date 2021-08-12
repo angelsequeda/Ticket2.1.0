@@ -9,7 +9,7 @@ const { searchForTeclerService } = require("../services/teclers.services")
 
 
 module.exports.doesUserAlreaydExist = async(req,res,next) =>{
-    console.log(req.body.role);
+   
     if (req.body.role === 'tecler') {
        
         let doesUserexist = await searchForTeclerService(req.body);
@@ -113,7 +113,7 @@ module.exports.isUserRegistered = async(req,res,next) => {
 
     }else if(req.body.role === 'evaluator') {
       
-        let doesUserexist = await searchForTeclaEvaluatorService(req.query);
+        let doesUserexist = await searchForTeclaEvaluatorService(req.body);
         if(doesUserexist.result == null) {
             return res.status(409).json({message:'Usuario o contraseña incorrectas'});
         }else {
@@ -125,7 +125,7 @@ module.exports.isUserRegistered = async(req,res,next) => {
         }
     }else if(req.body.role === 'company') {
         
-        let doesUserexist = await searchForCompanyEmployeeService(req.query);
+        let doesUserexist = await searchForCompanyEmployeeService(req.body);
         if(doesUserexist.result == null) {
             return res.status(400).json({message:'Usuario o contraseña incorrectas'});
         }else {

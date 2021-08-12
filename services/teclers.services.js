@@ -26,7 +26,7 @@ module.exports.searchForTeclerService = async (data) => {
                 username: data['username'],
                 active: 1
             },
-            attributes:{exclude:['numUsuario']}
+            attributes:{exclude:['num_usuario']}
         });
         return {message: 'Usuario encontrado',result: result}
     } catch (error) {
@@ -34,6 +34,7 @@ module.exports.searchForTeclerService = async (data) => {
         throw new Error('Error al buscar usuario [teclers.services.js]')
     }
 };
+
 
 module.exports.updateTeclerService = async(data) => {
 

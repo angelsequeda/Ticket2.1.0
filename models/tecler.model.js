@@ -17,7 +17,7 @@ teclerModel.init({
     },
     profilePhoto: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     tellUsSomething: {
         type: DataTypes.STRING(1000),
