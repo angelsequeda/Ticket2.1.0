@@ -11,12 +11,12 @@ module.exports.searchForTeclaEvaluatorController = async(req,res) => {
         
         let userFound = await searchForTeclaEvaluatorService(req.body);
         let token = encryptJsonToken(userFound.result.username,userFound.result.idEvaluator,'evaluator');
-        return res.status(200).json({message:'correct',result:userFound.result,token:token});
+        return res.status(200).json({message:'correcto',result:userFound.result,token:token});
 
     } catch (error) {
         
         console.log(error);
-        return res.status(400).json('Algo ha salido mal con la búsqueda');
+        return res.status(400).json({message:'error'});
     }
 };
 
@@ -26,12 +26,12 @@ module.exports.addTeclaEvaluatorController = async(req,res) => {
 
         let newEvaluator = await addTeclaEvaluatorService(req.body);
         let evaluatorFound = await searchForTeclaEvaluatorService(req.body);
-        return res.status(200).json({message:newEvaluator.message,result:evaluatorFound.result});
+        return res.status(200).json({message:'correcto',result:evaluatorFound.result});
 
     } catch (error) {
 
         console.log(error.message);
-        return res.status(400).json('Algo ha salido mal con el registro del Evaluador');
+        return res.status(400).json({message:'error'});
         
     }
 };

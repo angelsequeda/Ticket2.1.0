@@ -26,11 +26,11 @@ module.exports.searchForTeclerController = async(req,res) => {
     try {
         let TeclerFound = await searchForTeclerService(req.body);
         let token = encryptJsonToken(TeclerFound.username,TeclerFound.idTecler,'tecler');
-        return res.status(200).json({message:TeclerFound.message,result:TeclerFound.result,token: token});
+        return res.status(200).json({message:'correcto',result:TeclerFound.result,token: token});
 
     } catch (error) {
         console.log(error.message);
-        return res.status(400).json({message: 'Algo ha salido mal con la búsqueda'})
+        return res.status(400).json({message: 'error'})
     }
 }
 
@@ -40,12 +40,12 @@ module.exports.updateTeclerController = async(req,res) => {
         
         let updatingTecler = await updateTeclerService(req.body);
         let updatedTecler = await searchForTeclerService(req.body);
-        return res.status(200).json({message: 'Usuario actualizado con exito', result: updatedTecler.result});
+        return res.status(200).json({message: 'correcto', result: updatedTecler.result});
 
     } catch (error) {
 
         console.log(error.message);
-        return res.status(400).json('Algo ha salido mal con la actualización de Tecler');
+        return res.status(400).json({message:'error'});
         
     }
 };
@@ -55,12 +55,12 @@ module.exports.deleteTeclerController = async(req,res) => {
         try {
             
             let deletingTecler = await deleteTeclerService(req.body);
-            return res.status(200).json(deletingTecler);
+            return res.status(200).json({message:'correcto'});
 
         } catch (error) {
             
             console.log(error.message);
-            return res.status(200).json({message:'Algo ha salido mal con la eliminación de Tecler'});
+            return res.status(200).json({message:'error'});
         }
 };
 
