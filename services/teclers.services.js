@@ -1,6 +1,7 @@
 //Todos los servicios usados en los ednpoints de los teclers
 
 const teclerModel = require("../models/tecler.model");
+const { encryptPassword } = require("./security.services");
 
 module.exports.addTeclerService = async(data) => {
 
@@ -8,7 +9,7 @@ module.exports.addTeclerService = async(data) => {
     let code = todaydate.getFullYear() + todaydate.getMonth() + todaydate.getDate() + todaydate.getHours() + todaydate.getMinutes() + todaydate.getSeconds() + todaydate.getMilliseconds() + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)+'tecler';
 
     try {
-        await teclerModel.create({idTecler: code, profilePhoto: data.profilePhoto, name: data.name, city: data.city, country: data.country, age: data.age, education: data.education, lenguages: data.lenguages, social: data.social, hobbies: data.hobbies, registered: todaydate.getFullYear() + '-' + todaydate.getMonth() + '-'+ todaydate.getDate(), active: 1, username: data.username, mail: data.mail,tellUsSomething:data.tellUsSomething, password:data.password});
+        await teclerModel.create({idTecler: code, profilePhoto: data.profilePhoto, name: data.name, city: data.city, country: data.country, age: data.age, education: data.education, lenguages: data.lenguages, social: data.social, hobbies: data.hobbies, registered: todaydate.getFullYear() + '-' + todaydate.getMonth() + '-'+ todaydate.getDate(), active: 1, username: data.username, mail: data.mail,tellUsSomething:data.tellUsSomething, password:encryptPassword(data.password)});
         return ({message: 'Usuario registrado con exito', id: code})
 
     } catch (error) {
@@ -17,12 +18,12 @@ module.exports.addTeclerService = async(data) => {
     }
 };
 
-module.exports.searchForTeclerService = async(data) => {
-    console.log(data);
+module.exports.searchForTeclerService = async (data) => {
+
     try {
         let result = await teclerModel.findOne({
             where: {
-                username: data.username,
+                username: data['username'],
                 active: 1
             },
             attributes:{exclude:['numUsuario']}
@@ -48,7 +49,7 @@ module.exports.updateTeclerService = async(data) => {
             age: data.age,
             lenguages: data.lenguages,
             tellUsSomething: data.tellUsSomething,
-            password: data.password
+            password: encryptPassword(data.password)
         }, {
             where: {
                 idTecler: data.idTecler,

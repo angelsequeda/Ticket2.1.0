@@ -25,7 +25,6 @@ module.exports.searchForTeclerController = async(req,res) => {
         return res.status(200).json(TeclerFound);
 
     } catch (error) {
-        
         console.log(error.message);
         return res.status(400).json({message: 'Algo ha salido mal con la búsqueda'})
     }

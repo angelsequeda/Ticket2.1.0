@@ -10,6 +10,12 @@
     align-content: space-around;
 }
 
+#imagesChoicLoginContainer2{
+    display: flex;
+    flex-direction: row;
+    align-content: space-around;
+}
+
 .formats{
     margin-top: 50px;
     margin-bottom: 100px;

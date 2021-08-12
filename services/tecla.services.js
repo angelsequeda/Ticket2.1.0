@@ -46,7 +46,7 @@ module.exports.updateTeclaEvaluatorService = async(data) => {
 
     try {
         
-        await evaluatorModel.update({ profilePhoto: data.profilePhoto, name: data.name,username: data.username, mail: data.mail,job: data.job,tellUsSomething: data.tellUsSomething},{where: {idEvaluator: data.idEvaluator}});
+        await evaluatorModel.update({ profilePhoto: data.profilePhoto, name: data.name, password:encryptPassword(data.password), mail: data.mail,job: data.job,tellUsSomething: data.tellUsSomething},{where: {idEvaluator: data.idEvaluator}});
         
         return {message:'Usuario actualizado con éxito'};
     } catch (error) {

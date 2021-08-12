@@ -1,5 +1,6 @@
 $(document).ready(function() {
     $('#imagesChoicLoginContainer').hide();
+    $('#imagesChoicLoginContainer2').hide();
     $('#form-register-tecler').hide();
     $('#form-register-evaluator').hide();
     $('#form-register-company').hide();
@@ -24,27 +25,27 @@ $(document).ready(function() {
 
     $('#loginbuttonplease').click(function(){
         $('#buttonsChoiceLoginContainer').hide();
-        $('#imagesChoicLoginContainer').fadeIn();
+        $('#imagesChoicLoginContainer2').fadeIn();
         $('#form-register-tecler').hide();
         $('#form-register-evaluator').hide();
         $('#form-register-company').hide();
         $('#form-login-user').hide();
-        $('#teclerloginimage').click(function(){
-            $('#imagesChoicLoginContainer').hide();
+        $('#teclerloginimage2').click(function(){
+            $('#imagesChoicLoginContainer2').hide();
             $('#form-login-user').fadeIn();
             $('#buttonAcceptLoginTecler').fadeIn();
             $('#buttonAcceptLoginEvaluator').hide();
             $('#buttonAcceptLoginCompany').hide();
         });
-        $('#evaluatorloginimage').click(function(){
-            $('#imagesChoicLoginContainer').hide();
+        $('#evaluatorloginimage2').click(function(){
+            $('#imagesChoicLoginContainer2').hide();
             $('#form-login-user').fadeIn();
             $('#buttonAcceptLoginTecler').hide();
             $('#buttonAcceptLoginEvaluator').fadeIn();
             $('#buttonAcceptLoginCompany').hide();
         });
-        $('#companyloginimage').click(function(){
-            $('#imagesChoicLoginContainer').hide();
+        $('#companyloginimage2').click(function(){
+            $('#imagesChoicLoginContainer2').hide();
             $('#form-login-user').fadeIn();
             $('#buttonAcceptLoginTecler').hide();
             $('#buttonAcceptLoginEvaluator').hide();
