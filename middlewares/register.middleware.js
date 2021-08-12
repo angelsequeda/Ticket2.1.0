@@ -14,7 +14,7 @@ module.exports.doesUserAlreaydExist = async(req,res,next) =>{
        
         let doesUserexist = await searchForTeclerService(req.body);
         if(doesUserexist.result != null) {
-            return res.status(409).json('Este Tecler ya ha sido registrado');
+            return res.status(409).json({message:'Este Tecler ya ha sido registrado'});
         }else{
             return next();
         }
@@ -23,7 +23,7 @@ module.exports.doesUserAlreaydExist = async(req,res,next) =>{
       
         let doesUserexist = await searchForTeclaEvaluatorService(req.body);
         if(doesUserexist.result != null) {
-            return res.status(409).json('Este Evaluador ya ha sido registrado');
+            return res.status(409).json({message:'Este Evaluador ya ha sido registrado'});
         }else {
             return next();
         }
@@ -31,12 +31,12 @@ module.exports.doesUserAlreaydExist = async(req,res,next) =>{
         
         let doesUserexist = await searchForCompanyEmployeeService(req.body);
         if(doesUserexist.result != null) {
-            return res.status(409).json('Este Solicitante ya ha sido registrado');
+            return res.status(409).json({messge:'Este Colaborador ya ha sido registrado'});
         }else {
             return next();
         }
     }else {
-        return res.status(500).json('Se ha olvidado de asignar el role');
+        return res.status(500).json({message:'Se ha olvidado de asignar el role'});
     }
 }
 
@@ -81,14 +81,15 @@ module.exports.isUserForregistrationRight = (req,res,next) => {
 
 
 module.exports.isUserForLoginRight = async(req,res,next)=> {
+    console.log(req.body);
 
     try {
-        Joi.assert({username:req.query.username,password:req.body.password},userDTOlogin);
+        Joi.assert({username:req.body.username,password:req.body.password},userDTOlogin);
 
         return next();
     } catch (error) {
         console.log(error.message);
-        return res.status(400).json('Alguno de los datos es incorrecto');
+        return res.status(400).json({message:'Alguno de los datos es incorrecto'});
     }
 
 };
@@ -100,12 +101,12 @@ module.exports.isUserRegistered = async(req,res,next) => {
        
         let doesUserexist = await searchForTeclerService(req.query);
         if(doesUserexist.result == null) {
-            return res.status(409).json('Este Tecler no se encuentra registrado');
+            return res.status(409).json({message:'Usuario o contraseña incorrectas'});
         }else{
             if(decryptPassword(req.body.password,doesUserexist.result.password)) {
                 return next();
             }else {
-                return res.status(400).json('Contraseña incorrecta');
+                return res.status(400).json({message:'Usuario o contraseña incorrectas'});
             }
         }
 
@@ -113,27 +114,27 @@ module.exports.isUserRegistered = async(req,res,next) => {
       
         let doesUserexist = await searchForTeclaEvaluatorService(req.query);
         if(doesUserexist.result == null) {
-            return res.status(409).json('Este Evaluador no ha sido registrado');
+            return res.status(409).json({message:'Usuario o contraseña incorrectas'});
         }else {
             if(decryptPassword(req.body.password,doesUserexist.result.password)) {
                 return next();
             }else {
-                return res.status(400).json('Contraseña incorrecta');
+                return res.status(400).json({message:'Usuario o contraseña incorrectas'});
             }
         }
     }else if(req.body.role === 'company') {
         
         let doesUserexist = await searchForCompanyEmployeeService(req.query);
         if(doesUserexist.result == null) {
-            return res.status(400).json('Este Solicitante no ha sido registrado');
+            return res.status(400).json({message:'Usuario o contraseña incorrectas'});
         }else {
             if(decryptPassword(req.body.password,doesUserexist.result.password)) {
                 return next();
             }else {
-                return res.status(400).json('Contraseña incorrecta');
+                return res.status(400).json({message:'Usuario o contraseña incorrectas'});
             }
         }
     }else {
-        return res.status(500).json('Se ha olvidado de asignar el role');
+        return res.status(500).json({message:'Usuario o contraseña incorrectas'});
     }
 }

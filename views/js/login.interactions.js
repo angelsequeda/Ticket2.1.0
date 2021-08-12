@@ -24,11 +24,33 @@ $(document).ready(function() {
 
     $('#loginbuttonplease').click(function(){
         $('#buttonsChoiceLoginContainer').hide();
-        $('#imagesChoicLoginContainer').hide();
+        $('#imagesChoicLoginContainer').fadeIn();
         $('#form-register-tecler').hide();
         $('#form-register-evaluator').hide();
         $('#form-register-company').hide();
-        $('#form-login-user').fadeIn();
+        $('#form-login-user').hide();
+        $('#teclerloginimage').click(function(){
+            $('#imagesChoicLoginContainer').hide();
+            $('#form-login-user').fadeIn();
+            $('#buttonAcceptLoginTecler').fadeIn();
+            $('#buttonAcceptLoginEvaluator').hide();
+            $('#buttonAcceptLoginCompany').hide();
+        });
+        $('#evaluatorloginimage').click(function(){
+            $('#imagesChoicLoginContainer').hide();
+            $('#form-login-user').fadeIn();
+            $('#buttonAcceptLoginTecler').hide();
+            $('#buttonAcceptLoginEvaluator').fadeIn();
+            $('#buttonAcceptLoginCompany').hide();
+        });
+        $('#companyloginimage').click(function(){
+            $('#imagesChoicLoginContainer').hide();
+            $('#form-login-user').fadeIn();
+            $('#buttonAcceptLoginTecler').hide();
+            $('#buttonAcceptLoginEvaluator').hide();
+            $('#buttonAcceptLoginCompany').fadeIn();
+        });
+
     })
 
     $('.button-cancel').click(function(){

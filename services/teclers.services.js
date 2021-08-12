@@ -18,7 +18,7 @@ module.exports.addTeclerService = async(data) => {
 };
 
 module.exports.searchForTeclerService = async(data) => {
-
+    console.log(data);
     try {
         let result = await teclerModel.findOne({
             where: {

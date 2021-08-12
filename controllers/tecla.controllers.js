@@ -8,7 +8,7 @@ module.exports.searchForTeclaEvaluatorController = async(req,res) => {
 
     try {
         
-        let userFound = await searchForTeclaEvaluatorService(req.query);
+        let userFound = await searchForTeclaEvaluatorService(req.body);
         return res.status(200).json(userFound);
 
     } catch (error) {

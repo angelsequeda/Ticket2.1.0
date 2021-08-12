@@ -51,7 +51,7 @@ module.exports.searchForCompanyEmployeeController = async (req,res) => {
 
     try {
         
-        let result = await searchForCompanyEmployeeService(req.query);
+        let result = await searchForCompanyEmployeeService(req.body);
         return res.status(200).json(result);
 
     } catch (error) {

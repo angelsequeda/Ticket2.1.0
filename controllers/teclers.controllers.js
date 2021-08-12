@@ -19,10 +19,9 @@ module.exports.addTeclerController = async (req,res) => {
 };
 
 module.exports.searchForTeclerController = async(req,res) => {
-
+    console.log(req.body);
     try {
-        
-        let TeclerFound = await searchForTeclerService(req.query);
+        let TeclerFound = await searchForTeclerService(req.body);
         return res.status(200).json(TeclerFound);
 
     } catch (error) {

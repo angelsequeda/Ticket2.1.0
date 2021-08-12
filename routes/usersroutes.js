@@ -13,21 +13,21 @@ const routerTecla = require('express').Router();
 //Routers para los teclers
 
 routerTecler.post('/new',isUserForregistrationRight,doesUserAlreaydExist,addTeclerController);
-routerTecler.get('/search',isUserForLoginRight,isUserRegistered,searchForTeclerController);
+routerTecler.post('/search',isUserForLoginRight,isUserRegistered,searchForTeclerController);
 routerTecler.put('/actualize',updateTeclerController);
 routerTecler.delete('/delete',deleteTeclerController);
 
 //Routers para los usuarios de compañias
 
 routerCompany.post('/new',isUserForregistrationRight,doesUserAlreaydExist,addCompanyEmployeeController);
-routerCompany.get('/search',isUserForLoginRight,isUserRegistered,searchForCompanyEmployeeController);
+routerCompany.post('/search',isUserForLoginRight,isUserRegistered,searchForCompanyEmployeeController);
 routerCompany.put('/actualize',updateCompanyEmployeeController);
 routerCompany.delete('/delete',deleteCompanyEmployeeController);
 
 //Routers para los usuarios miembros de TECLA
 
 routerTecla.post('/new',isUserForregistrationRight,doesUserAlreaydExist,addTeclaEvaluatorController);
-routerTecla.get('/search',isUserForLoginRight,isUserRegistered,searchForTeclaEvaluatorController);
+routerTecla.post('/search',isUserForLoginRight,isUserRegistered,searchForTeclaEvaluatorController);
 routerTecla.put('/actualize',updateTeclaEvaluatorController);
 routerTecla.delete('/delete',deleteTeclaEvaluatorController);
 
