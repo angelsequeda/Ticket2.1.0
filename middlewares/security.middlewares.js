@@ -6,21 +6,57 @@ module.exports = updateMiddleware = (req,res,next) => {
         if(tokenReceived.iduser === req.body.data.idTecler){
             return next();
         }else {
-            return res.status(400).json('Usuario no autorizado');
+            return res.status(400).json({message : 'Usuario no autorizado'});
         }
     }else if(tokenReceived.role === 'company') {
         if(tokenReceived.iduser === req.body.data.idCompanyUser){
             return next();
         }else{
-            return res.status(400).json('Usuario no autorizado');
+            return res.status(400).json({message : 'Usuario no autorizado'});
         }
     }else if(tokenReceived.role === 'evaluator'){
         if(tokenReceived.iduser === req.body.data.idCompanyUser){
             return next();
         }else{
-            return res.status(400).json('Usuario no autorizado');
+            return res.status(400).json({message : 'Usuario no autorizado'});
         }
     }else {
-        return res.status(400).json('Usuario no autorizado');
+        return res.status(400).json({message : 'Usuario no autorizado'});
     }
-}
+};
+
+module.exports.uploadNewEvaluationMiddleware = (req,res,next) => {
+        try {
+            let tokenReceived = decryptJsonToken(req.body.token);
+            if (tokenReceived.role !== 'evaluator') {
+                return res.status(409).json({message : 'Usuario no uatorizado'});
+            }else {
+                return next();
+            }
+        } catch (error) {
+            console.log(error.message);
+            return res.status(500).json({message : 'error'})
+        }
+};
+
+
+module.exports.downloadEvaluationsMiddleware = (req,res,next) => {
+
+    try {
+        let tokenReceived = decryptJsonToken(req.body.token); 
+        if(tokenReceived.role === 'tecler') {
+            req.body.idUser = tokenReceived.iduser;
+            req.body.role = 'tecler';
+            next();
+        }else if(tokenReceived.role === 'evaluator'){
+            req.body.idUser = tokenReceived.idUser;
+            req.body.role = 'evaluator';
+            next();
+        }else {
+            return res.status(409).json({message : 'Usuario no autorizado'});
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({message : 'error'});
+    }
+};

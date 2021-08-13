@@ -14,8 +14,8 @@ module.exports.newEvaluationController = async(req,res) => {
 
 
 
-module.exports.searchEvaluationsbyController = (req,res) => {
-
+module.exports.searchEvaluationsbyController = async(req,res) => {
+    console.log(req.body);
     try {
         if(req.role === 'tecler') {
             let result = await searchEvaluationsByTeclerService(req.idUser);

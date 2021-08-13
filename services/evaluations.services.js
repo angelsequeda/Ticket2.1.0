@@ -17,7 +17,7 @@ module.exports.newEvaluationService = async (data) => {
         await profesionalEnviromentModel.create({fromwho: evaluator, towho: evaluated,github: data.profesional[0],trello_jira: data.profesional[1],Slack: data.profesional[2],agile: data.profesional[3]} );
         return({message:'correcto'});
     } catch (error) {
-        console.log(error.messge);
+        console.log(error.message);
         throw new Error('Error al subir evaluacion [evaluations.services.js]');
     }
 
