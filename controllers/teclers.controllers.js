@@ -15,7 +15,7 @@ module.exports.addTeclerController = async (req,res) => {
     } catch (error) {
         
         console.log(error.message);
-        return res.status(400).json({message: 'Algo ha salido mal con el registro'})
+        return res.status(400).json({message: 'error'})
     }
 };
 
@@ -25,7 +25,8 @@ module.exports.searchForTeclerController = async(req,res) => {
     
     try {
         let TeclerFound = await searchForTeclerService(req.body);
-        let token = encryptJsonToken(TeclerFound.username,TeclerFound.idTecler,'tecler');
+
+        let token = encryptJsonToken(TeclerFound.result.username,TeclerFound.result.idTecler,'tecler');
         return res.status(200).json({message:'correcto',result:TeclerFound.result,token: token});
 
     } catch (error) {
