@@ -11,11 +11,11 @@ export class Tecler {
         this.city = data.city,
         this.country = data.country,
         this.profilePhoto = data.profilePhoto,
-        this.lenguages = JSON.stringify([]),
-        this.education = JSON.stringify([]),
+        this.lenguages = data.lenguages,
+        this.education = data.education,
         this.social = JSON.stringify([]),
-        this.hobbies = JSON.stringify([]),
-        this.role = data.role
+        this.hobbies = data.hobbies
+
     }
 
     addLenguage(lenguage,experience) {

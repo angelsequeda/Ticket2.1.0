@@ -1,9 +1,10 @@
 import { Tecler } from "./classes.js";
 import { Renderizer } from "./renderizers.js";
-import { RetrieveData } from "./senddata.js";
+import { RetrieveData, Savedata } from "./senddata.js";
 
 let userActive =new Tecler(JSON.parse(localStorage.getItem('useractive')).data);
 let oldUser = await RetrieveData.getTecler(userActive.username,userActive.password);
+console.log(userActive);
 console.log(oldUser);
 if (userActive != null) {
     document.getElementById('usernameprofile').value = userActive.username;
@@ -167,18 +168,19 @@ document.getElementById('acceptChangesButton').addEventListener('click', ()=> {
 
     let hobbies = [];
     for (let index = 0; index < document.getElementById('tableHobbies').rows.length-1; index++) {
-        
         let title = document.getElementById(`hobbieinput${index}`).value;
-        let experience = document.getElementById(`hobbieexperienceinput${index}`).value
+        let experience = Number.parseFloat(document.getElementById(`hobbieexperienceinput${index}`).value)
         hobbies.push({title:title,experience:experience});
     }
     userActive.hobbies = JSON.stringify(hobbies);
 
-    let socials = [];
+    let socials =[]
     for (let index = 0; index < document.getElementById('tableSocials').rows.length - 1; index++) {
         if(index>=JSON.parse(userActive.social).length){
             userActive.addSocial(document.getElementById(`socialinput${index}`).value,document.getElementById(`sociallinkinput${index}`).value);
+            socials.push({title:document.getElementById(`socialinput${index}`).value,link:document.getElementById(`sociallinkinput${index}`).value})
         }
     }
+    
     
 })
