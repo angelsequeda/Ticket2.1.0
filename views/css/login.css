@@ -1,0 +1,29 @@
+.imageLoginChoice{
+    height: 200px;
+    width: 200px;
+    margin: 5px;
+}
+
+#imagesChoicLoginContainer{
+    display: flex;
+    flex-direction: row;
+    align-content: space-around;
+}
+
+#imagesChoicLoginContainer2{
+    display: flex;
+    flex-direction: row;
+    align-content: space-around;
+}
+
+.formats{
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

@@ -47,6 +47,10 @@ companyModel.init({
     mail: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 }, {
 

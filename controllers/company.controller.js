@@ -1,4 +1,7 @@
-const {  addCompanyEmployeeService, updateCompanyEmployeeService, searchForCompanyEmployee, searchForCompanyEmployeeService, deleteCompanyEmployeeService } = require("../services/company.services")
+//Los controladores para los usuarios que pertenecen a una compañia
+
+const {  addCompanyEmployeeService, updateCompanyEmployeeService, searchForCompanyEmployee, searchForCompanyEmployeeService, deleteCompanyEmployeeService } = require("../services/company.services");
+const { encryptJsonToken } = require("../services/security.services");
 
 
 module.exports.addCompanyEmployeeController = async(req,res) => {
@@ -49,8 +52,9 @@ module.exports.searchForCompanyEmployeeController = async (req,res) => {
 
     try {
         
-        let result = await searchForCompanyEmployeeService(req.query);
-        return res.status(200).json(result);
+        let userFound = await searchForCompanyEmployeeService(req.body);
+        let token = encryptJsonToken(userFound.result.username,userFound.result.idCompanyUser,'comapny');
+        return res.status(200).json({message:'correcto',result:userFound.result,token:token});
 
     } catch (error) {
         

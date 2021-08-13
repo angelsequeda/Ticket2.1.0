@@ -17,10 +17,10 @@ teclerModel.init({
     },
     profilePhoto: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     tellUsSomething: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
         allowNull: true
     },
     name: {
@@ -40,20 +40,20 @@ teclerModel.init({
         allowNull: false
     },
     education: {
-        type:DataTypes.STRING,
-        allowNull: false
+        type:DataTypes.STRING(4000),
+        allowNull: true,
     },
     lenguages: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.STRING(4000),
+        allowNull: true,
     },
-    social: {
-        type: DataTypes.STRING,
-        allowNull: false
+    linkedin: {
+        type: DataTypes.STRING(4000),
+        allowNull: false,
     },
     hobbies: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.STRING(4000),
+        allowNull: true,
     },
     registered: {
         type: DataTypes.DATE,
@@ -68,6 +68,10 @@ teclerModel.init({
         allowNull: false
     },
     mail: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    password: {
         type: DataTypes.STRING,
         allowNull: false
     }

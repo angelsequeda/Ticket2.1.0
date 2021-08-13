@@ -17,6 +17,14 @@ evaluatorModel.init({
         allowNull: false,
         primaryKey: true
     },
+    profilePhoto:{
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    tellUsSomething:{
+        type: DataTypes.STRING(1000),
+        allowNull: true
+    },
     name: {
         type: DataTypes.STRING,
         allowNull: false
@@ -38,6 +46,10 @@ evaluatorModel.init({
         allowNull: false
     },
     mail: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    password: {
         type: DataTypes.STRING,
         allowNull: false
     }

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="maincontainer">
+        <div id="fotocontainer" style="padding: 5px;">
+            <img src="" alt="" style="height: 200px; width: 200px;" id="profilephoto">
+        </div>
+    </div>
+    <div class="formats">
+        <form action="" class="formats-profile">
+            <div class="form-group">
+                <h2>Bienvenido al perfil de</h2>
+                <input disabled type="text" name="" id="usernameprofile" value="" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="nameprofile">En la vida real me llamo</label>
+                <input disabled type="text" name="" id="nameprofile" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="ageprofile">Tengo</label>
+                <input disabled type="text" name="" id="ageprofile" class="form-control">años
+            </div>
+            <div class="form-group">
+                <label for="countryprofile">Vivo en </label>
+                <input disabled type="text" name="" id="countryprofile" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="cityprofile">En la ciudad de </label>
+                <input disabled type="text" name="" id="cityprofile" class="form-control">
+            </div>
+            <div class="form-group" id="passwordHidden" hidden>
+                <label for="passwordprofile">Mi nueva contraseña</label>
+                <input disabled type="password" name="" id="passwordprofile" class="form-control">
+            </div>
+        </form>
+    </div>
+    <div class="tablesprofile">
+        <table class="table" id="tableStudies">
+            <tr>
+                <th>Aquí he estudiado</th>
+            </tr>
+        </table>
+        <button id="addStudy" hidden class="btn btn-success">+</button>
+        <button id="deleteStudy" hidden class="btn btn-danger">-</button>
+        <table class="table" id="tableLenguages">
+            <tr>
+                <th>Sé hablar otros idiomas!</th>
+            </tr>
+        </table>
+        <button id="addLenguage" hidden class="btn btn-success">+</button>
+        <button id="deleteLenguage" hidden class="btn btn-danger">-</button>
+        <table class="table" id="tableHobbies">
+            <tr>
+                <th>Esto me gusta hacer</th>
+            </tr>
+        </table>
+        <button id="addHobbie" hidden class="btn btn-success">+</button>
+        <button id="deleteHobbie" hidden class="btn btn-danger">-</button>
+        <table class="table" id="tableSocials">
+            <tr>
+                <th>Puedes contactarme aquí</th>
+            </tr>
+        </table>
+        <button id="addSocial" hidden class="btn btn-success">+</button>
+        <button id="deleteSocial" hidden class="btn btn-danger">-</button>
+        </div>
+        <div id="Evaluationscontainer">
+            <h2>Conocimientos</h2>
+            <table id="Knows" style="margin-bottom: 20px;" class="table">
+                <tr>
+                    <th style="width: 150px;">Base de datos</th>
+                    <th style="width: 150px;">API's</th>
+                    <th style="width: 150px;">Pruebas</th>
+                    <th style="width: 150px;">Seguridad</th>
+                    <th style="width: 150px;">Teoría de objetos</th>
+                    <th style="width: 150px;">¿Quién me evaluó?</th>
+                </tr>
+            </table>
+            <h2>Manejo de tecnologías</h2>
+            <table id="Technologies"style="margin-bottom: 20px;">
+                <tr>
+                    <th style="width: 150px;">Nodejs</th>
+                    <th style="width: 150px;">Swagger</th>
+                    <th style="width: 150px;">Frontend</th>
+                    <th style="width: 150px;">Javascript</th>
+                    <th style="width: 150px;">¿Quién me evaluó?</th>
+                </tr>
+            </table>
+            <h2>Desempeño</h2>
+            <table id="Performance" style="margin-bottom: 20px;">
+                <tr>
+                    <th style="width: 150px;">Calidad de código</th>
+                    <th style="width: 150px;">Velocidad de entrega</th>
+                    <th style="width: 150px;">Desempeño de código</th>
+                    <th style="width: 150px;">¿Quién me evaluó?</th>
+                </tr>
+            </table>
+            <h2>Habilidades blandas</h2>
+            <table id="Softskills" style="margin-bottom: 20px;">
+                <tr>
+                    <th style="width: 150px;">Enfocado</th>
+                    <th style="width: 150px;">Trabajo en equipo</th>
+                    <th style="width: 150px;">Compromiso</th>
+                    <th style="width: 150px;">Comunicación</th>
+                    <th style="width: 150px;">Capacidad de aprender</th>
+                    <th style="width: 150px;">Solución de problemas</th>
+                    <th style="width: 150px;">¿Quién me evaluó?</th>
+                </tr>
+            </table>
+            <h2>Ambiente profesional</h2>
+            <table id="Profesional" style="margin-bottom: 20px;">
+                <tr>
+                    <th style="width: 150px;">Git-Hub</th>
+                    <th style="width: 150px;">Trello/Jira</th>
+                    <th style="width: 150px;">Stack</th>
+                    <th style="width: 150px;">Metodologías ágiles</th>
+                    <th style="width: 150px;">¿Quién me evaluó?</th>
+                </tr>
+            </table>
+        </div>
+        <div class="form-group">
+            <button id="editButton" class="buttons">Editar</button>
+            <button id="acceptChangesButton" class="buttons" hidden>Aceptar</button>
+            <button id="cancelChangesButton" class="buttons" hidden>Cancelar</button>
+        </div>
+    </div>
+    <script src="../css/js/bootstrap.min.js"></script>
+    <script src="../js/profileteclerinteractions.js" type="module"></script>
+</body>
+</html>
