@@ -23,12 +23,3 @@ module.exports.newEvaluationService = async (data) => {
 
 }
 
-module.exports.searchEvaluationByTecler = async(req,res) => {
-
-    try {
-        let evaluations = {};
-        evaluations.knowledge = await knowledgeModel.findAll({where:{towho: req.body.idTecler}});
-    } catch (error) {
-        
-    }
-}
