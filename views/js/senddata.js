@@ -35,6 +35,21 @@ export class Savedata {
             body: JSON.stringify(company)
         });
         return result.json();
+    };
+
+    static async updateTecler(tecler) {
+        let result = await fetch('http://localhost:3000/teclers/actualize', {
+            method:'POST',
+            headers:{
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                data: {username:'algo',password:'otracosa'},
+                token: tecler.token
+            })
+        });
+        return result.json();
     }
 }
 
@@ -90,5 +105,7 @@ export class RetrieveData {
         });
         return result.json();
 
-    }
+    };
+
+
 }

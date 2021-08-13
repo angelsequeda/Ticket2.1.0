@@ -38,9 +38,9 @@ module.exports.updateTeclerController = async(req,res) => {
 
     try {
         
-        let updatingTecler = await updateTeclerService(req.body);
-        let updatedTecler = await searchForTeclerService(req.body);
-        return res.status(200).json({message: 'correcto', result: updatedTecler.result});
+        let updatingTecler = await updateTeclerService(req.body.data);
+        let updatedTecler = await searchForTeclerService(req.body.data);
+        return res.status(200).json({message: 'correcto', result: updatedTecler.result,token:req.body.token});
 
     } catch (error) {
 

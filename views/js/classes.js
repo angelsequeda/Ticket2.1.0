@@ -13,8 +13,8 @@ export class Tecler {
         this.profilePhoto = data.profilePhoto,
         this.lenguages = JSON.stringify([]),
         this.education = JSON.stringify([]),
-        this.social = JSON.stringify({}),
-        this.hobbies = JSON.stringify({}),
+        this.social = JSON.stringify([]),
+        this.hobbies = JSON.stringify([]),
         this.role = data.role
     }
 
@@ -24,21 +24,21 @@ export class Tecler {
         this.lenguages = JSON.stringify(lenguages);
     }
 
-    addEducation(type,title,time,degree) {
+    addEducation(title,experience,degree) {
         let education = JSON.parse(this.education);
-        education.push({type:type,title:title,time:time,degree:degree})
+        education.push({title:title,experience:experience,degree:degree})
         this.education = JSON.stringify(education);
     }
 
     addSocial(title,link) {
         let social = JSON.parse(this.social);
-        social[title] = link;
+        social.push({type:title,link:link});
         this.social = JSON.stringify(social);
     }
 
-    addHobbies(title,experience,tell) {
+    addHobbies(title,experience) {
         let hobbies = JSON.parse(this.hobbies);
-        hobbies[title] = {experience:experience,tell:tell};
+        hobbies.push ({title:title,experience:experience});
         this.hobbies = JSON.stringify(hobbies);
     }
 }
