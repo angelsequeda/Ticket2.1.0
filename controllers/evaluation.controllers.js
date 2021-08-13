@@ -1,4 +1,4 @@
-const { newEvaluationService } = require("../services/evaluations.services")
+const { newEvaluationService, searchEvaluationsByTeclerService, searchEvaluationsByEvaluatorService } = require("../services/evaluations.services")
 
 
 module.exports.newEvaluationController = async(req,res) => {
@@ -12,3 +12,22 @@ module.exports.newEvaluationController = async(req,res) => {
     }
 };
 
+
+
+module.exports.searchEvaluationsbyController = (req,res) => {
+
+    try {
+        if(req.role === 'tecler') {
+            let result = await searchEvaluationsByTeclerService(req.idUser);
+            return res.status(200).json({message:'correcto',result:result});
+        }else if(req.role === 'evaluator') {
+            let result = await searchEvaluationsByEvaluatorService(req.idUser);
+            return res.status(200).json({message:'correcto',result:result});
+        }else {
+            return res.status(409).json('Usuario no autorizado')
+        }
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json('error');
+    }
+}

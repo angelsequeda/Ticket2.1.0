@@ -23,3 +23,34 @@ module.exports.newEvaluationService = async (data) => {
 
 }
 
+module.exports.searchEvaluationsByTeclerService = async(data) => {
+
+    try {
+        let knowledges = await knowledgeModel.findAll({where : {towho : req.body.idTecler}});
+        let technologies = await technologyModel.findAll({where : {towho: req.body.idTecler}});
+        let softskills = await softSkillsMOdel.findAll({where : {towho : req.body.idTecler}});
+        let performance = await performanceModel.findAll({where : {towho : req.body.idTecler}});
+        let profesional = await profesionalEnviromentModel.findAll({where : {towho : req.body.idTecler}});
+        let result = {knowledges:knowledges,technologies : technologies, softskills : softskills,performance : performance, profesional :profesional};
+        return result;
+
+    } catch (error) {
+        console.log(error.message);
+        throw new Error('Error al buscar evaluaciones [evaluations.services.js]');
+    }
+}
+
+module.exports.searchEvaluationsByEvaluatorService = async(data) => {
+    try {
+        let knowledges = await knowledgeModel.findAll({where : {fromwho : req.body.idEvaluator}});
+        let technologies = await technologyModel.findAll({where : {fromwho: req.body.idEvaluator}});
+        let softskills = await softSkillsMOdel.findAll({where : {fromwho : req.body.idEvaluator}});
+        let performance = await performanceModel.findAll({where : {fromwho : req.body.idEvaluator}});
+        let profesional = await profesionalEnviromentModel.findAll({where : {fromwho : req.body.idEvaluator}});
+        let result = {knowledges:knowledges,technologies : technologies, softskills : softskills,performance : performance, profesional :profesional};
+        return result;
+    } catch (error) {
+        console.log(error.message);
+        throw new Error('Error al buscar evaluaciones [evaluaciones.services.js]');
+    }
+}
