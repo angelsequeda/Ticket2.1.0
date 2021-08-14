@@ -70,6 +70,7 @@ document.getElementById('buttonAcceptLoginTecler').addEventListener('click',asyn
     
 
     if(result.message === 'correcto'){
+        console.log(result);
         result.result.password = password;
         localStorage.setItem('useractive',JSON.stringify({data:result.result,token:result.token}));
         window.open('../html/profiletecler.html','_self');

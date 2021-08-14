@@ -1,4 +1,5 @@
-const { newEvaluationService, searchEvaluationsByEvaluatorService, searchEvaluationByCriteria } = require("../services/evaluations.services")
+//Los controladores para crear, eliminar o buscar evaluaciones 
+const { newEvaluationService, searchEvaluationByCriteria } = require("../services/evaluations.services")
 
 
 module.exports.newEvaluationController = async(req,res) => {
