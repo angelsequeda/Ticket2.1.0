@@ -23,3 +23,5 @@ habilityModel.init({
 });
 
 habilityModel.sync();
+
+module.exports = habilityModel;
