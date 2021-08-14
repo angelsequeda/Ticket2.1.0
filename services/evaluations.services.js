@@ -21,17 +21,16 @@ module.exports.newEvaluationService = async (data) => {
         throw new Error('Error al subir evaluacion [evaluations.services.js]');
     }
 
-}
+};
 
-module.exports.searchEvaluationsByTeclerService = async(data) => {
-
+module.exports.searchEvaluationByCriteria = async (criteria) => {
     try {
-        let knowledges = await knowledgeModel.findAll({where : {towho : req.body.idTecler}});
-        let technologies = await technologyModel.findAll({where : {towho: req.body.idTecler}});
-        let softskills = await softSkillsMOdel.findAll({where : {towho : req.body.idTecler}});
-        let performance = await performanceModel.findAll({where : {towho : req.body.idTecler}});
-        let profesional = await profesionalEnviromentModel.findAll({where : {towho : req.body.idTecler}});
-        let result = {knowledges:knowledges,technologies : technologies, softskills : softskills,performance : performance, profesional :profesional};
+        let knowledges = await knowledgeModel.findAll({where : criteria,raw: true});
+        let technologies = await technologyModel.findAll({where : criteria,raw: true});
+        let softskills = await softSkillsMOdel.findAll({where : criteria, raw: true});
+        let performance = await performanceModel.findAll({where : criteria , raw: true});
+        let profesional = await profesionalEnviromentModel.findAll({where : criteria});
+        let result = {knowledges,technologies,softskills,performance,profesional};
         return result;
 
     } catch (error) {
@@ -39,18 +38,43 @@ module.exports.searchEvaluationsByTeclerService = async(data) => {
         throw new Error('Error al buscar evaluaciones [evaluations.services.js]');
     }
 }
+/*
+module.exports.searchEvaluationsByTeclerService = async(data) => {
 
+    console.log(data);
+    
+}*/
+/*
 module.exports.searchEvaluationsByEvaluatorService = async(data) => {
     try {
-        let knowledges = await knowledgeModel.findAll({where : {fromwho : req.body.idEvaluator}});
-        let technologies = await technologyModel.findAll({where : {fromwho: req.body.idEvaluator}});
-        let softskills = await softSkillsMOdel.findAll({where : {fromwho : req.body.idEvaluator}});
-        let performance = await performanceModel.findAll({where : {fromwho : req.body.idEvaluator}});
-        let profesional = await profesionalEnviromentModel.findAll({where : {fromwho : req.body.idEvaluator}});
+        let knowledges = await knowledgeModel.findAll({where : {fromwho : data.idUser}});
+        let technologies = await technologyModel.findAll({where : {fromwho: data.idUser}});
+        let softskills = await softSkillsMOdel.findAll({where : {fromwho : data.idUser}});
+        let performance = await performanceModel.findAll({where : {fromwho : data.idUser}});
+        let profesional = await profesionalEnviromentModel.findAll({where : {fromwho : data.idUser}});
         let result = {knowledges:knowledges,technologies : technologies, softskills : softskills,performance : performance, profesional :profesional};
         return result;
     } catch (error) {
         console.log(error.message);
         throw new Error('Error al buscar evaluaciones [evaluaciones.services.js]');
     }
-}
+};
+*/
+
+module.exports.deleteEvaluationByEvaluatorService = async(data) => {
+
+    try {
+        if(data.role != 'evaluator') {
+            throw new Error('Usuario no autorizado');
+        }else {
+            await knowledgeModel.destroy({where :{fromwho : data.idUser, towho : data.idDeleter}});
+            await technologyModel.destroy({where :{fromwho : data.idUser, towho : data.idDeleter}});
+            await softSkillsMOdel.destroy({where :{fromwho : data.idUser, towho : data.idDeleter}});
+            await performanceModel.destroy({where :{fromwho : data.idUser, towho : data.idDeleter}});
+            await profesionalEnviromentModel.destroy({where :{fromwho : data.idUser, towho : data.idDeleter}});
+        }
+    } catch (error) {
+        
+    }
+};
+

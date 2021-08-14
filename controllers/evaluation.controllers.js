@@ -1,4 +1,4 @@
-const { newEvaluationService, searchEvaluationsByTeclerService, searchEvaluationsByEvaluatorService } = require("../services/evaluations.services")
+const { newEvaluationService, searchEvaluationsByEvaluatorService, searchEvaluationByCriteria } = require("../services/evaluations.services")
 
 
 module.exports.newEvaluationController = async(req,res) => {
@@ -15,13 +15,12 @@ module.exports.newEvaluationController = async(req,res) => {
 
 
 module.exports.searchEvaluationsbyController = async(req,res) => {
-    console.log(req.body);
     try {
-        if(req.role === 'tecler') {
-            let result = await searchEvaluationsByTeclerService(req.idUser);
+        if(req.body.role === 'tecler') {
+            let result = await searchEvaluationByCriteria({towho:req.body.idUser});
             return res.status(200).json({message:'correcto',result:result});
-        }else if(req.role === 'evaluator') {
-            let result = await searchEvaluationsByEvaluatorService(req.idUser);
+        }else if(req.body.role === 'evaluator') {
+            let result = await searchEvaluationByCriteria({fromwho:req.body.idUser});
             return res.status(200).json({message:'correcto',result:result});
         }else {
             return res.status(409).json('Usuario no autorizado')

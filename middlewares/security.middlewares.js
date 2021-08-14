@@ -1,3 +1,4 @@
+const { searchEvaluationsByEvaluatorService, searchEvaluationByCriteria } = require("../services/evaluations.services");
 const { decryptJsonToken } = require("../services/security.services")
 
 module.exports = updateMiddleware = (req,res,next) => {
@@ -25,13 +26,16 @@ module.exports = updateMiddleware = (req,res,next) => {
     }
 };
 
-module.exports.uploadNewEvaluationMiddleware = (req,res,next) => {
+module.exports.uploadNewEvaluationMiddleware = async (req,res,next) => {
         try {
             let tokenReceived = decryptJsonToken(req.body.token);
             if (tokenReceived.role !== 'evaluator') {
                 return res.status(409).json({message : 'Usuario no uatorizado'});
+                            
+            }else if(await (await searchEvaluationByCriteria({towho:req.body.evaluation.towho,fromwho:req.body.evaluation.fromwho})).knowledges.length > 0){
+                return res.status(409).json({message : 'Usuario ya calificado por este evaluador'});
             }else {
-                return next();
+                next();
             }
         } catch (error) {
             console.log(error.message);
