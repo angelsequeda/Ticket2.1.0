@@ -66,11 +66,13 @@ document.getElementById('buttonAcceptLoginTecler').addEventListener('click',asyn
     
     
     let result = await RetrieveData.getTecler(username,password);
+    console.log(result);
     
 
     if(result.message === 'correcto'){
+        console.log(result);
         result.result.password = password;
-        localStorage.setItem('useractive',JSON.stringify({data:result.result}));
+        localStorage.setItem('useractive',JSON.stringify({data:result.result,token:result.token}));
         window.open('../html/profiletecler.html','_self');
     }else {
         alert(result.message)
@@ -84,8 +86,8 @@ document.getElementById('buttonAcceptLoginEvaluator').addEventListener('click', 
     let password =  document.getElementById('passwordLoginInput').value
 
     let result = await RetrieveData.getEvaluator(username,password);
-    localStorage.setItem('useractive',JSON.stringify(result));
     console.log(result);
+    
 });
 
 document.getElementById('buttonAcceptLoginCompany').addEventListener('click', async()=> {
@@ -94,7 +96,5 @@ document.getElementById('buttonAcceptLoginCompany').addEventListener('click', as
     let password =  document.getElementById('passwordLoginInput').value;
 
     let result = await RetrieveData.getCompany(username,password);
-    result.data.password = password;
-    localStorage.setItem('useractive',JSON.stringify(result));
     console.log(result);
 });

@@ -10,37 +10,9 @@ export class Tecler {
         this.tellUsSomething = data.tellUsSomething,
         this.city = data.city,
         this.country = data.country,
-        this.profilePhoto = data.profilePhoto,
-        this.lenguages = data.lenguages,
-        this.education = data.education,
-        this.social = JSON.stringify([]),
-        this.hobbies = data.hobbies
-
+        this.profilePhoto = data.profilePhoto
     }
 
-    addLenguage(lenguage,experience) {
-        let lenguages = JSON.parse(this.lenguages);
-        lenguages.push({lenguage:lenguage,experience:experience});
-        this.lenguages = JSON.stringify(lenguages);
-    }
-
-    addEducation(title,experience,degree) {
-        let education = JSON.parse(this.education);
-        education.push({title:title,experience:experience,degree:degree})
-        this.education = JSON.stringify(education);
-    }
-
-    addSocial(title,link) {
-        let social = JSON.parse(this.social);
-        social.push({type:title,link:link});
-        this.social = JSON.stringify(social);
-    }
-
-    addHobbies(title,experience) {
-        let hobbies = JSON.parse(this.hobbies);
-        hobbies.push ({title:title,experience:experience});
-        this.hobbies = JSON.stringify(hobbies);
-    }
 }
 
 export class Company {

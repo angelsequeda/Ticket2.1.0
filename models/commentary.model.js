@@ -34,3 +34,5 @@ commentaryModel.init({
 
 commentaryModel.sync();
 
+module.exports =  commentaryModel;
+

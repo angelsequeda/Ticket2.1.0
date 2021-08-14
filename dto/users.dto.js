@@ -4,16 +4,13 @@ const Joi = require('joi');
 //Este modelo se encarga de corroborar que los datos del registro de un Tecler son correctos
 
 let userTeclerDTO =  Joi.object({
+    idTecler : Joi.string(),
     profilePhoto : Joi.string(),
     tellUsSomething: Joi.string().pattern(new RegExp("^(.*)")),
     name: Joi.string().required(),
     city: Joi.string().alphanum().required(),
     country: Joi.string().alphanum().required(),
     age: Joi.number().integer().required(),
-    lenguages: Joi.string(),
-    education: Joi.string(),
-    social: Joi.string(),
-    hobbies: Joi.string(),
     username: Joi.string().alphanum().min(5).max(30).required(),
     mail: Joi.string().email().required(),
     password: Joi.string().pattern(new RegExp("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{0,1000}$")).min(5).max(10).required(),

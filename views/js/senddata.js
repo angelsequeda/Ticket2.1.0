@@ -39,15 +39,12 @@ export class Savedata {
 
     static async updateTecler(tecler) {
         let result = await fetch('http://localhost:3000/teclers/actualize', {
-            method:'POST',
+            method:'PUT',
             headers:{
                 "Accept": "application/json, text/plain, */*",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                data: {username:'algo',password:'otracosa'},
-                token: tecler.token
-            })
+            body: JSON.stringify({data: tecler.data, token: tecler.token})
         });
         return result.json();
     }

@@ -1,7 +1,8 @@
 //Los controladores para los teclers
 
+const { searchEvaluationByCriteria } = require('../services/evaluations.services');
 const { encryptJsonToken } = require('../services/security.services');
-const { addTeclerService, searchForTeclerService, updateTeclerService, deleteTeclerService } = require('../services/teclers.services');
+const { addTeclerService, searchForTeclerService, updateTeclerService, deleteTeclerService, searchTeclerExtraInfo, deleteTeclerExtraInfo, addTeclerExtraInfo } = require('../services/teclers.services');
 
 
 module.exports.addTeclerController = async (req,res) => {
@@ -15,7 +16,7 @@ module.exports.addTeclerController = async (req,res) => {
     } catch (error) {
         
         console.log(error.message);
-        return res.status(400).json({message: 'Algo ha salido mal con el registro'})
+        return res.status(400).json({message: 'error'})
     }
 };
 
@@ -25,8 +26,10 @@ module.exports.searchForTeclerController = async(req,res) => {
     
     try {
         let TeclerFound = await searchForTeclerService(req.body);
-        let token = encryptJsonToken(TeclerFound.username,TeclerFound.idTecler,'tecler');
-        return res.status(200).json({message:'correcto',result:TeclerFound.result,token: token});
+        let extraInfo = await searchTeclerExtraInfo(TeclerFound.result.idTecler);
+        let token = encryptJsonToken(TeclerFound.result.username,TeclerFound.result.idTecler,'tecler');
+        
+        return res.status(200).json({message:'correcto',result:TeclerFound.result,token: token, extras : extraInfo});
 
     } catch (error) {
         console.log(error.message);
@@ -40,6 +43,10 @@ module.exports.updateTeclerController = async(req,res) => {
         
         let updatingTecler = await updateTeclerService(req.body.data);
         let updatedTecler = await searchForTeclerService(req.body.data);
+        if(req.body.extraInfo) {
+            await deleteTeclerExtraInfo(req.body.data);
+            await addTeclerExtraInfo(req.body);
+        }
         return res.status(200).json({message: 'correcto', result: updatedTecler.result,token:req.body.token});
 
     } catch (error) {
@@ -64,3 +71,11 @@ module.exports.deleteTeclerController = async(req,res) => {
         }
 };
 
+module.exports.searchForTeclerInfoController = async(req,res) => {
+    try {
+        let evaluations = searchEvaluationByCriteria({towho : req.body.diUser});
+        
+    } catch (error) {
+        
+    }
+}

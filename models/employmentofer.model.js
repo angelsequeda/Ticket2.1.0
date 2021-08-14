@@ -16,6 +16,14 @@ employmentOferModel.init({
         type: DataTypes.STRING,
         allowNull: false
     },
+    job : {
+        type: DataTypes.STRING,
+        allowNull : false
+    },
+    salary : {
+        type : DataTypes.FLOAT,
+        allowNull : false
+    },
     ofer:{
         type:DataTypes.STRING(2000),
         allowNull: false
@@ -33,6 +41,5 @@ employmentOferModel.init({
     tableName: 'OFERS'
 });
 
-employmentOferModel.belongsToMany(companyModel,{through:'fromwho',foreignKey:'idCompany'});
-employmentOferModel.belongsToMany(teclerModel,{through:'towho',foreignKey:'idTecler'});
 employmentOferModel.sync();
+module.exports = employmentOferModel;

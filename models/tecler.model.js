@@ -39,22 +39,6 @@ teclerModel.init({
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    education: {
-        type:DataTypes.STRING(4000),
-        allowNull: true,
-    },
-    lenguages: {
-        type: DataTypes.STRING(4000),
-        allowNull: true,
-    },
-    linkedin: {
-        type: DataTypes.STRING(4000),
-        allowNull: false,
-    },
-    hobbies: {
-        type: DataTypes.STRING(4000),
-        allowNull: true,
-    },
     registered: {
         type: DataTypes.DATE,
         allowNull: false

@@ -26,7 +26,7 @@ module.exports.addTeclaEvaluatorController = async(req,res) => {
 
         let newEvaluator = await addTeclaEvaluatorService(req.body);
         let evaluatorFound = await searchForTeclaEvaluatorService(req.body);
-        return res.status(200).json({message:'correcto',result:evaluatorFound.result});
+        return res.status(200).json({message:'correcto',result:evaluatorFound.result.idEvaluator});
 
     } catch (error) {
 
