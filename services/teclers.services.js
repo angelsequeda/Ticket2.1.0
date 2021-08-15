@@ -1,6 +1,7 @@
 //Todos los servicios usados en los ednpoints de los teclers
 
 const commentaryModel = require("../models/commentary.model");
+const educationModel = require("../models/educaition.model");
 const habilityModel = require("../models/habilities.model");
 const hobbieModel = require("../models/hobbies.model");
 const lenguageModel = require("../models/lenguage.model");
@@ -86,7 +87,8 @@ module.exports.searchTeclerExtraInfo = async(data) => {
        let lenguages = await lenguageModel.findAll({where : {whoSpeaks : data}});
        let socials = await socialModel.findAll({where : {who : data}});
        let comments = await commentaryModel.findAll({where : {towho : data}});
-       return {habilities,hobbies, lenguages, socials, comments};
+       let studies = await educationModel.findAll({where : {who : data}});
+       return {habilities,hobbies, lenguages, socials, comments, studies};
     } catch (error) {
         console.log(error.message);
         throw new Error('Error al buscar info extra [tecler.services.js]')
@@ -99,6 +101,7 @@ module.exports.deleteTeclerExtraInfo = async(data) => {
         await hobbieModel.destroy({where : {whoDoesIt : data.idTecler}});
         await lenguageModel.destroy({where : {whoSpeaks : data.idTecler}});
         await socialModel.destroy({where : {who : data.idTecler}});
+        await educationModel.destroy({where: {who: data.idTecler}});
     } catch (error) {
         console.log(error.message);
         throw new Error('Error al eliminar info extra [tecler.services.js]');
@@ -140,6 +143,13 @@ module.exports.addTeclerExtraInfo = async(data) => {
                 link : element.link
             })
         });
+
+        data.extraInfo.studies.foreach(async(element) => {
+            await educationModel.create({
+                who : data.idTecler,
+                SocialMedia : element.SocialMedia,
+                link : element.link
+        })});
     } catch (error) {
         console.log(error.message);
         throw new Error('Error al subir informacion Extra [tecler.services.js]');

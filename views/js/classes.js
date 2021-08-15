@@ -1,3 +1,4 @@
+import { Savedata } from "./senddata.js"
 
 export class Tecler {
 
@@ -10,9 +11,21 @@ export class Tecler {
         this.tellUsSomething = data.tellUsSomething,
         this.city = data.city,
         this.country = data.country,
-        this.profilePhoto = data.profilePhoto
+        this.profilePhoto = data.profilePhoto,
+        this.idTecler = data.idTecler
+    }
+    
+    async saveTeclerChanges(token) {
+
+        let result = await Savedata.updateTecler({data:this, token : token});
+        return result
     }
 
+    async saveTeclerExtraInfo(extraInfo,token) {
+        let data = this;
+        data.extraInfo = extraInfo
+        let result = await Savedata.updateTecler({data: this, token: token});
+    }
 }
 
 export class Company {

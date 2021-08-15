@@ -44,10 +44,10 @@ export class Savedata {
                 "Accept": "application/json, text/plain, */*",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({data: tecler.data, token: tecler.token})
+            body: JSON.stringify({data: tecler.data, token: tecler.token, extraInfo : tecler.extraInfo})
         });
         return result.json();
-    }
+    };
 }
 
 

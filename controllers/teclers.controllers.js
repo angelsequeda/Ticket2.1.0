@@ -47,6 +47,7 @@ module.exports.updateTeclerController = async(req,res) => {
             await deleteTeclerExtraInfo(req.body.data);
             await addTeclerExtraInfo(req.body);
         }
+        updatedTecler.result.password = req.body.data.password;
         return res.status(200).json({message: 'correcto', result: updatedTecler.result,token:req.body.token});
 
     } catch (error) {
