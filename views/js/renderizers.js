@@ -10,6 +10,9 @@ export class Renderizer {
     };
 
     static async deleteRowFromTable(table){
-        document.getElementById(table).lastChild.remove();
+        if(document.getElementById(table).rows.length > 1) {
+            document.getElementById(table).lastChild.remove();
+        }
+        
     }
 }

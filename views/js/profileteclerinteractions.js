@@ -13,6 +13,7 @@ if (userActive != null) {
     document.getElementById(`tellUsSomethingprofile`).value = userActive.data.tellUsSomething;
     document.getElementById('profilePhotoprofile').setAttribute('src',userActive.data.profilePhoto);
     document.getElementById(`mailprofile`).value = userActive.data.mail;
+    
 }else {
     alert('Usuario no ingresado');
     window.open('../html/login.html','_self');
