@@ -19,12 +19,12 @@ if (userActive != null) {
 
     userActive.extras.habilities.forEach((element)=> {
         let rows = document.getElementById('tableHabilities').rows.length;
-        Renderizer.addRowTotable('tableHabilities',`habilityRow${rows-1}`, 'afterbegin',`<td> Mi extra es que : <input type="text" clas ="inputs" id="habilityinput${rows-1}" value="${element.what}" disabled>`);
+        Renderizer.addRowTotable('tableHabilities',`habilityRow${rows-1}`, 'afterbegin',`<td> Mi extra es que : <input type="text" clas ="inputs" id="habilityinput${rows-1}" value="${element.what}" disabled class="inputs">`);
     });
 
     userActive.extras.hobbies.forEach((element)=> {
         let rows = document.getElementById('tableHobbies').rows.length;
-        Renderizer.addRowTotable('tableHobbies',`hobbieRow${rows-1}`,'afterbegin',`<td>Me gusta <input type ="text" class="inputs" id="hobbieinput${rows-1}" value="${element.hobbie}" disabled>, desde hace <input type= "text"  class="inputs" id= "hobbieexperienceinput${rows-1}" value ="${element.howLong}" disabled> años  y lo que he aprendido es <input type="text" id="hobiielikeinput${rows-1}" value ="${element.tellSomething}" disabled></td>`);
+        Renderizer.addRowTotable('tableHobbies',`hobbieRow${rows-1}`,'afterbegin',`<td>Me gusta <input type ="text" class="inputs" id="hobbieinput${rows-1}" value="${element.hobbie}" disabled>, desde hace <input type= "text"  class="inputs" id= "hobbieexperienceinput${rows-1}" value ="${element.howLong}" disabled> años  y lo que he aprendido es <input type="text" id="hobiielikeinput${rows-1}" value ="${element.tellSomething}" disabled class="inputs"></td>`);
     });
 
    userActive.extras.lenguages.forEach((element) => {
@@ -41,7 +41,7 @@ if (userActive != null) {
    userActive.extras.socials.forEach((element)=> {
 
         let rows = document.getElementById(`tableSocials`).rows.length;
-        Renderizer.addRowTotable('tableSocials',`socialRow${rows-1}`,'afterbegin',`<td>Me puedes encontrar en <input type="text" sytle="color: black" value="${element.SocialMedia}" id="socialinput${rows-1}" disabled> en el link <input type="text" style="color:black" value="${element.link}" id="sociallinkinput${rows-1}" disabled></td>`);
+        Renderizer.addRowTotable('tableSocials',`socialRow${rows-1}`,'afterbegin',`<td>Me puedes encontrar en <input type="text" class="inputs" sytle="color: black" value="${element.SocialMedia}" id="socialinput${rows-1}" disabled> en el link <input type="text" style="color:black" value="${element.link}" id="sociallinkinput${rows-1}" disabled class ="inputs"></td>`);
    });
 
    userActive.evaluations.result.knowledges.forEach((element) => {
@@ -59,6 +59,11 @@ if (userActive != null) {
 
    userActive.evaluations.result.profesional.forEach((element) => {
        Renderizer.addRowTotable('Profesional',`profesionalRow${document.getElementById(`Profesional`).rows.length}`,'afterbegin',`<td>${element.github}</td><td>${element.trello_jira}</td><td>${element.Slack}</td><td>${element.agile}</td><td>${element.name}</td>`)
+   });
+
+   userActive.extras.comments.forEach((element) => {
+       let rows = document.getElementById(`tableComments`).rows.length;
+       Renderizer.addRowTotable('tableComments',`commentRow${rows-1}`,'afterbegin',`<td>${element.commentary}   ${element.registered}</td>`)
    })
     
 }else {
@@ -118,14 +123,14 @@ document.getElementById('cancelChangesButton').addEventListener('click',()=>{
 
 document.getElementById('addLenguage').addEventListener('click' , ()=> {
     let rows = document.getElementById('tableLenguages').rows.length;
-    Renderizer.addRowTotable('tableLenguages',`lenguageRow${rows-1}`,'afterbegin',`<td>Estudié <input type ="text" value= "" class="inputs" placeholder="¿Que aprendiste?" id="lenguageinput${rows-1}"> por <input type= "text" value=""   class="inputs" placeholder="¿Por cuánto tiempo?" id="lenguageexperienceinput${rows-1}"> años, en <input id="lenguagelocationinput${rows-1}" placeholder ="¿algún curso o autodidacta?" class ="inputs"> y obtuve <input id="lenguagedegreeinput${rows-1}" class ="inputs" placeholder ="¿tienes algún diploma?"></td>`);
+    Renderizer.addRowTotable('tableLenguages',`lenguageRow${rows-1}`,'afterbegin',`<td>Estudié <input type ="text" value= ""  placeholder="¿Que aprendiste?" id="lenguageinput${rows-1}"> por <input type= "text" value=""    placeholder="¿Por cuánto tiempo?" id="lenguageexperienceinput${rows-1}"> años, en <input id="lenguagelocationinput${rows-1}" placeholder ="¿algún curso o autodidacta?" class ="inputs"> y obtuve <input id="lenguagedegreeinput${rows-1}" placeholder ="¿tienes algún diploma?"></td>`);
 });
 
 document.getElementById('addStudy').addEventListener('click', ()=>{
 
     let rows = document.getElementById('tableStudies').rows.length;
 
-    Renderizer.addRowTotable('tableStudies',`studyRow${rows-1}`,'afterbegin',`<td>Estudié <input type ="text"  class="inputs" id="studyinput${rows-1}"> por <input id="studyexperienceinput${rows-1}" type= "text"  class="inputs" > años, en <input type= "text"   class="inputs"  id="studylocationinput${rows-1}" placeholder="¿en dónde?"></td>`);
+    Renderizer.addRowTotable('tableStudies',`studyRow${rows-1}`,'afterbegin',`<td>Estudié <input type ="text"   id="studyinput${rows-1}"> por <input id="studyexperienceinput${rows-1}" type= "text"   > años, en <input type= "text"     id="studylocationinput${rows-1}" placeholder="¿en dónde?"></td>`);
 
 });
 
@@ -134,7 +139,7 @@ document.getElementById('addHobbie').addEventListener('click', ()=> {
 
     let rows = document.getElementById('tableHobbies').rows.length;
 
-    Renderizer.addRowTotable('tableHobbies',`hobbieRow${rows-1}`,'afterbegin',`<td>Me gusta <input type ="text" class="inputs" id="hobbieinput${rows-1}">, desde hace <input type= "text"  class="inputs" id= "hobbieexperienceinput${rows-1}"> años  y lo que he aprendido es <input type="text" id="hobiielikeinput${rows-1}" placeholder="con este hobbie aprendí a...."></td>`);
+    Renderizer.addRowTotable('tableHobbies',`hobbieRow${rows-1}`,'afterbegin',`<td>Me gusta <input type ="text"  id="hobbieinput${rows-1}">, desde hace <input type= "text"   id= "hobbieexperienceinput${rows-1}"> años  y lo que he aprendido es <input type="text" id="hobiielikeinput${rows-1}" placeholder="con este hobbie aprendí a...."></td>`);
 
 });
 
@@ -174,6 +179,9 @@ document.getElementById("deleteSocial").addEventListener('click', ()=> {
     Renderizer.deleteRowFromTable('tableSocials');
 });
 
+document.getElementById('deleteHability').addEventListener('click', ()=> {
+    Renderizer.deleteRowFromTable('tableHabilities');
+})
     
     
 document.getElementById('acceptChangesButton').addEventListener('click',async function algo(){
@@ -205,11 +213,10 @@ document.getElementById('acceptChangesButton').addEventListener('click',async fu
     let result = await userUploading.saveTeclerChanges(userActive.token);
     console.log(result);
     localStorage.setItem('useractive',JSON.stringify({data:result.result,token:result.token}));
-    //window.open('../html/profiletecler.html','_self');
+    window.open('../html/profiletecler.html','_self');
     
 });
 
 document.getElementById(`giveUpButton`).addEventListener('click', async ()=> {
-    let result = await DeleteData.deleteTecler({token: userActive.token, idTecler: userActive.idTecler});
-    console.log(result);
+    let result = await DeleteData.deleteTecler(userActive.token,userActive.result.idTecler);
 })

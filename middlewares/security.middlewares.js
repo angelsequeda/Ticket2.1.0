@@ -66,17 +66,20 @@ module.exports.downloadEvaluationsMiddleware = (req,res,next) => {
 };
 
 
-module.exports.deleteTeclerMiddleware = (req,res,next) => {
+module.exports.deleteMiddleware = (req,res,next) => {
     try {
         let tokenReceived = decryptJsonToken(req.body.token);
         console.log(tokenReceived);
-        console.log(req.body.idTecler);
-        if(tokenReceived.idUser === req.body.idTecler){
-            next()
-        } else {
-            return res.status(409).json({message: 'Usuario no autorizado'});
+        console.log(req.body);
+        if(tokenReceived.role === 'tecler'){
+            if(tokenReceived.iduser === req.body.idTecler){
+                next();
+            }else {
+                return res.status(409).json({message : 'Usuario no autorizado'});
+            }
         }
     } catch (error) {
+        console.log(error.message);
         return res.status(409).json({message : 'Usuario no autorizado'});
     }
 }

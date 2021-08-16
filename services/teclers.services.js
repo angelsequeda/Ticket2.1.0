@@ -66,7 +66,7 @@ module.exports.updateTeclerService = async(data) => {
 };
 
 module.exports.deleteTeclerService = async(data) => {
-
+    console.log(data);
     try {
         await teclerModel.update({active:0},{
             where:{
