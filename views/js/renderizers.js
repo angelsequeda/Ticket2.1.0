@@ -17,4 +17,14 @@ export class Renderizer {
         
     };
 
-}
+    static saveDataFromInputs(tablename,list,keys,inputs) {
+        
+        for (let index = 0; index < document.getElementById(tablename).rows.length-1; index++) {
+            let result = {};
+            for(let j=0 ; j< keys.length; j++) {
+                result[keys[j]] = document.getElementById(`${inputs[j]}${index}`).value;
+            }
+            list.push(result);
+        };
+    };
+};

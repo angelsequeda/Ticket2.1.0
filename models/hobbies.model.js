@@ -20,7 +20,7 @@ hobbieModel.init( {
     },
     tellSomething: {
         type: DataTypes.STRING(1000),
-        allowNull: true
+        allowNull: false
     }
 }, {
     sequelize,

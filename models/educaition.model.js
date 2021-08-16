@@ -13,7 +13,7 @@ educationModel.init( {
         type : DataTypes.STRING(1000),
         allowNull : false
     },
-    where : {
+    location : {
         type : DataTypes.STRING , 
         allowNull : false
     },

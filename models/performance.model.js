@@ -14,6 +14,10 @@ performanceModel.init( {
         type: DataTypes.STRING,
         allowNull: false
     },
+    name : {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     codequality: {
         type: DataTypes.INTEGER,
         allowNull: true,

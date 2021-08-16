@@ -111,32 +111,34 @@ module.exports.deleteTeclerExtraInfo = async(data) => {
 
 module.exports.addTeclerExtraInfo = async(data) => {
     try {
-        data.extraInfo.habilities.foreach(async(element)=> {
+        data.extraInfo.habilities.forEach(async(element)=> {
             await habilityModel.create({
                 who : data.idTecler,
                 what : element.what
             });
         });
 
-        data.extraInfo.hobbies.foreach(async(element) => {
+        data.extraInfo.hobbies.forEach(async(element) => {
+
             await hobbieModel.create({
                 whoDoesIt : data.idTecler,
-                howLong : element.howlong,
-                tellUsSomething : element.tellus
+                howLong : element.howLong,
+                hobbie: element.hobbie,
+                tellSomething : element.tellSomething
             });
         });
 
-        data.extraInfo.lenguages.foreach(async (element) => {
+        data.extraInfo.lenguages.forEach(async (element) => {
             await lenguageModel.create({
                 whoSpeaks : data.idTecler,
-                lenguages : element.lenguageModel,
-                howLong : element.howlong,
-                where : element.where,
+                lenguage : element.lenguage,
+                howLong : element.howLong,
+                location : element.location,
                 degree : element.degree
             })
         });
 
-        data.extraInfo.socials.foreach(async (element) => {
+        data.extraInfo.socials.forEach(async (element) => {
             await socialModel.create({
                 who : data.idTecler,
                 SocialMedia : element.SocialMedia,
@@ -144,11 +146,12 @@ module.exports.addTeclerExtraInfo = async(data) => {
             })
         });
 
-        data.extraInfo.studies.foreach(async(element) => {
+        data.extraInfo.studies.forEach(async(element) => {
             await educationModel.create({
                 who : data.idTecler,
-                SocialMedia : element.SocialMedia,
-                link : element.link
+                what : element.what,
+                location: element.location,
+                howLong : element.howLong
         })});
     } catch (error) {
         console.log(error.message);

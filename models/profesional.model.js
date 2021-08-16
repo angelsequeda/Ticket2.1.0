@@ -14,6 +14,10 @@ profesionalEnviromentModel.init( {
         type: DataTypes.STRING,
         allowNull: false
     },
+    name : {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     github: {
         type: DataTypes.INTEGER,
         allowNull: true,

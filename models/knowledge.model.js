@@ -14,6 +14,10 @@ knowledgeModel.init({
         type: DataTypes.STRING,
         allowNull: false
     },
+    name : {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     databaseKnowledge: {
         type: DataTypes.INTEGER,
         allowNull: true,

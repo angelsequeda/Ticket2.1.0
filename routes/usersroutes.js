@@ -4,7 +4,6 @@ const { addCompanyEmployeeController,updateCompanyEmployeeController, deleteComp
 const { searchForTeclaEvaluatorController, addTeclaEvaluatorController, updateTeclaEvaluatorController, deleteTeclaEvaluatorController } = require('../controllers/tecla.controllers');
 const { addTeclerController, searchForTeclerController, updateTeclerController, deleteTeclerController } = require('../controllers/teclers.controllers');
 const { doesUserAlreaydExist, isUserForregistrationRight, isUserForLoginRight, isUserRegistered } = require('../middlewares/register.middleware');
-const updateMiddleware = require('../middlewares/security.middlewares');
 
 
 const routerTecler = require('express').Router();
@@ -15,7 +14,7 @@ const routerTecla = require('express').Router();
 
 routerTecler.post('/new',isUserForregistrationRight,doesUserAlreaydExist,addTeclerController);
 routerTecler.post('/search',isUserForLoginRight,isUserRegistered,searchForTeclerController);
-routerTecler.put('/actualize',updateMiddleware,updateTeclerController);
+routerTecler.put('/actualize',updateTeclerController);
 routerTecler.delete('/delete',deleteTeclerController);
 
 //Routers para los usuarios de compañias

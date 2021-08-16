@@ -1,13 +1,12 @@
 import { Tecler } from "./classes.js";
 import { Renderizer } from "./renderizers.js";
-import { RetrieveData, Savedata } from "./senddata.js";
+import { DeleteData, RetrieveData, Savedata } from "./senddata.js";
 
 
 let userActiveaux = JSON.parse(localStorage.getItem('useractive'));
-console.log(userActiveaux);
 let userActive = await RetrieveData.getTecler(userActiveaux.data.username,userActiveaux.data.password);
+userActive.evaluations = await RetrieveData.getEvaluations(userActive.token);
 console.log(userActive);
-
 if (userActive != null) {
     document.getElementById('usernameprofile').value = userActive.result.username;
     document.getElementById('nameprofile').value = userActive.result.name;
@@ -20,13 +19,47 @@ if (userActive != null) {
 
     userActive.extras.habilities.forEach((element)=> {
         let rows = document.getElementById('tableHabilities').rows.length;
-        Renderizer.addRowTotable('tableHabilities',`habilityRow${rows-1}`, 'afterbegin',`<td> Mi extra es que : <input type="text" clas ="inputs" id="habilityinput" value="${element.what}" disabled>`);
+        Renderizer.addRowTotable('tableHabilities',`habilityRow${rows-1}`, 'afterbegin',`<td> Mi extra es que : <input type="text" clas ="inputs" id="habilityinput${rows-1}" value="${element.what}" disabled>`);
     });
 
     userActive.extras.hobbies.forEach((element)=> {
         let rows = document.getElementById('tableHobbies').rows.length;
-        Renderizer.addRowTotable('tableHobbies',`hobbieRow${rows-1}`,'afterbegin',`<td>Me gusta <input type ="text" class="inputs" id="hobbieinput${rows-1}" value="${element.hobbie}" disabled>, desde hace <input type= "text"  class="inputs" id= "hobbieexperienceinput${rows-1}" value ="${element.howLong}" disabled> años  y lo que he aprendido es <input type="text" id="hobiielikeinput" value ="${element.tellSomething}" disabled></td>`);
-    })
+        Renderizer.addRowTotable('tableHobbies',`hobbieRow${rows-1}`,'afterbegin',`<td>Me gusta <input type ="text" class="inputs" id="hobbieinput${rows-1}" value="${element.hobbie}" disabled>, desde hace <input type= "text"  class="inputs" id= "hobbieexperienceinput${rows-1}" value ="${element.howLong}" disabled> años  y lo que he aprendido es <input type="text" id="hobiielikeinput${rows-1}" value ="${element.tellSomething}" disabled></td>`);
+    });
+
+   userActive.extras.lenguages.forEach((element) => {
+       let rows = document.getElementById(`tableLenguages`).rows.length;
+       Renderizer.addRowTotable('tableLenguages',`lenguageRow${rows-1}`,'afterbegin',`<td>Estudié <input disabled type ="text" value= "${element.lenguage}" class="inputs"  id="lenguageinput${rows-1}"> por <input disabled type= "text"  class="inputs" value="${element.howLong}" id="lenguageexperienceinput${rows-1}"> años, en <input disabled id="lenguagelocationinput${rows-1}" value ="${element.location}" class ="inputs"> y obtuve <input disabled id="lenguagedegreeinput${rows-1}" class ="inputs" value="${element.degree}"></td>`);
+   });
+
+   userActive.extras.studies.forEach((element) => {
+
+        let rows = document.getElementById('tableStudies').rows.length;
+        Renderizer.addRowTotable('tableStudies',`studyRow${rows-1}`,'afterbegin',`<td>Estudié <input type ="text"  class="inputs" disabled id="studyinput${rows-1}" value ="${element.what}"> por <input id="studyexperienceinput${rows-1}" disabled type= "text"  class="inputs" value="${element.howLong}"> años, en <input disabled type= "text"   class="inputs"  id="studylocationinput${rows-1}" value ="${element.location}"></td>`);
+   });
+
+   userActive.extras.socials.forEach((element)=> {
+
+        let rows = document.getElementById(`tableSocials`).rows.length;
+        Renderizer.addRowTotable('tableSocials',`socialRow${rows-1}`,'afterbegin',`<td>Me puedes encontrar en <input type="text" sytle="color: black" value="${element.SocialMedia}" id="socialinput${rows-1}" disabled> en el link <input type="text" style="color:black" value="${element.link}" id="sociallinkinput${rows-1}" disabled></td>`);
+   });
+
+   userActive.evaluations.result.knowledges.forEach((element) => {
+       Renderizer.addRowTotable('Knows',`knowlegeRow${document.getElementById('Knows').rows.length}`,'afterbegin',`<td>${element.databaseKnowledge}</td><td>${element.apis}</td><td>${element.testing}</td><td>${element.security}</td><td>${element.objectTeory}</td><td>${element.name}</td>`)
+   });
+   userActive.evaluations.result.technologies.forEach((element) => {
+       Renderizer.addRowTotable('Technologies',`technologieRow${document.getElementById('Technologies').rows.length}`,'afterbegin',`<td>${element.nodejs}</td><td>${element.frontend}</td><td>${element.swagger}</td><td>${element.javascript}</td><td>${element.name}</td>`)
+   });
+   userActive.evaluations.result.performance.forEach((element)=> {
+       Renderizer.addRowTotable('Performance',`performanceRow${document.getElementById(`Performance`).rows.length}`,'afterbegin',`<td>${element.codequality}</td><td>${element.speed}</td><td>${element.codePerformance}</td><td>${element.name}</td>`)
+   });
+   userActive.evaluations.result.softskills.forEach((element) => {
+       Renderizer.addRowTotable('Softskills',`softskillRow${document.getElementById(`Softskills`).rows.length}`,`afterbegin`, `<td>${element.focus}</td><td>${element.teamWork}</td><td>${element.compromise}</td><td>${element.communication}</td><td>${element.learningSkill}</td><td>${element.problemResolution}</td><td>${element.name}</td>`)
+   });
+
+   userActive.evaluations.result.profesional.forEach((element) => {
+       Renderizer.addRowTotable('Profesional',`profesionalRow${document.getElementById(`Profesional`).rows.length}`,'afterbegin',`<td>${element.github}</td><td>${element.trello_jira}</td><td>${element.Slack}</td><td>${element.agile}</td><td>${element.name}</td>`)
+   })
     
 }else {
     alert('Usuario no ingresado');
@@ -50,11 +83,12 @@ document.getElementById('editButton').addEventListener('click', ()=> {
     });
 
     document.getElementById('passwordHidden').hidden = false;
-    document.getElementById(`passwordprofile`).value = userActive.data.password;
+    document.getElementById(`passwordprofile`).value = userActive.result.password;
     document.getElementById('passwordprofile').disabled = false;
     document.getElementById('acceptChangesButton').hidden = false;
     document.getElementById('cancelChangesButton').hidden = false;
     document.getElementById('editButton').hidden = true;
+    document.getElementById(`giveUpButton`).hidden = false;
 
 });
 
@@ -79,11 +113,12 @@ document.getElementById('cancelChangesButton').addEventListener('click',()=>{
     document.getElementById('acceptChangesButton').hidden = true;
     document.getElementById('cancelChangesButton').hidden = true;
     document.getElementById('editButton').hidden = false;
+    document.getElementById(`giveUpButton`).hidden = true;
 });
 
 document.getElementById('addLenguage').addEventListener('click' , ()=> {
     let rows = document.getElementById('tableLenguages').rows.length;
-    Renderizer.addRowTotable('tableLenguages',`lenguageRow${rows-1}`,'afterbegin',`<td>Estudié <input type ="text" value= "" class="inputs" placeholder="¿Que aprendiste?" id="lenguageinput${rows-1}"> por <input type= "text" value=""   class="inputs" placeholder="¿Por cuánto tiempo?" id="lenguageexperienceinput${rows-1}"> años, en <input id="lenguagelocationinput" placeholder ="¿algún curso o autodidacta?" class ="inputs"> y obtuve <input id="lenguagedegreeinput" class ="inputs" placeholder ="¿tienes algún diploma?"></td>`);
+    Renderizer.addRowTotable('tableLenguages',`lenguageRow${rows-1}`,'afterbegin',`<td>Estudié <input type ="text" value= "" class="inputs" placeholder="¿Que aprendiste?" id="lenguageinput${rows-1}"> por <input type= "text" value=""   class="inputs" placeholder="¿Por cuánto tiempo?" id="lenguageexperienceinput${rows-1}"> años, en <input id="lenguagelocationinput${rows-1}" placeholder ="¿algún curso o autodidacta?" class ="inputs"> y obtuve <input id="lenguagedegreeinput${rows-1}" class ="inputs" placeholder ="¿tienes algún diploma?"></td>`);
 });
 
 document.getElementById('addStudy').addEventListener('click', ()=>{
@@ -99,7 +134,7 @@ document.getElementById('addHobbie').addEventListener('click', ()=> {
 
     let rows = document.getElementById('tableHobbies').rows.length;
 
-    Renderizer.addRowTotable('tableHobbies',`hobbieRow${rows-1}`,'afterbegin',`<td>Me gusta <input type ="text" class="inputs" id="hobbieinput${rows-1}">, desde hace <input type= "text"  class="inputs" id= "hobbieexperienceinput${rows-1}"> años  y lo que he aprendido es <input type="text" id="hobiielikeinput" placeholder="con este hobbie aprendí a...."></td>`);
+    Renderizer.addRowTotable('tableHobbies',`hobbieRow${rows-1}`,'afterbegin',`<td>Me gusta <input type ="text" class="inputs" id="hobbieinput${rows-1}">, desde hace <input type= "text"  class="inputs" id= "hobbieexperienceinput${rows-1}"> años  y lo que he aprendido es <input type="text" id="hobiielikeinput${rows-1}" placeholder="con este hobbie aprendí a...."></td>`);
 
 });
 
@@ -115,7 +150,7 @@ document.getElementById('addSocial').addEventListener('click', ()=> {
 
 document.getElementById(`addHability`).addEventListener('click', ()=> {
     let rows = document.getElementById('tableHabilities').rows.length;
-    Renderizer.addRowTotable('tableHabilities',`habilityRow${rows-1}`, 'afterbegin',`<td> Mi extra es que : <input type="text" clas ="inputs" id="habilityinput" placeholder="yo puedo o yo sé.......">`);
+    Renderizer.addRowTotable('tableHabilities',`habilityRow${rows-1}`, 'afterbegin',`<td> Mi extra es que : <input type="text" clas ="inputs" id="habilityinput${rows-1}" placeholder="yo puedo o yo sé.......">`);
 
 })
 
@@ -153,13 +188,28 @@ document.getElementById('acceptChangesButton').addEventListener('click',async fu
     userToUpload.tellUsSomething = document.getElementById(`tellUsSomethingprofile`).value;
     userToUpload.profilePhoto = document.getElementById(`profilePhotoprofile`).src;
     userToUpload.mail = document.getElementById(`mailprofile`).value;
-    userToUpload.idTecler = userActive.data.idTecler;
+    userToUpload.idTecler = userActive.result.idTecler;
 
+    let extraInfo = {studies:[], socials:[], lenguages:[], hobbies: [], habilities: []};
+    Renderizer.saveDataFromInputs(`tableStudies`,extraInfo.studies,['what','location','howLong'],['studyinput',`studylocationinput`,`studyexperienceinput`]);
+    Renderizer.saveDataFromInputs(`tableLenguages`,extraInfo.lenguages,['lenguage','howLong','location','degree'],['lenguageinput','lenguageexperienceinput','lenguagelocationinput','lenguagedegreeinput']);
+    Renderizer.saveDataFromInputs(`tableHobbies`,extraInfo.hobbies,['hobbie','howLong','tellSomething'],['hobbieinput','hobbieexperienceinput',`hobiielikeinput`]);
+    Renderizer.saveDataFromInputs(`tableHabilities`,extraInfo.habilities,[`what`],['habilityinput']);
+    console.log(extraInfo);
+    Renderizer.saveDataFromInputs(`tableSocials`,extraInfo.socials,[`SocialMedia`,`link`],['socialinput','sociallinkinput']);
+
+    
     let userUploading = new Tecler(userToUpload);
+    userUploading.extraInfo = extraInfo;
+    console.log(userUploading);
     let result = await userUploading.saveTeclerChanges(userActive.token);
     console.log(result);
     localStorage.setItem('useractive',JSON.stringify({data:result.result,token:result.token}));
-    window.open('../html/profiletecler.html','_self');
+    //window.open('../html/profiletecler.html','_self');
     
 });
 
+document.getElementById(`giveUpButton`).addEventListener('click', async ()=> {
+    let result = await DeleteData.deleteTecler({token: userActive.token, idTecler: userActive.idTecler});
+    console.log(result);
+})

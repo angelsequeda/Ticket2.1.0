@@ -14,6 +14,10 @@ softSkillsMOdel.init( {
         type: DataTypes.STRING,
         allowNull: false
     },
+    name : {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     focus: {
         type: DataTypes.INTEGER,
         allowNull: true,
