@@ -44,10 +44,10 @@ export class Savedata {
                 "Accept": "application/json, text/plain, */*",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({data: tecler.data, token: tecler.token})
+            body: JSON.stringify({data: tecler.data, token: tecler.token, extraInfo : tecler.extraInfo})
         });
         return result.json();
-    }
+    };
 }
 
 
@@ -104,5 +104,38 @@ export class RetrieveData {
 
     };
 
+    static async getEvaluations(token) {
+        let result = await fetch('http://localhost:3000/evaluations/download',{
+            method: 'POST',
+            headers:{
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            },
+            body : JSON.stringify({
+                token: token
+            })
+        });
+        return result.json();
+    }
 
+};
+
+
+
+export class DeleteData {
+    
+    static async deleteTecler(token,idTecler) {
+        let result = await fetch('http://localhost:3000/teclers/delete',{
+            method : 'DELETE',
+            headers:{
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            },
+            body :JSON.stringify ({
+                token: token,
+                idTecler : idTecler
+            })
+        });
+        return result.json();
+    }
 }

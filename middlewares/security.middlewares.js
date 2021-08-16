@@ -1,7 +1,7 @@
 const { searchEvaluationsByEvaluatorService, searchEvaluationByCriteria } = require("../services/evaluations.services");
 const { decryptJsonToken } = require("../services/security.services")
 
-module.exports = updateMiddleware = (req,res,next) => {
+module.exports.updateMiddleware = (req,res,next) => {
     let tokenReceived = decryptJsonToken(req.body.token);
     if(tokenReceived.role === 'tecler') {
         if(tokenReceived.iduser === req.body.data.idTecler){
@@ -64,3 +64,22 @@ module.exports.downloadEvaluationsMiddleware = (req,res,next) => {
         return res.status(500).json({message : 'error'});
     }
 };
+
+
+module.exports.deleteMiddleware = (req,res,next) => {
+    try {
+        let tokenReceived = decryptJsonToken(req.body.token);
+        console.log(tokenReceived);
+        console.log(req.body);
+        if(tokenReceived.role === 'tecler'){
+            if(tokenReceived.iduser === req.body.idTecler){
+                next();
+            }else {
+                return res.status(409).json({message : 'Usuario no autorizado'});
+            }
+        }
+    } catch (error) {
+        console.log(error.message);
+        return res.status(409).json({message : 'Usuario no autorizado'});
+    }
+}

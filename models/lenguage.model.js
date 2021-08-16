@@ -17,7 +17,7 @@ lenguageModel.init({
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    where: {
+    location: {
         type: DataTypes.STRING,
         allowNull: false
     },

@@ -14,6 +14,10 @@ technologyModel.init({
         type: DataTypes.STRING,
         allowNull: false
     },
+    name : {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     nodejs: {
         type: DataTypes.INTEGER,
         allowNull: true,

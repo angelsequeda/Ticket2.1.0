@@ -5,15 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/profiles.css">
     <title>Document</title>
 </head>
 <body>
     <div id="maincontainer">
+        <nav class="navbar navbar-dark bg-dark" style="display: flex; justify-content: flex-start;">
+            <a class="navbar-brand" href="#">Página principal</a>
+            <a class="navbar-brand" href="#">Mi perfil</a>
+            <a class="navbar-brand" href="#">Cosas al azar</a>
+            <a class="navbar-brand" href="#">Videos</a>
+        </nav>
         <div id="fotocontainer" style="padding: 5px;">
             <img src="" alt="" style="height: 200px; width: 200px;" id="profilePhotoprofile">
         </div>
         <div class="form-group">
-            <input disabled type="text" name="" id="mailprofile" class="form-control">años
+            <input disabled type="text" name="" id="mailprofile" class="form-control">
         </div>
     </div>
     <div class="formats">
@@ -70,6 +77,18 @@
         </table>
         <button id="addHobbie" hidden class="btn btn-success">+</button>
         <button id="deleteHobbie" hidden class="btn btn-danger">-</button>
+        <table class="table" id="tableHabilities">
+            <tr>
+                <th>Otras habilidades que tengo son</th>
+            </tr>
+        </table>
+        <button id="addHability" hidden class="btn btn-success">+</button>
+        <button id="deleteHability" hidden class="btn btn-danger">-</button>
+        <table class="table" id="tableComments">
+            <tr>
+                <th>Comentarios sobre mi</th>
+            </tr>
+        </table>
         <table class="table" id="tableSocials">
             <tr>
                 <th>Puedes contactarme aquí</th>
@@ -136,6 +155,7 @@
             <button id="editButton" class="buttons">Editar</button>
             <button id="acceptChangesButton" class="buttons" hidden>Aceptar</button>
             <button id="cancelChangesButton" class="buttons" hidden>Cancelar</button>
+            <button id="giveUpButton" class="buttons" hidden>Dar de baja</button>
         </div>
     </div>
     <script src="../css/js/bootstrap.min.js"></script>
