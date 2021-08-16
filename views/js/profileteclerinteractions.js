@@ -3,7 +3,7 @@ import { Renderizer } from "./renderizers.js";
 import { DeleteData, RetrieveData, Savedata } from "./senddata.js";
 
 
-let userActiveaux = JSON.parse(localStorage.getItem('useractive'));
+let userActiveaux = JSON.parse(sessionStorage.getItem('useractive'));
 let userActive = await RetrieveData.getTecler(userActiveaux.data.username,userActiveaux.data.password);
 userActive.evaluations = await RetrieveData.getEvaluations(userActive.token);
 console.log(userActive);
@@ -212,7 +212,7 @@ document.getElementById('acceptChangesButton').addEventListener('click',async fu
     console.log(userUploading);
     let result = await userUploading.saveTeclerChanges(userActive.token);
     console.log(result);
-    localStorage.setItem('useractive',JSON.stringify({data:result.result,token:result.token}));
+    sessionStorage.setItem('useractive',JSON.stringify({data:result.result,token:result.token}));
     window.open('../html/profiletecler.html','_self');
     
 });

@@ -116,6 +116,18 @@ export class RetrieveData {
             })
         });
         return result.json();
+    };
+
+    static async getEveryone(token) {
+        let result = await fetch('http://localhost:3000/mainIndex',{
+            method : 'GET',
+            headers:{
+                "Autorization" : token,
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            },
+        });
+        return result.json();
     }
 
 };

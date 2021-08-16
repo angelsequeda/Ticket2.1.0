@@ -27,4 +27,20 @@ export class Renderizer {
             list.push(result);
         };
     };
+
+
+    static createCards(name,where,extraInfo,id,foto) {
+        let division = document.createElement('div');
+        division.className = 'card';
+        division.style = "width: 18rem; margin-bottom:20px; height: 20rem"
+        division.insertAdjacentHTML('afterbegin',`<img class="card-img-top" src="${foto}" alt="Card image cap" style="height:100px; width: 100px">
+        <div class="card-body">
+          <h5 class="card-title">${name}</h5>
+          <a href="#" class="btn btn-primary" id=${id}>Ver</a>
+        </div>`);
+        if (extraInfo) {
+            document.getElementById(id).insertAdjacentHTML('beforebegin',`<p>${extraInfo}</p>`)
+        };
+        document.getElementById(where).appendChild(division);
+    }
 };

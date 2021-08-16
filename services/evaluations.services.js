@@ -1,8 +1,11 @@
+const companyModel = require("../models/company.model");
+const evaluatorModel = require("../models/evaluator.model");
 const knowledgeModel = require("../models/knowledge.model");
 const performanceModel = require("../models/performance.model");
 const profesionalEnviromentModel = require("../models/profesional.model");
 const softSkillsMOdel = require("../models/softskills.model");
 const technologyModel = require("../models/technologies.model");
+const teclerModel = require("../models/tecler.model");
 
 
 module.exports.newEvaluationService = async (data) => {
@@ -69,5 +72,17 @@ module.exports.deleteAllEvaluationsService = async(data) => {
         console.log(error.message);
         throw new Error('Error al eliminar todas las evaluaciones [evaluations.services]')
     }
-}
+};
 
+
+module.exports.seeAllPeople = async () => {
+    try {
+        let teclers = await teclerModel.findAll({attributes: ['idTecler','username','name','tellUsSomething','profilePhoto']});
+        let companies = await companyModel.findAll({attributes: ['idCompanyUser','username','name','profilePhoto']});
+        let evaluators = await evaluatorModel.findAll({attributes: ['idEvaluator','username','name','profilePhoto']});
+        return {teclers,companies,evaluators};
+    } catch (error) {
+        console.log(error.message);
+        throw new Error('Error al buscar todos los usuarios [evaluations.services]')
+    }
+};

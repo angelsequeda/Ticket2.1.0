@@ -1,5 +1,5 @@
 //Los controladores para crear, eliminar o buscar evaluaciones 
-const { newEvaluationService, searchEvaluationByCriteria } = require("../services/evaluations.services")
+const { newEvaluationService, searchEvaluationByCriteria, seeAllPeople } = require("../services/evaluations.services")
 
 
 module.exports.newEvaluationController = async(req,res) => {
@@ -29,5 +29,15 @@ module.exports.searchEvaluationsbyController = async(req,res) => {
     } catch (error) {
         console.log(error.message);
         return res.status(500).json('error');
+    }
+};
+
+module.exports.seeAllpeopleController = async(req,res) => {
+
+    try {
+        let result = await seeAllPeople();
+        return res.status(200).json({message : 'correcto', result: result});
+    } catch (error) {
+        return res.status(500).json({message : 'error'});
     }
 }

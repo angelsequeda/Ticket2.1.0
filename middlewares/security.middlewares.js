@@ -82,4 +82,11 @@ module.exports.deleteMiddleware = (req,res,next) => {
         console.log(error.message);
         return res.status(409).json({message : 'Usuario no autorizado'});
     }
+};
+
+module.exports.getAllDataMiddleware = async(req,res,next) => {
+
+    let tokenReceived = decryptJsonToken(req.headers.autorization);
+    console.log(tokenReceived);
+    next()
 }
