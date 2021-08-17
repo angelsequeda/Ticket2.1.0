@@ -73,7 +73,6 @@ document.getElementById('buttonAcceptLoginTecler').addEventListener('click',asyn
         console.log(result);
         result.result.password = password;
         sessionStorage.setItem('useractive',JSON.stringify({data:result.result,token:result.token,extraInfo : result.extras}));
-        sessionStorage.setItem('roleTeclapartner',JSON.stringify(owner))
         window.open('../html/profiletecler.html','_self');
     }else {
         alert(result.message)

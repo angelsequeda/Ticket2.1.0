@@ -44,5 +44,14 @@ export class Renderizer {
         document.getElementById(where).appendChild(division);
     };
 
+    static openform(role,data) {
+        if(role === 'tecler'){
+            document.getElementById('formContainer').innerHTML = "";
+            document.getElementById('formContainer').insertAdjacentHTML('afterbegin', `<p>${data.name}</p>
+            <p>${data.age}</p>
+            <p>${data.mail}</p>`);
+            document.getElementById('formContainer').style.display = 'block';
+        }
+    }
     
 };

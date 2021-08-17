@@ -2,7 +2,7 @@
 
 const { addCompanyEmployeeController,updateCompanyEmployeeController, deleteCompanyEmployeeController, searchForCompanyEmployeeController } = require('../controllers/company.controller');
 const { searchForTeclaEvaluatorController, addTeclaEvaluatorController, updateTeclaEvaluatorController, deleteTeclaEvaluatorController } = require('../controllers/tecla.controllers');
-const { addTeclerController, searchForTeclerController, updateTeclerController, deleteTeclerController } = require('../controllers/teclers.controllers');
+const { addTeclerController, searchForTeclerController, updateTeclerController, deleteTeclerController, searchForOtherTeclerController } = require('../controllers/teclers.controllers');
 const { doesUserAlreaydExist, isUserForregistrationRight, isUserForLoginRight, isUserRegistered } = require('../middlewares/register.middleware');
 const { updateMiddleware, deleteMiddleware } = require('../middlewares/security.middlewares');
 
@@ -15,6 +15,7 @@ const routerTecla = require('express').Router();
 
 routerTecler.post('/new',isUserForregistrationRight,doesUserAlreaydExist,addTeclerController);
 routerTecler.post('/search',isUserForLoginRight,isUserRegistered,searchForTeclerController);
+routerTecler.post('/another',searchForOtherTeclerController);
 routerTecler.put('/actualize',updateMiddleware,updateTeclerController);
 routerTecler.delete('/delete',deleteMiddleware,deleteTeclerController);
 

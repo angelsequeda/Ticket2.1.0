@@ -1,6 +1,6 @@
 //Los controladores para los teclers
 
-const { deleteAllEvaluationsService } = require('../services/evaluations.services');
+const { deleteAllEvaluationsService, searchEvaluationByCriteria } = require('../services/evaluations.services');
 const { encryptJsonToken } = require('../services/security.services');
 const { addTeclerService, searchForTeclerService, updateTeclerService, deleteTeclerService, searchTeclerExtraInfo, deleteTeclerExtraInfo, addTeclerExtraInfo } = require('../services/teclers.services');
 
@@ -74,12 +74,16 @@ module.exports.deleteTeclerController = async(req,res) => {
         }
 };
 
-module.exports.sendNewTokenController = async(req,res) => {
+module.exports.searchForOtherTeclerController = async(req,res) => {
     try {
-        let token = encryptJsonToken(req.body.username,req.body.iduser,req.body.role);
-        return res.status(200).json({message : 'correcto', token : token});
+        console.log(req.body);
+        let tecler = await searchForTeclerService(req.body);
+        tecler.result.password = "";
+        console.log(tecler);
+        let evaluations = await searchEvaluationByCriteria({towho : tecler.result.idTecler});
+        let extraInfo = await searchTeclerExtraInfo(tecler.result.idTecler);
+        return res.status(200).json({message : 'correcto', tecler : tecler.result, evaluations,extraInfo})
     } catch (error) {
-        console.log(error.message);
-        return res.status(400).json({message : 'error'});
+        return res.status(500).json({message : 'error'});
     }
 }

@@ -7,11 +7,11 @@ if(!allOurPeople.result) {
     alert(allOurPeople.message);
 } else {
     allOurPeople.result.teclers.forEach((element) => {
-        console.log(element.idTecler);
+        console.log(element.username);
         Renderizer.createCards(element.name,'Teclersdivision',null,element.idTecler,element.profilePhoto);
         document.getElementById(element.idTecler).addEventListener('click',async ()=> {
-            let result = await RetrieveData.getEvaluations(JSON.parse(sessionStorage.getItem('useractive')).token,element.idTecler);
-            sessionStorage.setItem('evaluationsUsed',JSON.stringify(result.result));
+            let result = await RetrieveData.getAnotherTecler(element.username);
+            Renderizer.openform('tecler',result.tecler);
         })
     });
     
