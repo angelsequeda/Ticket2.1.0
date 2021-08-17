@@ -45,13 +45,74 @@ export class Renderizer {
     };
 
     static openform(role,data) {
+        document.getElementById('formContainer').innerHTML = "";
         if(role === 'tecler'){
-            document.getElementById('formContainer').innerHTML = "";
-            document.getElementById('formContainer').insertAdjacentHTML('afterbegin', `<p>${data.name}</p>
-            <p>${data.age}</p>
-            <p>${data.mail}</p>`);
-            document.getElementById('formContainer').style.display = 'block';
+            document.getElementById('formContainer').insertAdjacentHTML('afterbegin', `
+            <img src = "${data.profilePhoto}" class ="imageforFormUser"></img>
+            <p>${data.username}</p>
+            <p>"${data.tellUsSomething}"</p>
+            <p>Nombre: ${data.name}</p>
+            <p>Edad: ${data.age}</p>
+            <p>Mail: ${data.mail}</p>
+            <h4>Estudios</h4>
+            <table id="tableStudies"></table>
+            <h4>Lenguajes</h4>
+            <table id="tableLenguages"></table>
+            <h4>Hobbies</h4>
+            <table id="tableHobbies"></table>
+            <h4>Contacto</h4>
+            <table id="tableSocials"></table>
+            <h4>Otras habilidades</h4>
+            <table id="tableHabilities"></table>
+            <button id="evaluationsButton" style="margin-top: 10px">Ver evaluaciones</button>
+            <button id="doEvaluationButton">Evaluar</button>
+            <button id="commentButton">Hacer comentario</button>
+            <button id ="employeeOferButton">Hacer oferta</button>
+            <button id ="makeFriendButton">Solicitud de amistad</button>
+            <button id = "closeForm">Cerrar</button>`);
+            if(JSON.parse(sessionStorage.getItem('useractive')).data.idTecler) {
+                document.getElementById('makeFriendButton').hidden = false;
+                document.getElementById("evaluationsButton").hidden = true;
+                document.getElementById('doEvaluationButton').hidden = true;
+                document.getElementById('employeeOferButton').hidden = true;
+                document.getElementById('commentButton').hidden = false;
+            }else if(JSON.parse(sessionStorage.getItem('useractive').data.idCompanyUser)){
+                document.getElementById('makeFriendButton').hidden = true;
+                document.getElementById("evaluationsButton").hidden = false;
+                document.getElementById('doEvaluationButton').hidden = true;
+                document.getElementById('employeeOferButton').hidden = false;
+                document.getElementById('commentButton').hidden = true;
+            }else {
+                document.getElementById('makeFriendButton').hidden = true;
+                document.getElementById("evaluationsButton").hidden = false;
+                document.getElementById('doEvaluationButton').hidden = false;
+                document.getElementById('employeeOferButton').hidden = true;
+                document.getElementById('commentButton').hidden = false;
+            }
+        }else if(role === "evaluator") {
+            document.getElementById('formContainer').insertAdjacentHTML('afterbegin',`
+            <img src = "${data.profilePhoto}" class ="imageforFormUser"></img>
+            <p>${data.username}</p>
+            <p>"${data.tellUsSomething}"</p>
+            <p>Nombre: ${data.name}</p>
+            <p>Soy: ${data.job} en Tecla</p>
+            <p>Mail: ${data.mail}</p>
+            <button id = "closeForm">Cerrar</button>`);
+        }else if(role === 'company'){
+            document.getElementById('formContainer').insertAdjacentHTML('afterbegin', `
+            <img src = "${data.profilePhoto}" class ="imageforFormUser"></img>
+            <p>${data.username}</p>
+            <p>Nombre: ${data.name}</p>
+            <p>Soy: ${data.job} en ${data.companyName}</p>
+            <p>Mail: ${data.mail}</p>
+            <button id = "closeForm">Cerrar</button>
+            `)
         }
+        document.getElementById('closeForm').addEventListener('click', ()=> {
+            document.getElementById('formContainer').style.display = 'none';
+            document.getElementById('formContainer').innerHTML = "";
+        });
+        document.getElementById('formContainer').style.display = 'block';
     }
     
 };

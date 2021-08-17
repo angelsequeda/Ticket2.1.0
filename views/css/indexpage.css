@@ -1,0 +1,12 @@
+#formContainer {
+    display: none;
+    position: absolute;
+    background-color: rgb(24, 150, 133);
+    left: 45%;
+    top: 25%;
+    transform: translate(-50%, 5%);
+    border: 3px solid #999999;
+    z-index: 9;
+    padding: 35px;
+    color: black;
+}

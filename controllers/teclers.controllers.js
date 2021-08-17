@@ -81,7 +81,9 @@ module.exports.searchForOtherTeclerController = async(req,res) => {
         tecler.result.password = "";
         console.log(tecler);
         let evaluations = await searchEvaluationByCriteria({towho : tecler.result.idTecler});
+        console.log(evaluations);
         let extraInfo = await searchTeclerExtraInfo(tecler.result.idTecler);
+        console.log(extraInfo);
         return res.status(200).json({message : 'correcto', tecler : tecler.result, evaluations,extraInfo})
     } catch (error) {
         return res.status(500).json({message : 'error'});

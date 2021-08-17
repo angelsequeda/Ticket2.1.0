@@ -32,7 +32,7 @@ module.exports.searchEvaluationByCriteria = async (criteria) => {
         let technologies = await technologyModel.findAll({where : criteria,raw: true});
         let softskills = await softSkillsMOdel.findAll({where : criteria, raw: true});
         let performance = await performanceModel.findAll({where : criteria , raw: true});
-        let profesional = await profesionalEnviromentModel.findAll({where : criteria});
+        let profesional = await profesionalEnviromentModel.findAll({where : criteria, raw: true});
         let result = {knowledges,technologies,softskills,performance,profesional};
         return result;
 
