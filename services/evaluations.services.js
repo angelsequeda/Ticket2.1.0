@@ -77,9 +77,9 @@ module.exports.deleteAllEvaluationsService = async(data) => {
 
 module.exports.seeAllPeople = async () => {
     try {
-        let teclers = await teclerModel.findAll({attributes: ['idTecler','username','name','tellUsSomething','profilePhoto']});
-        let companies = await companyModel.findAll({attributes: ['idCompanyUser','username','name','profilePhoto']});
-        let evaluators = await evaluatorModel.findAll({attributes: ['idEvaluator','username','name','profilePhoto']});
+        let teclers = await teclerModel.findAll({attributes:{exclude: ['password','num_usuario']}});
+        let companies = await companyModel.findAll({attributes:{exclude:['password','companynumber']}});
+        let evaluators = await evaluatorModel.findAll({attributes: {exclude:['password','evaluatorNumber']}});
         return {teclers,companies,evaluators};
     } catch (error) {
         console.log(error.message);

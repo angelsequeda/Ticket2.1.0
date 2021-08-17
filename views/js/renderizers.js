@@ -42,5 +42,7 @@ export class Renderizer {
             document.getElementById(id).insertAdjacentHTML('beforebegin',`<p>${extraInfo}</p>`)
         };
         document.getElementById(where).appendChild(division);
-    }
+    };
+
+    
 };

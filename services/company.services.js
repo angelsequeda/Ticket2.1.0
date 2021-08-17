@@ -12,7 +12,7 @@ module.exports.searchForCompanyEmployeeService = async(data) => {
                 username : data.username,
                 active: 1
             },
-            attributes:{exclude:['companynumber']}
+            attributes:{exclude:['companynumber']}, raw : true
         });
         return {message: 'Usuario encontrado',result: result};
 

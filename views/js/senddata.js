@@ -104,18 +104,37 @@ export class RetrieveData {
 
     };
 
-    static async getEvaluations(token) {
-        let result = await fetch('http://localhost:3000/evaluations/download',{
-            method: 'POST',
-            headers:{
-                "Accept": "application/json, text/plain, */*",
-                "Content-Type": "application/json"
-            },
-            body : JSON.stringify({
-                token: token
-            })
-        });
-        return result.json();
+    static async getEvaluations(token,id) {
+        if (!id) {
+            console.log('no ok');
+            let result = await fetch('http://localhost:3000/evaluations/download',{
+                method: 'POST',
+                headers:{
+                    "Accept": "application/json, text/plain, */*",
+                    "Content-Type": "application/json"
+                },
+                body : JSON.stringify({
+                    token: token,
+                })
+            });
+            return result.json();
+        }else {
+            console.log('ok');
+            console.log(id);
+            let result = await fetch('http://localhost:3000/evaluations/download',{
+                method: 'POST',
+                headers:{
+                    "Accept": "application/json, text/plain, */*",
+                    "Content-Type": "application/json"
+                },
+                body : JSON.stringify({
+                    token: token,
+                    idSearch : id
+                })
+            });
+            return result.json();
+        }
+        
     };
 
     static async getEveryone(token) {

@@ -11,7 +11,7 @@ module.exports.searchForTeclaEvaluatorService = async(data) => {
                 username: data.username,
                 active: 1
             },
-            attributes: {exclude:['evaluatorNumber']}
+            attributes: {exclude:['evaluatorNumber']}, raw : true
         });
         return {message: 'Usuario encontrado', result: result};
     } catch (error) {
