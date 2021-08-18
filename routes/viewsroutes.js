@@ -14,6 +14,6 @@ module.exports = (app) => {
   router.get('/login/evaluador',viewsController.loginEvaluador);
 
   router.get('/login/colaborador',viewsController.loginColaborador)
-  router.get('/signin', viewsController.signin)
+  //router.get('/signin', viewsController.signin)
   app.use(router)
 }
