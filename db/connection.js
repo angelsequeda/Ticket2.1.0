@@ -2,7 +2,7 @@
 const {Sequelize} = require('sequelize');
 require('dotenv').config();
 
-const sequelize = new Sequelize('TECLANET',null,null, {
+const sequelize = new Sequelize('social_red',null,null, {
 
     dialect: 'mssql',
   server: process.env.HOST,

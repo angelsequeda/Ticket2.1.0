@@ -5,14 +5,36 @@ const express = require('express');
 const sequelize = require('./db/connection');
 const { routerEvaluations } = require('./routes/evaluationsroutes');
 const {routerTecler, routerCompany, routerTecla} = require('./routes/usersroutes');
+const { routerImages } = require('./routes/imagesrouter')
 require('dotenv').config();
 const app = express();
-
+const path = require('path')
+const exphbs = require('express-handlebars')
+const morgan = require('morgan')
+const multer = require('multer')
+const routeViews = require('./routes/viewsroutes')
 
 //Middlewares globales
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cors());
+
+//configuraciones
+app.set('views', path.join(__dirname, './views'))
+app.engine('.hbs', exphbs({
+  defaultLayout: 'main',
+  partialsDir: path.join(app.get('views'), 'partials'),
+  layoutsDir: path.join(app.get('views'), 'layouts'),
+  extname: '.hbs',  
+  helpers: require('./server/helpers')
+}))
+app.set('view engine', '.hbs');
+
+//static files
+
+app.use('/public',express.static(path.join(__dirname, './public/')))
+
+
 
 //Inicio de servidor
 
@@ -32,3 +54,4 @@ app.use('/teclers', routerTecler);
 app.use('/companies',routerCompany);
 app.use('/teclapartners',routerTecla);
 app.use('/evaluations',routerEvaluations);
+routeViews(app)
