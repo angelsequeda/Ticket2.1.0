@@ -115,4 +115,12 @@ export class Renderizer {
         document.getElementById('formContainer').style.display = 'block';
     };
 
+    static openEvaluationFormforUpdate(name,data,type) {
+        document.getElementById(name).innerHTML = "";
+        if(type ==="knowledge"){
+            document.getElementById(name).insertAdjacentHTML('afterbegin',`
+            <h3>Evaluación de conocimientos de ${data.nameto}</h3>
+            `)
+        }
+    }
 };
