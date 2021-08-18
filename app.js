@@ -12,7 +12,8 @@ const path = require('path')
 const exphbs = require('express-handlebars')
 const morgan = require('morgan')
 const multer = require('multer')
-const routeViews = require('./routes/viewsroutes')
+const routeViews = require('./routes/viewsroutes');
+const { seeAllpeopleController } = require('./controllers/evaluation.controllers');
 
 //Middlewares globales
 app.use(express.json());
@@ -54,4 +55,5 @@ app.use('/teclers', routerTecler);
 app.use('/companies',routerCompany);
 app.use('/teclapartners',routerTecla);
 app.use('/evaluations',routerEvaluations);
+app.get('/mainIndex',seeAllpeopleController);
 routeViews(app)
