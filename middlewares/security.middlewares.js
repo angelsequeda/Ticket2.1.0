@@ -48,16 +48,22 @@ module.exports.downloadEvaluationsMiddleware = (req,res,next) => {
 
     try {
         let tokenReceived = decryptJsonToken(req.body.token); 
-        if(tokenReceived.role === 'tecler') {
-            req.body.idUser = tokenReceived.iduser;
+        if(req.body.idSearch){
+            req.body.idUser = req.body.idSearch;
             req.body.role = 'tecler';
             next();
-        }else if(tokenReceived.role === 'evaluator'){
-            req.body.idUser = tokenReceived.idUser;
-            req.body.role = 'evaluator';
-            next();
         }else {
-            return res.status(409).json({message : 'Usuario no autorizado'});
+            if(tokenReceived.role === 'tecler') {
+                req.body.idUser = tokenReceived.iduser;
+                req.body.role = 'tecler';
+                next();
+            }else if(tokenReceived.role === 'evaluator'){
+                req.body.idUser = tokenReceived.idUser;
+                req.body.role = 'evaluator';
+                next();
+            }else {
+                return res.status(409).json({message : 'Usuario no autorizado'});
+            }
         }
     } catch (error) {
         console.log(error);
@@ -80,6 +86,17 @@ module.exports.deleteMiddleware = (req,res,next) => {
         }
     } catch (error) {
         console.log(error.message);
+        return res.status(409).json({message : 'Usuario no autorizado'});
+    }
+};
+
+module.exports.getAllDataMiddleware = async(req,res,next) => {
+
+    try {
+        let tokenReceived = decryptJsonToken(req.headers.autorization);
+        next()
+    } catch (error) {
+        console.log(error);
         return res.status(409).json({message : 'Usuario no autorizado'});
     }
 }

@@ -2,8 +2,11 @@
 
 const cors = require('cors');
 const express = require('express');
+const { seeAllpeopleController } = require('./controllers/evaluation.controllers');
 const sequelize = require('./db/connection');
+const { getAllDataMiddleware } = require('./middlewares/security.middlewares');
 const { routerEvaluations } = require('./routes/evaluationsroutes');
+const friendshipRouter = require('./routes/friendship&coments.routes');
 const {routerTecler, routerCompany, routerTecla} = require('./routes/usersroutes');
 require('dotenv').config();
 const app = express();
@@ -32,3 +35,5 @@ app.use('/teclers', routerTecler);
 app.use('/companies',routerCompany);
 app.use('/teclapartners',routerTecla);
 app.use('/evaluations',routerEvaluations);
+app.get('/mainIndex',getAllDataMiddleware,seeAllpeopleController);
+app.use('/friendscomments',friendshipRouter);

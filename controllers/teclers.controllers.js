@@ -1,6 +1,6 @@
 //Los controladores para los teclers
 
-const { searchEvaluationByCriteria, deleteAllEvaluationsService } = require('../services/evaluations.services');
+const { deleteAllEvaluationsService, searchEvaluationByCriteria } = require('../services/evaluations.services');
 const { encryptJsonToken } = require('../services/security.services');
 const { addTeclerService, searchForTeclerService, updateTeclerService, deleteTeclerService, searchTeclerExtraInfo, deleteTeclerExtraInfo, addTeclerExtraInfo } = require('../services/teclers.services');
 
@@ -74,11 +74,18 @@ module.exports.deleteTeclerController = async(req,res) => {
         }
 };
 
-module.exports.searchForTeclerInfoController = async(req,res) => {
+module.exports.searchForOtherTeclerController = async(req,res) => {
     try {
-        let evaluations = searchEvaluationByCriteria({towho : req.body.diUser});
-        
+        console.log(req.body);
+        let tecler = await searchForTeclerService(req.body);
+        tecler.result.password = "";
+        console.log(tecler);
+        let evaluations = await searchEvaluationByCriteria({towho : tecler.result.idTecler});
+        console.log(evaluations);
+        let extraInfo = await searchTeclerExtraInfo(tecler.result.idTecler);
+        console.log(extraInfo);
+        return res.status(200).json({message : 'correcto', tecler : tecler.result, evaluations,extraInfo})
     } catch (error) {
-        
+        return res.status(500).json({message : 'error'});
     }
 }

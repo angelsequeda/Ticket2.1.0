@@ -70,6 +70,20 @@ export class RetrieveData {
 
     };
 
+    static async getAnotherTecler(username) {
+        let result = await fetch('http://localhost:3000/teclers/another', {
+            method : 'POST',
+            headers:{
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            },
+            body : JSON.stringify({
+                username : username
+            })
+        });
+        return result.json();
+    }
+
     static async getEvaluator(evaluatorUsername,evaluatorPassword){
         let result = await fetch('http://localhost:3000/teclapartners/search',{
             method:'POST',
@@ -104,16 +118,47 @@ export class RetrieveData {
 
     };
 
-    static async getEvaluations(token) {
-        let result = await fetch('http://localhost:3000/evaluations/download',{
-            method: 'POST',
+    static async getEvaluations(token,id) {
+        if (!id) {
+            console.log('no ok');
+            let result = await fetch('http://localhost:3000/evaluations/download',{
+                method: 'POST',
+                headers:{
+                    "Accept": "application/json, text/plain, */*",
+                    "Content-Type": "application/json"
+                },
+                body : JSON.stringify({
+                    token: token,
+                })
+            });
+            return result.json();
+        }else {
+            console.log('ok');
+            console.log(id);
+            let result = await fetch('http://localhost:3000/evaluations/download',{
+                method: 'POST',
+                headers:{
+                    "Accept": "application/json, text/plain, */*",
+                    "Content-Type": "application/json"
+                },
+                body : JSON.stringify({
+                    token: token,
+                    idSearch : id
+                })
+            });
+            return result.json();
+        }
+        
+    };
+
+    static async getEveryone(token) {
+        let result = await fetch('http://localhost:3000/mainIndex',{
+            method : 'GET',
             headers:{
+                "Autorization" : token,
                 "Accept": "application/json, text/plain, */*",
                 "Content-Type": "application/json"
             },
-            body : JSON.stringify({
-                token: token
-            })
         });
         return result.json();
     }
