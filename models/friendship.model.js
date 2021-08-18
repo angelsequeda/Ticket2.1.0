@@ -29,7 +29,8 @@ friendshipModel.init({
     sequelize,
     timestamps : false,
     createdAt : false,
-    updatedAt : false
+    updatedAt : false,
+    tableName : 'FRIENDS'
 });
 
 friendshipModel.sync();

@@ -14,6 +14,8 @@ const morgan = require('morgan')
 const multer = require('multer')
 const routeViews = require('./routes/viewsroutes');
 const { seeAllpeopleController } = require('./controllers/evaluation.controllers');
+const { getAllDataMiddleware } = require('./middlewares/security.middlewares');
+const friendshipRouter = require('./routes/friendship&coments.routes');
 
 //Middlewares globales
 app.use(express.json());
@@ -50,10 +52,12 @@ app.listen(process.env.PORT, async()=> {
 })
 
 
+
 //Rutas para los usuarios
 app.use('/teclers', routerTecler);
 app.use('/companies',routerCompany);
 app.use('/teclapartners',routerTecla);
 app.use('/evaluations',routerEvaluations);
-app.get('/mainIndex',seeAllpeopleController);
+app.get('/mainIndex',getAllDataMiddleware,seeAllpeopleController);
+app.use('/friendscomments',friendshipRouter);
 routeViews(app)
