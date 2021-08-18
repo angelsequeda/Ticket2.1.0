@@ -2,7 +2,7 @@
   "name": "ticket2.1.0",
   "version": "1.0.0",
   "description": "Segundo Ticket de Tecla",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "nodemon --tls-min-v1.0 ./app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,8 +14,12 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "express-handlebars": "^5.3.3",
+    "fs-extra": "^10.0.0",
     "joi": "^17.4.2",
     "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.3",
     "nodemon": "^2.0.12",
     "sequelize": "^6.6.5",
     "tedious": "^11.4.0"
