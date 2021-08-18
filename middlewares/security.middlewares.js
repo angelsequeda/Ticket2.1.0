@@ -42,9 +42,17 @@ module.exports.uploadNewEvaluationMiddleware = async (req,res,next) => {
 
 module.exports.didIEvaluateThisMiddleware = async(req,res,next) => {
     try {
-        let evaluationFound = await searchEvaluationByCriteria({towho:req.body.towho,fromwho:req.body.towho});
-        if(evaluationFound.length > 0){
-            return res.status(409).json({message : 'Este tecler ya ha sido evaluado por este evaluador'})
+        let evaluationFound = await searchEvaluationByCriteria({towho:req.body.evaluation.towho,fromwho:req.body.evaluation.fromwho});
+        if(req.body.evaluation.knowledge && evaluationFound.knowledges.length > 0){
+            return res.status(400).json({message : 'Ya se ha realizado una evaluacion de conocimientos'});
+        }else if(req.body.evaluation.technologies && evaluationFound.technologies.length > 0){
+            return res.status(400).json({message : 'Ya se ha realizado una evaluacion de tecnologias'});
+        }else if(req.body.evaluation.performance && evaluationFound.performance.length > 0){
+            return res.status(400).json({message : 'Ya se ha realizado una evaluacion de desempeño'});
+        }else if(req.body.evaluation.soft && evaluationFound.softskills.length > 0){
+            return res.status(400).json({message : 'Ya se ha realizado una evaluacion de habilidades blandas'});
+        }else if(req.body.evaluation.profesional && evaluationFound.profesional.length > 0){
+            return res.status(400).json({message : 'Ya se ha realizado una evaluacion de entorno profesional'});
         }else {
             next();
         }

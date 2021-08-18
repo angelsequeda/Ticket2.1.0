@@ -113,6 +113,6 @@ export class Renderizer {
             document.getElementById('formContainer').innerHTML = "";
         });
         document.getElementById('formContainer').style.display = 'block';
-    }
-    
+    };
+
 };

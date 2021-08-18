@@ -182,5 +182,22 @@ export class DeleteData {
             })
         });
         return result.json();
+    };
+
+    static async deleteEvaluation(token,fromwho,towho,type){
+        let result = await fetch('http://localhost:3000/evaluations/delete', {
+            method : 'POST',
+            headers:{
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            },
+            body : JSON.stringify({
+                token : token,
+                fromwho : fromwho,
+                towho : towho,
+                type : type
+            })
+        });
+        return result.json();
     }
 }

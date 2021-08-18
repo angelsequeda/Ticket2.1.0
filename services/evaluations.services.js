@@ -54,24 +54,6 @@ module.exports.searchEvaluationByCriteria = async (criteria) => {
 }
 
 
-module.exports.deleteEvaluationByEvaluatorService = async(data) => {
-
-    try {
-        if(data.role != 'evaluator') {
-            throw new Error('Usuario no autorizado');
-        }else {
-            await knowledgeModel.destroy({where :{fromwho : data.idUser, towho : data.idDeleter}});
-            await technologyModel.destroy({where :{fromwho : data.idUser, towho : data.idDeleter}});
-            await softSkillsMOdel.destroy({where :{fromwho : data.idUser, towho : data.idDeleter}});
-            await performanceModel.destroy({where :{fromwho : data.idUser, towho : data.idDeleter}});
-            await profesionalEnviromentModel.destroy({where :{fromwho : data.idUser, towho : data.idDeleter}});
-        }
-    } catch (error) {
-        console.log(error.message);
-        throw new Error('Error al eliminar evaluaciones por evaluador [evaluations.services]')
-    }
-};
-
 module.exports.deleteAllEvaluationsService = async(data) => {
     try {
         await knowledgeModel.destroy({where :{ towho : data.idTecler}});
@@ -97,3 +79,97 @@ module.exports.seeAllPeople = async () => {
         throw new Error('Error al buscar todos los usuarios [evaluations.services]')
     }
 };
+
+module.exports.deleteEvaluationByEvaluatorService = async(data) => {
+    try {
+        if(data.type === "knowledge"){
+            await knowledgeModel.destroy({where : {fromwho : data.fromwho, towho:data.towho}});
+        }else if(data.type === "technology") {
+            await technologyModel.destroy({where : {fromwho : data.fromwho, towho:data.towho}});
+        }else if(data.type === "performance"){
+            await performanceModel.destroy({where : {fromwho : data.fromwho, towho:data.towho}});
+        }else if(data.type === "softskills"){
+            await softSkillsMOdel.destroy({where : {fromwho : data.fromwho, towho:data.towho}});
+        }else if(data.type === "profesional") {
+            await profesionalEnviromentModel.destroy({where : {fromwho : data.fromwho, towho:data.towho}});
+        }
+    } catch (error) {
+        console.log(error.message);
+        throw new Error('Error al borrar evaluacion [evaluations.services]');
+    }
+};
+
+module.exports.updateEvaluations = async(data) => {
+    try {
+        if(data.knowledge){ 
+            await knowledgeModel.update({
+                databaseKnowledge : data.knowledge.databaseKnowledge,
+                apis : data.knowledge.apis,
+                testing : data.knowledge.testing,
+                security : data.knowledge.security,
+                objectTeory : data.knowledge.objectTeory
+            }, {
+                where : {
+                    fromwho : data.fromwho,
+                    towho : data.towho
+                }
+            })
+        };
+        if(data.technology){
+            await technologyModel.update({
+                nodejs : data.technology.nodejs,
+                swagger : data.technology.swagger,
+                frontend : data.technology.frontend,
+                javascript : data.javascript
+            },{
+                where : {
+                    fromwho : data.fromwho,
+                    towho : data.towho
+                }
+            })
+        };
+        if(data.performance) {
+            await performanceModel.update({
+                codequality : data.performance.codequality,
+                speed : data.performance.speed,
+                codePerformance : data.performance.codePerformance
+            },{
+                where : {
+                    fromwho : data.fromwho,
+                    towho : data.towho
+                }
+            })
+        };
+        if(data.softskills) {
+            await softSkillsMOdel.update({
+                focus : data.focus,
+                teamWork : data.teamWork,
+                compromise : data.compromise,
+                communication : data.communication,
+                learningSkill : data.learningSkill,
+                problemResolution : data.problemResolution
+            },{
+                where : {
+                    fromwho : data.fromwho,
+                    towho : data.towho
+                }
+            })
+        };
+        if(data.profesional) {
+            await profesionalEnviromentModel.update({
+                github : data.github,
+                trello_jira : data.trello_jira,
+                Slack : data.Slack,
+                agile : data.agile
+            } ,{
+                where : {
+                    fromwho : data.fromwho,
+                    towho : data.towho
+                }
+            })
+        };
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error al actualizar evaluacion [evaluation.services]');
+    }
+}
