@@ -59,7 +59,8 @@ module.exports.downloadEvaluationsMiddleware = (req,res,next) => {
 
     try {
         let tokenReceived = decryptJsonToken(req.body.token); 
-        if(req.body.idSearch){
+        console.log(tokenReceived);
+        if(req.body.idSearch && tokenReceived.role !== 'tecler'){
             req.body.idUser = req.body.idSearch;
             req.body.role = 'tecler';
             next();
@@ -69,7 +70,7 @@ module.exports.downloadEvaluationsMiddleware = (req,res,next) => {
                 req.body.role = 'tecler';
                 next();
             }else if(tokenReceived.role === 'evaluator'){
-                req.body.idUser = tokenReceived.idUser;
+                req.body.idUser = tokenReceived.iduser;
                 req.body.role = 'evaluator';
                 next();
             }else {

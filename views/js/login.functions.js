@@ -86,7 +86,12 @@ document.getElementById('buttonAcceptLoginEvaluator').addEventListener('click', 
     let password =  document.getElementById('passwordLoginInput').value
 
     let result = await RetrieveData.getEvaluator(username,password);
-    console.log(result);
+    if(result.message === 'correcto') {
+        console.log(result);
+        result.result.password = password;
+        sessionStorage.setItem('useractive',JSON.stringify({data : result.result,token : result.token}));
+        window.open('../html/profileevaluator.html','_self');
+    }
     
 });
 
