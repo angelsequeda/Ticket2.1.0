@@ -1,5 +1,6 @@
 //Los controladores para aquellos miembros de TECLA
 
+const { searchEvaluationByCriteria } = require("../services/evaluations.services");
 const { encryptJsonToken } = require("../services/security.services");
 const { addTeclaEvaluatorService,searchForTeclaEvaluatorService, updateTeclaEvaluatorService, deleteTeclaEvaluatorService } = require("../services/tecla.services");
 
@@ -63,5 +64,17 @@ module.exports.updateTeclaEvaluatorController = async(req,res) => {
         
         console.log(error.message);
         return res.status(400).json('Algo ha salido mal con la actualización del Evaluador');
+    }
+};
+
+
+module.exports.searchAnotherEvaluator = async(req,res) => {
+    try {
+        let evaluator = await searchForTeclaEvaluatorService(req.body);
+        let evaluations = await searchEvaluationByCriteria({fromwho : evaluator.result.idEvaluator});
+        return res.status(200).json({message : 'correcto',evaluator,evaluations});
+    } catch (error) {
+        console.log(error.message);
+        return res.status(400).json({message : 'error'});
     }
 }

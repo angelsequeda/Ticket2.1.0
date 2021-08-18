@@ -45,20 +45,20 @@ if (userActive != null) {
    });
 
    userActive.evaluations.result.knowledges.forEach((element) => {
-       Renderizer.addRowTotable('Knows',`knowlegeRow${document.getElementById('Knows').rows.length}`,'afterbegin',`<td>${element.databaseKnowledge}</td><td>${element.apis}</td><td>${element.testing}</td><td>${element.security}</td><td>${element.objectTeory}</td><td>${element.name}</td>`)
+       Renderizer.addRowTotable('Knows',`knowlegeRow${document.getElementById('Knows').rows.length}`,'afterbegin',`<td>${element.databaseKnowledge}</td><td>${element.apis}</td><td>${element.testing}</td><td>${element.security}</td><td>${element.objectTeory}</td><td>${element.namefrom}</td>`)
    });
    userActive.evaluations.result.technologies.forEach((element) => {
-       Renderizer.addRowTotable('Technologies',`technologieRow${document.getElementById('Technologies').rows.length}`,'afterbegin',`<td>${element.nodejs}</td><td>${element.frontend}</td><td>${element.swagger}</td><td>${element.javascript}</td><td>${element.name}</td>`)
+       Renderizer.addRowTotable('Technologies',`technologieRow${document.getElementById('Technologies').rows.length}`,'afterbegin',`<td>${element.nodejs}</td><td>${element.frontend}</td><td>${element.swagger}</td><td>${element.javascript}</td><td>${element.namefrom}</td>`)
    });
    userActive.evaluations.result.performance.forEach((element)=> {
-       Renderizer.addRowTotable('Performance',`performanceRow${document.getElementById(`Performance`).rows.length}`,'afterbegin',`<td>${element.codequality}</td><td>${element.speed}</td><td>${element.codePerformance}</td><td>${element.name}</td>`)
+       Renderizer.addRowTotable('Performance',`performanceRow${document.getElementById(`Performance`).rows.length}`,'afterbegin',`<td>${element.codequality}</td><td>${element.speed}</td><td>${element.codePerformance}</td><td>${element.namefrom}</td>`)
    });
    userActive.evaluations.result.softskills.forEach((element) => {
-       Renderizer.addRowTotable('Softskills',`softskillRow${document.getElementById(`Softskills`).rows.length}`,`afterbegin`, `<td>${element.focus}</td><td>${element.teamWork}</td><td>${element.compromise}</td><td>${element.communication}</td><td>${element.learningSkill}</td><td>${element.problemResolution}</td><td>${element.name}</td>`)
+       Renderizer.addRowTotable('Softskills',`softskillRow${document.getElementById(`Softskills`).rows.length}`,`afterbegin`, `<td>${element.focus}</td><td>${element.teamWork}</td><td>${element.compromise}</td><td>${element.communication}</td><td>${element.learningSkill}</td><td>${element.problemResolution}</td><td>${element.namefrom}</td>`)
    });
 
    userActive.evaluations.result.profesional.forEach((element) => {
-       Renderizer.addRowTotable('Profesional',`profesionalRow${document.getElementById(`Profesional`).rows.length}`,'afterbegin',`<td>${element.github}</td><td>${element.trello_jira}</td><td>${element.Slack}</td><td>${element.agile}</td><td>${element.name}</td>`)
+       Renderizer.addRowTotable('Profesional',`profesionalRow${document.getElementById(`Profesional`).rows.length}`,'afterbegin',`<td>${element.github}</td><td>${element.trello_jira}</td><td>${element.Slack}</td><td>${element.agile}</td><td>${element.namefrom}</td>`)
    });
 
    userActive.extras.comments.forEach((element) => {

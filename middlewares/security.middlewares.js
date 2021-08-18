@@ -31,9 +31,6 @@ module.exports.uploadNewEvaluationMiddleware = async (req,res,next) => {
             let tokenReceived = decryptJsonToken(req.body.token);
             if (tokenReceived.role !== 'evaluator') {
                 return res.status(409).json({message : 'Usuario no uatorizado'});
-                            
-            }else if(await (await searchEvaluationByCriteria({towho:req.body.evaluation.towho,fromwho:req.body.evaluation.fromwho})).knowledges.length > 0){
-                return res.status(409).json({message : 'Usuario ya calificado por este evaluador'});
             }else {
                 next();
             }
@@ -42,6 +39,20 @@ module.exports.uploadNewEvaluationMiddleware = async (req,res,next) => {
             return res.status(500).json({message : 'error'})
         }
 };
+
+module.exports.didIEvaluateThisMiddleware = async(req,res,next) => {
+    try {
+        let evaluationFound = await searchEvaluationByCriteria({towho:req.body.towho,fromwho:req.body.towho});
+        if(evaluationFound.length > 0){
+            return res.status(409).json({message : 'Este tecler ya ha sido evaluado por este evaluador'})
+        }else {
+            next();
+        }
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({message : 'error'});
+    }
+}
 
 
 module.exports.downloadEvaluationsMiddleware = (req,res,next) => {
