@@ -15,6 +15,14 @@ commentaryModel.init({
         type: DataTypes.STRING,
         allowNull: false
     },
+    towhoName : {
+        type : DataTypes.STRING,
+        allowNull : false
+    },
+    fromwhoName : {
+        type : DataTypes.STRING,
+        allowNull : false
+    },
     commentary: {
         type: DataTypes.STRING(1000),
         allowNull: true

@@ -4,11 +4,19 @@ const {Model, DataTypes} = require('sequelize');
 class friendshipModel extends Model{};
 
 friendshipModel.init({
-    friend1:{
+    friend1id:{
         type : DataTypes.STRING,
         allowNull : false
     },
-    friend2 : {
+    friend2id : {
+        type : DataTypes.STRING,
+        allowNull : false
+    },
+    friend1name:{
+        type : DataTypes.STRING,
+        allowNull : false
+    },
+    friend2name : {
         type : DataTypes.STRING,
         allowNull : false
     },
@@ -26,4 +34,4 @@ friendshipModel.init({
 
 friendshipModel.sync();
 
-module.exports = friendshipModel();
+module.exports = friendshipModel;
