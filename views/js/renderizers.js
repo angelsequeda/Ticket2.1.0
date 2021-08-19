@@ -115,12 +115,65 @@ export class Renderizer {
         document.getElementById('formContainer').style.display = 'block';
     };
 
-    static openEvaluationFormforUpdate(name,data,type) {
-        document.getElementById(name).innerHTML = "";
+    static openEvaluationFormforUpdate(data,type) {
+        document.getElementById('formContainer').innerHTML = "";
         if(type ==="knowledge"){
-            document.getElementById(name).insertAdjacentHTML('afterbegin',`
+            document.getElementById('formContainer').insertAdjacentHTML('afterbegin',`
             <h3>Evaluación de conocimientos de ${data.nameto}</h3>
+            <p>API's: <input type="number" id="inputAPIS" value ="${data.apis}" max="5" min="0" disabled> </p>
+            <p>Bases de datos: <input type="number" id="inputDatabase" value ="${data.databaseKnowledge}" max="5" min="0" disabled></p>
+            <p>Teoría de objetos:<input type="number" id="inputObjectTeory" value ="${data.objectTeory}" max="5" min="0" disabled> </p>
+            <p>Seguridad:<input type="number" id="inputSecurity" value ="${data.security}" max="5" min="0" disabled> </p>
+            <p>Testing:<input type="number" id="inputTesting" value ="${data.testing}" max="5" min="0" disabled></p>
+            <button id="buttonEditEvaluation">Edit</button>
+            <button id="buttonAcceptEvaluationUpdate" disabled>Aceptar</button>
+            <button id="buttonCloseFormEvaluation">Cerrar</button>`);
+        }else if(type === 'technology'){
+            document.getElementById('formContainer').insertAdjacentHTML('afterbegin',`
+            <h3>Evaluación de tecnologías de ${data.nameto}</h3>
+            <p>Frontend: <input type="number" id="inputFrontend" value ="${data.frontend}" max="5" min="0" disabled> </p>
+            <p>Javascript: <input type="number" id="inputJavascript" value ="${data.javascript}" max="5" min="0" disabled></p>
+            <p>Nodejs:<input type="number" id="inputNodejs" value ="${data.nodejs}" max="5" min="0" disabled> </p>
+            <p>Swagger:<input type="number" id="inputSwagger" value ="${data.swagger}" max="5" min="0" disabled> </p>
+            <button id="buttonEditEvaluation">Edit</button>
+            <button id="buttonAcceptEvaluationUpdate" disabled>Aceptar</button>
+            <button id="buttonCloseFormEvaluation">Cerrar</button>`)
+        }else if(type === "performance") {
+            document.getElementById('formContainer').insertAdjacentHTML('afterbegin',`
+            <h3>Evaluación de desempeño de ${data.nameto}</h3>
+            <p>Eficiencia de código: <input type="number" id="inputCodePerformance" value ="${data.codePerformance}" max="5" min="0" disabled> </p>
+            <p>Calidad de código: <input type="number" id="inputCodeQuality" value ="${data.codequality}" max="5" min="0" disabled></p>
+            <p>Velocidad de entrega:<input type="number" id="inputSpeed" value ="${data.speed}" max="5" min="0" disabled> </p>
+            <button id="buttonEditEvaluation">Edit</button>
+            <button id="buttonAcceptEvaluationUpdate" disabled>Aceptar</button>
+            <button id="buttonCloseFormEvaluation">Cerrar</button>
+            `)
+        }else if(type === "softskills") {
+            document.getElementById('formContainer').insertAdjacentHTML('afterbegin',`
+            <h3>Evaluación de desempeño de ${data.nameto}</h3>
+            <p>Comunicación: <input type="number" id="inputcommunication" value ="${data.communication}" max="5" min="0" disabled> </p>
+            <p>Comprometido:<input type="number" id="inputcompromise" value ="${data.compromise}" max="5" min="0" disabled> </p>
+            <p>Enfocado: <input type="number" id="inputfocus" value ="${data.focus}" max="5" min="0" disabled></p>
+            <p>Capacidad de aprendizaje:<input type="number" id="inputlearningSkill" value ="${data.learningSkill}" max="5" min="0" disabled> </p>
+            <p>Resolución de problemas:<input type="number" id="inputproblemResolution" value ="${data.problemResolution}" max="5" min="0" disabled> </p>
+            <p>Trabajo en equipo:<input type="number" id="inputteamWork" value ="${data.teamWork}" max="5" min="0" disabled> </p>
+            <button id="buttonEditEvaluation">Edit</button>
+            <button id="buttonAcceptEvaluationUpdate" disabled>Aceptar</button>
+            <button id="buttonCloseFormEvaluation">Cerrar</button>
             `)
         }
+
+        document.getElementById('buttonCloseFormEvaluation').addEventListener('click',()=> {
+            document.getElementById('formContainer').innerHTML = "";
+            document.getElementById('formContainer').style.display = 'none';
+        });
+        document.getElementById('formContainer').style.display = 'block';
+
+    };
+
+    static disDisabledMany = (data) => {
+        data.forEach((element) => {
+            document.getElementById(element).disabled = false;
+        })
     }
 };
