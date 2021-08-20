@@ -4,6 +4,7 @@ const friendshipModel = require("../models/friendship.model");
 
 module.exports.newFriendshipRequestService = async(data) => {
     try {
+        console.log(data);
         await friendshipModel.create({
             friend1id : data.id1,
             friend2id: data.id2,
@@ -46,10 +47,11 @@ module.exports.deleteFriendshipService = async(data) => {
 
 module.exports.createNewCommentService = async(data) => {
     try {
+        console.log(data);
         await commentaryModel.create({
-            frowho : data.id1,
+            fromwho : data.id1,
             towho : data.id2,
-            fromwhoname : data.name1,
+            fromwhoName : data.name1,
             towhoName : data.name2,
             commentary : data.commentary
         })
@@ -61,8 +63,8 @@ module.exports.createNewCommentService = async(data) => {
 
 module.exports.acceptFriendshipService = async (data) => {
     try {
-        await friendshipModel.update({accepted : 1},{where : {friend2id : data.id}}),
-        await friendshipModel.update({accepted : 1}, {where : {friend1id : data.id}});
+        await friendshipModel.update({accepted : 1},{where : {friend2id : data.id2, friend1id : data.id1}}),
+        await friendshipModel.update({accepted : 1}, {where : {friend1id : data.id2, friend2id : data.id1}});
     } catch (error) {
         console.log(error.message);
         throw new Error('Error al aceptar solicitud de amistad f&c services.js');
