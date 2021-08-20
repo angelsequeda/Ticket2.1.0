@@ -5,6 +5,7 @@ let evaluations = await RetrieveData.getEvaluations(JSON.parse(sessionStorage.ge
 console.log(evaluations);
 let userActive = JSON.parse(sessionStorage.getItem('useractive'));
 console.log(userActive);
+document.getElementById('formContainer').style.display = 'none';
 
 if(userActive){
     document.getElementById('usernameprofileEvaluator').value = userActive.data.username;
@@ -21,7 +22,10 @@ if(userActive){
             Renderizer.openEvaluationFormforUpdate(element,'knowledge');
             document.getElementById('buttonEditEvaluation').addEventListener('click',()=> {
                 Renderizer.disDisabledMany(['inputAPIS','inputDatabase','inputObjectTeory',"inputSecurity","inputTesting","buttonAcceptEvaluationUpdate"]);
-            })
+                document.getElementById('buttonAcceptEvaluationUpdate').addEventListener(`click`, async()=> {
+                    
+                })
+            });
         });
         document.getElementById(`knowledgeDeleteof${element.towho}`).addEventListener('click',async ()=> {
             let confirmation = window.confirm('¿Seguro que desea borrar la evaluación de conocimientos de ' + `${element.nameto}?`);
@@ -75,9 +79,31 @@ if(userActive){
             });
         });
         document.getElementById(`softskillDeleteof${element.towho}`).addEventListener('click',async()=> {
-            let confirm = window.confirm('¿Seguro que desea borrar la evaluación de Hbilidades blandas de '+`${element.nameto}?`)
-            await DeleteData.deleteEvaluation(userActive.token,userActive.data.idEvaluator,element.towho,'softskills');
-            document.getElementById(`evaluationRow${rows}`).remove();
+            let confirm = window.confirm('¿Seguro que desea borrar la evaluación de Hbilidades blandas de '+`${element.nameto}?`);
+            if(confirm) {
+                await DeleteData.deleteEvaluation(userActive.token,userActive.data.idEvaluator,element.towho,'softskills');
+                document.getElementById(`evaluationRow${rows}`).remove();
+            };
+            
         });
+    });
+    evaluations.result.profesional.forEach((element) => {
+        let rows = document.getElementById('evaluationstable').rows.length;
+        Renderizer.addRowTotable('evaluationstable', `evaluationRow${rows}`,'afterbegin',`Evaluacion de entorno profesional de ${element.nameto} <button id="profesionalof${element.towho}" type="button">Ver</button><button id="profesionalDeleteof${element.towho}">Eliminar</button>`);
+        document.getElementById(`profesionalof${element.towho}`).addEventListener('click' , ()=> {
+            Renderizer.openEvaluationFormforUpdate(element,'profesional');
+            document.getElementById(`buttonEditEvaluation`).addEventListener('click', ()=> {
+                Renderizer.disDisabledMany([`inputSlack`,`inputgithub`,`inputagile`,`inputtrello_jira`,`buttonAcceptEvaluationUpdate`]);
+            });
+        })
+        
+        document.getElementById(`profesionalDeleteof${element.towho}`).addEventListener('click', async()=> {
+
+            let confirm = window.confirm('¿Seguro que desea borrar la evaluación de Entorno Profesional de '+ `${element.nameto}`);
+            if(confirm) {
+                await DeleteData.deleteEvaluation(userActive.token,userActive.data.idEvaluator,element.towho,'profesional');
+                document.getElementById(`evaluationRow${rows}`).remove();
+            }
+        })
     })
 }

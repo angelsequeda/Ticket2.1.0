@@ -1,4 +1,4 @@
-const { newFriendshipRequestService, deleteFriendshipService, createNewCommentService } = require("../services/friendship&comments.services")
+const { newFriendshipRequestService, deleteFriendshipService, createNewCommentService, acceptFriendshipService } = require("../services/friendship&comments.services")
 
 module.exports.newFriendshipRequestController = async(req,res) => {
     try {
@@ -11,15 +11,21 @@ module.exports.newFriendshipRequestController = async(req,res) => {
 };
 
 
-module.exports.deleteFriendshipController = async (req,res) => {
+
+
+module.exports.changeFrienshipState = async(req,res) => {
     try {
-        await deleteFriendshipService(req.body);
+        if(req.body.what === "delete"){
+            await deleteFriendshipService(req.body);
+        }else if(req.body.what === "accept"){
+            await acceptFriendshipService(req.body);
+        };
         return res.status(200).json({message : 'correcto'});
     } catch (error) {
         console.log(error.message);
-        return res.status(400).json({message : 'error'});
+        return res.status(500).json({message : 'error'});
     }
-};
+}
 
 module.exports.newCommentController = async (req,res) => {
     try {

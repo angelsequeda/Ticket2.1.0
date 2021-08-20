@@ -8,7 +8,6 @@ if(!allOurPeople.result) {
     alert(allOurPeople.message);
 } else {
     allOurPeople.result.teclers.forEach((element) => {
-        console.log(element.username);
         Renderizer.createCards(element.name,'Teclersdivision',null,element.idTecler,element.profilePhoto);
         document.getElementById(element.idTecler).addEventListener('click',async ()=> {
             let result = await RetrieveData.getAnotherTecler(element.username);
@@ -29,6 +28,29 @@ if(!allOurPeople.result) {
             result.extraInfo.habilities.forEach((element) => {
                 Renderizer.addRowTotable('tableHabilities',`habilityRow${document.getElementById('tableHabilities').rows.length}`,'afterbegin',`${element.what}`);
             });
+            if(!document.getElementById(`doEvaluationButton`).hidden) {
+                document.getElementById('doEvaluationButton').addEventListener('click', ()=> {
+                    Renderizer.openFirstEvaluationForm(1);
+                    document.getElementById('buttonknowledgeEvaluationStart').addEventListener('click', ()=> {
+                        Renderizer.openFirstEvaluationForm(2,'knowledge',element.username,JSON.parse(sessionStorage.getItem('useractive')).data.username,element.idTecler,JSON.parse(sessionStorage.getItem('useractive')).data.idEvaluator,JSON.parse(sessionStorage.getItem('useractive')).token);
+                    });
+                    document.getElementById('buttontechnologyEvaluationStart').addEventListener('click', ()=> {
+                        Renderizer.openFirstEvaluationForm(2,'technology',element.username,JSON.parse(sessionStorage.getItem('useractive')).data.username,element.idTecler,JSON.parse(sessionStorage.getItem('useractive')).data.idEvaluator,JSON.parse(sessionStorage.getItem('useractive')).token);
+                    });
+                    document.getElementById('buttonperformanceEvaluationStart').addEventListener('click', ()=> {
+
+                        Renderizer.openFirstEvaluationForm(2,'performance',element.username,JSON.parse(sessionStorage.getItem('useractive')).data.username,element.idTecler,JSON.parse(sessionStorage.getItem('useractive')).data.idEvaluator,JSON.parse(sessionStorage.getItem('useractive')).token)
+                    });
+                    document.getElementById('buttonsoftSkillEvaluationStart').addEventListener('click', ()=> {
+
+                        Renderizer.openFirstEvaluationForm(2,'soft',element.username,JSON.parse(sessionStorage.getItem('useractive')).data.username,element.idTecler,JSON.parse(sessionStorage.getItem('useractive')).data.idEvaluator,JSON.parse(sessionStorage.getItem('useractive')).token)
+                    });
+                    document.getElementById('buttonprofesionalEvaluationStart').addEventListener('click', ()=> {
+
+                        Renderizer.openFirstEvaluationForm(2,'profesional',element.username,JSON.parse(sessionStorage.getItem('useractive')).data.username,element.idTecler,JSON.parse(sessionStorage.getItem('useractive')).data.idEvaluator,JSON.parse(sessionStorage.getItem('useractive')).token)
+                    });
+                })
+            };
         })
     });
     

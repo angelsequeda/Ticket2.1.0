@@ -3,8 +3,8 @@ const { findFriendshipByCriteria } = require("../services/friendship&comments.se
 module.exports.areTheyFriendsForComment = async(req,res,next) => {
 
     try {
-        let result =  await findFriendshipByCriteria({friend1id : req.body.id});
-        let result2 = await findFriendshipByCriteria({friend2id : req.body.id});
+        let result =  await findFriendshipByCriteria({friend1id : req.body.id1,friend2id: req.body.id2});
+        let result2 = await findFriendshipByCriteria({friend2id : req.body.id1, friend1id: req.body.id2});
         if(result.length + result.body.length === 0){
             return res.status(400).json({message : 'No es amigo de esta persona'});
         }else {

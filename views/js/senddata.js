@@ -48,6 +48,21 @@ export class Savedata {
         });
         return result.json();
     };
+
+    static async sendNewEvaluation(evaluation,token){
+        let result = await fetch('http://localhost:3000/evaluations/new',{
+            method : 'POST',
+            headers:{
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            },
+            body : JSON.stringify({
+                token : token,
+                evaluation : evaluation
+            })
+        });
+        return result.json();
+    }
 }
 
 

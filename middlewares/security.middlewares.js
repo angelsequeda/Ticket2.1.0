@@ -1,5 +1,6 @@
 const { searchEvaluationsByEvaluatorService, searchEvaluationByCriteria } = require("../services/evaluations.services");
-const { decryptJsonToken } = require("../services/security.services")
+const { decryptJsonToken } = require("../services/security.services");
+const { searchForTeclerService } = require("../services/teclers.services");
 
 module.exports.updateMiddleware = (req,res,next) => {
     let tokenReceived = decryptJsonToken(req.body.token);
@@ -119,4 +120,16 @@ module.exports.getAllDataMiddleware = async(req,res,next) => {
         console.log(error);
         return res.status(409).json({message : 'Usuario no autorizado'});
     }
-}
+};
+
+module.exports.doesEvaluatedExistMiddleware = async(req,res,next) => {
+    console.log(req.body);
+
+    let result = await searchForTeclerService({username : req.body.evaluation.nameto});
+    console.log(result);
+    if(result.result) {
+        next();
+    }else {
+        return res.status(400).json('Este tecler no existe');
+    }
+};
