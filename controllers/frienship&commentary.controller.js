@@ -1,4 +1,4 @@
-const { newFriendshipRequestService, deleteFriendshipService, createNewCommentService, acceptFriendshipService, findFriendshipByCriteria } = require("../services/friendship&comments.services")
+const { newFriendshipRequestService, deleteFriendshipService, createNewCommentService, acceptFriendshipService, findFriendshipByCriteria, getAllmyCommentsService, deleteCommentService } = require("../services/friendship&comments.services")
 
 
 //Generar una solicitud de amistad
@@ -30,6 +30,7 @@ module.exports.changeFrienshipState = async(req,res) => {
 }
 //Crear nuevo comentario
 module.exports.newCommentController = async (req,res) => {
+
     try {
         await createNewCommentService(req.body);
         return res.status(200).json({message : 'correcto'});
@@ -51,3 +52,22 @@ module.exports.findAllmyFriendsController = async(req,res) => {
     }
 };
 
+module.exports.findAllmyCommentsController = async(req,res) => {
+    try {
+        let result = await getAllmyCommentsService(req.body);
+        return res.status(200).json({ message : 'correcto', result : result});
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({message : 'error'});
+    }
+};
+
+module.exports.deleteCommentController = async(req,res) => {
+    try {
+        await deleteCommentService(req.body);
+        return res.status(200).json({message : 'correcto'});
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({message  : 'error'});
+    }
+}

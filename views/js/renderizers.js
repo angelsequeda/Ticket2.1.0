@@ -350,6 +350,25 @@ export class Renderizer {
                         document.getElementById('evaluationForm').style.display = "none";
                     }
                 });
+            }else if(type === 'comment'){
+                document.getElementById('evaluationForm').insertAdjacentHTML('afterbegin',`
+                <h2>Comentario</h2>
+                <textarea id="commentinput" rows= "4" cols ="50" maxlength="1000"></textarea>
+                <button id ="sendCommentButton">Enviar</button>
+                <button id="buttonCloseEvaluationForm">Cerrar</button>
+                `);
+                document.getElementById('sendCommentButton').addEventListener('click', async()=> {
+                    let result = await Savedata.sendNewComment(namefrom,nameto,fromwho,towho,document.getElementById('commentinput').value,token);
+                    if(result.message === "correcto"){
+                        alert('Mensaje enviado');
+                        
+                    }else {
+                        alert(result.message)
+                    }
+                    document.getElementById('evaluationForm').innerHTML = "";
+                    document.getElementById('evaluationForm').style.display = "none";
+                });
+                document.getElementById('evaluationForm').style.display = 'block';
             }
             document.getElementById('buttonCloseEvaluationForm').addEventListener('click', ()=> {
                 document.getElementById('evaluationForm').innerHTML = "";

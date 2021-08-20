@@ -69,6 +69,25 @@ export class Savedata {
             })
         });
         return result.json();
+    };
+    
+    static async sendNewComment(namefrom,nameto,idfrom,idto,comment,token) {
+        let result = await fetch('http://localhost:3000/friendscomments/newcomment', {
+            method : 'POST',
+            headers:{
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id1 : idfrom,
+                id2 : idto,
+                name1 : namefrom,
+                name2 : nameto,
+                commentary : comment,
+                token : token
+            })
+        });
+        return result.json();
     }
 }
 
@@ -204,6 +223,28 @@ export class RetrieveData {
             })
         });
         return result.json();
+    };
+
+    //recuperar todos los comentarios de una persona 
+    static async findComments(id,token,criteria) {
+        if(criteria === "forme" || criteria ==="mine"){
+            let result = await fetch('http://localhost:3000/friendscomments/getmycomments', {
+            method : 'post',
+            headers : {
+                'Accept' : 'application/json, text/plain, */*',
+                'Content-type' : 'application/json'
+            },
+            body : {
+                id1 : id,
+                token : token,
+                criteria : criteria
+            }
+            });
+            return result.json();
+        }else {
+            throw new Error('Solo se admite criteria = "forme" o criteria = "mine');
+        }
+        
     }
 
 };

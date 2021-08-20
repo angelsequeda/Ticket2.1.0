@@ -85,6 +85,9 @@ module.exports.itsMeForfriendship = async(req,res,next) => {
 module.exports.itsMeForComment = async(req,res,next)=> {
     try {
         let tokenreceived = decryptJsonToken(req.body.token);
+        console.log(req.body);
+        console.log(tokenreceived.iduser);
+        console.log(req.body.id1);
         if(tokenreceived.iduser !== req.body.id1){
             return res.status(409).json({message : 'Esta no es tu cuenta'});
         }else {

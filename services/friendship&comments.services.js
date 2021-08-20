@@ -90,3 +90,32 @@ module.exports.acceptFriendshipService = async (data) => {
     }
 };
 
+
+//Obtener todos los comentarios hechos a un tecler
+
+module.exports.getAllmyCommentsService = async(data) => {
+    try {
+        if(data.criteria === 'mine'){
+            let result = await commentaryModel.findAll({where : { fromwho : data.id1}});
+            return result;
+        }else if(data.criteria === 'forme') {
+            let result = await commentaryModel.findAll({where : {towho : data.id1}});
+            return result;
+        }
+        
+    } catch (error) {
+        console.log(error.message);
+        throw new Error('Error al buscar comentarios f&c services.js');
+    }
+};
+
+//Eliminar un comentario
+module.exports.deleteCommentService = async(data) => {
+    try {
+        await commentaryModel.destroy({where : {fromwho : data.id1, towho : data.id2, id : data.idcomment}});
+        await commentaryModel.destroy({where : {fromwho : data.id2, towho : data.id1, id : data.idcomment}})
+    } catch (error) {
+        console.log(error.message);
+        throw new Error('Error al eliminar comentario f&c services.js');
+    }
+};

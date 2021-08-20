@@ -55,6 +55,11 @@ if(!allOurPeople.result) {
                     });
                 })
             };
+            if(!document.getElementById('commentButton').hidden){
+                document.getElementById('commentButton').addEventListener('click', ()=> {
+                    Renderizer.openFirstEvaluationForm(2,'comment',element.username,JSON.parse(sessionStorage.getItem('useractive')).data.username,element.idTecler,JSON.parse(sessionStorage.getItem('useractive')).data.idEvaluator || JSON.parse(sessionStorage.getItem('useractive')).data.idTecler,JSON.parse(sessionStorage.getItem('useractive')).token);
+                })
+            }
         })
     });
     
