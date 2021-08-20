@@ -33,10 +33,22 @@ module.exports.deleteFriendshipService = async(data) => {
                 friend2id : data.id2
             }}
         );
+        await friendshipModel.destroy(
+            {where : {
+                friend1id : data.id2,
+                friend2id : data.id1
+            }}
+        );
         await commentaryModel.destroy({
             where : {
                 fromwho : data.id1,
                 towho : data.id2
+            }
+        });
+        await commentaryModel.destroy({
+            where : {
+                fromwho : data.id2,
+                towho : data.id1
             }
         });
     } catch (error) {
@@ -47,7 +59,6 @@ module.exports.deleteFriendshipService = async(data) => {
 
 module.exports.createNewCommentService = async(data) => {
     try {
-        console.log(data);
         await commentaryModel.create({
             fromwho : data.id1,
             towho : data.id2,
@@ -69,4 +80,5 @@ module.exports.acceptFriendshipService = async (data) => {
         console.log(error.message);
         throw new Error('Error al aceptar solicitud de amistad f&c services.js');
     }
-}
+};
+

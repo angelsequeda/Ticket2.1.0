@@ -1,4 +1,4 @@
-const { newFriendshipRequestService, deleteFriendshipService, createNewCommentService, acceptFriendshipService } = require("../services/friendship&comments.services")
+const { newFriendshipRequestService, deleteFriendshipService, createNewCommentService, acceptFriendshipService, findFriendshipByCriteria } = require("../services/friendship&comments.services")
 
 module.exports.newFriendshipRequestController = async(req,res) => {
     try {
@@ -36,4 +36,16 @@ module.exports.newCommentController = async (req,res) => {
         return res.status(400).json({message : 'error'});
     }
 }
+
+module.exports.findAllmyFriendsController = async(req,res) => {
+    try {
+        let result1 = await findFriendshipByCriteria({friend1id : req.body.id1});
+        let result2 = await findFriendshipByCriteria({friend2id : req.body.id1});
+
+        return res.status(200).json({message : 'correcto',result : result1.concat(result2)});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({message : 'error'});
+    }
+};
 

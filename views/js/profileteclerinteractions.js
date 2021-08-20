@@ -6,6 +6,7 @@ import { DeleteData, RetrieveData, Savedata } from "./senddata.js";
 let userActiveaux = JSON.parse(sessionStorage.getItem('useractive'));
 let userActive = await RetrieveData.getTecler(userActiveaux.data.username,userActiveaux.data.password);
 userActive.evaluations = await RetrieveData.getEvaluations(userActive.token);
+userActive.friends = await RetrieveData.getAllFrieds(userActive.token,userActive.result.idTecler);
 console.log(userActive);
 if (userActive != null) {
     document.getElementById('usernameprofile').value = userActive.result.username;
@@ -63,7 +64,33 @@ if (userActive != null) {
 
    userActive.extras.comments.forEach((element) => {
        let rows = document.getElementById(`tableComments`).rows.length;
-       Renderizer.addRowTotable('tableComments',`commentRow${rows-1}`,'afterbegin',`<td>${element.commentary}   ${element.registered}</td>`)
+       Renderizer.addRowTotable('tableComments',`commentRow${rows-1}`,'afterbegin',`<td>"${element.commentary}"   ${element.fromwhoName}</td>`)
+   });
+   
+   userActive.friends.result.forEach((element)=> {
+    let rows = document.getElementById(`tableFriends`).rows.length;
+       if(element.accepted === 0){
+            Renderizer.addRowTotable('tableFriends',`friendRow${rows}`,'afterbegin',`<td>${element.friend1name} quiere ser tu amigo <button id="butttonAcceptFriend${element.friend1name}">Aceptar</button><button id="deleteFriend${element.friend1name}">Declinar</button></td>`)
+            document.getElementById(`butttonAcceptFriend${element.friend1name}`).addEventListener('click', async()=> {
+                if(element.friend1id !== userActive.result.idTecler){
+                    let result = await DeleteData.changeFriendship(userActive.token,element.friend1id,userActive.result.idTecler,'accept');
+                }else {
+                    let result = await DeleteData.changeFriendship(userActive.token,element.friend2id,userActive.result.idTecler,'accept');
+                }
+                
+                document.getElementById(`butttonAcceptFriend${element.friend1name}`).disabled = true;
+            });
+       }else {
+            Renderizer.addRowTotable('tableFriends',`friendRow${rows}`,'afterbegin',`<td>${element.friend1name} es tu amigo, puedes hacerle un comentario desde aqui <button id="buttonSendComment${element.friend1name}">Comentar</button><button id="deleteFriend${element.friend1name}">Eliminar</button></td>`)
+       };
+        document.getElementById(`deleteFriend${element.friend1name}`).addEventListener('click', async()=> {
+            if(element.friend1id !== userActive.result.idTecler){
+                let result = await DeleteData.changeFriendship(userActive.token,element.friend1id,userActive.result.idTecler,'delete');
+            }else {
+                let result = await DeleteData.changeFriendship(userActive.token,element.friend2id,userActive.result.idTecler,'delete');
+            }
+            document.getElementById(`friendRow${rows}`).remove();
+       });
    })
     
 }else {

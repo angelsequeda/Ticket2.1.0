@@ -176,6 +176,22 @@ export class RetrieveData {
             },
         });
         return result.json();
+    };
+
+    static async getAllFrieds(token,id) {
+        let result = await fetch('http://localhost:3000/friendscomments/getmyfriends',{
+            method : 'POST',
+            headers:{
+                "Autorization" : token,
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            },
+            body :JSON.stringify({
+                token : token,
+                id1 : id
+            })
+        });
+        return result.json();
     }
 
 };
@@ -211,6 +227,23 @@ export class DeleteData {
                 fromwho : fromwho,
                 towho : towho,
                 type : type
+            })
+        });
+        return result.json();
+    };
+
+    static async changeFriendship(token,fromwho,towho,what) {
+        let result = await fetch('http://localhost:3000/friendscomments/changefrienship',{
+            method :'POST',
+            headers:{
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            },
+            body : JSON.stringify({
+                id1: fromwho,
+                id2: towho,
+                what : what,
+                token : token
             })
         });
         return result.json();

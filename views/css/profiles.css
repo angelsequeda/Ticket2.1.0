@@ -6,3 +6,9 @@
     border: none;
     text-decoration-color: black;
 }
+
+#bodyProfileTecler{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
