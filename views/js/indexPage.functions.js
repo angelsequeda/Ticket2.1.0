@@ -1,6 +1,6 @@
 //Estas son las funciones que renderizan y dan animacion a la pagina principal 
 import { Renderizer } from "./renderizers.js";
-import {RetrieveData} from "./senddata.js"
+import {RetrieveData, Savedata} from "./senddata.js"
 
 //El usuario se guarda en un sessionStorage como useractive (solo la informacio de usuario y contraseña)
 console.log(JSON.parse(sessionStorage.getItem('useractive')));
@@ -58,6 +58,16 @@ if(!allOurPeople.result) {
             if(!document.getElementById('commentButton').hidden){
                 document.getElementById('commentButton').addEventListener('click', ()=> {
                     Renderizer.openFirstEvaluationForm(2,'comment',element.username,JSON.parse(sessionStorage.getItem('useractive')).data.username,element.idTecler,JSON.parse(sessionStorage.getItem('useractive')).data.idEvaluator || JSON.parse(sessionStorage.getItem('useractive')).data.idTecler,JSON.parse(sessionStorage.getItem('useractive')).token);
+                })
+            }
+            if(!document.getElementById(`makeFriendButton`).hidden) {
+                document.getElementById('makeFriendButton').addEventListener('click',async ()=> {
+                    let result = await Savedata.sendNewFriendRequest(JSON.parse(sessionStorage.getItem('useractive')).data.idTecler || JSON.parse(sessionStorage.getItem('useractive')).data.idEvaluator,element.idTecler,JSON.parse(sessionStorage.getItem('useractive')).data.username,element.username, JSON.parse(sessionStorage.getItem('useractive')).token);
+                    if(result.message === 'correcto'){
+                        alert('nuevo amigo pendiente');
+                    }else {
+                        alert(result.message);
+                    }
                 })
             }
         })

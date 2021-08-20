@@ -61,26 +61,31 @@ if (userActive != null) {
    });
 
    userActive.evaluations.result.profesional.forEach((element) => {
-       Renderizer.addRowTotable('Profesional',`profesionalRow${document.getElementById(`Profesional`).rows.length}`,'afterbegin',`<td>${element.github}</td><td>${element.trello_jira}</td><td>${element.Slack}</td><td>${element.agile}</td><td>${element.namefrom}</td>`)
+       Renderizer.addRowTotable('Profesional',`profesionalRow${document.getElementById(`Profesional`).rows.length}`,'afterbegin',`<td>${element.github}</td><td>${element.trello_jira}</td><td>${element.Slack}</td><td>${element.agile}</td><td>${element.namefrom}</td>`);
    });
 
    userActive.extras.comments.forEach((element) => {
        let rows = document.getElementById(`tableComments`).rows.length;
-       Renderizer.addRowTotable('tableComments',`commentRow${rows-1}`,'afterbegin',`<td>"${element.commentary}"   ${element.fromwhoName}</td>`)
+       Renderizer.addRowTotable('tableComments',`commentRow${rows-1}`,'afterbegin',`<td>"${element.commentary}"   ${element.fromwhoName}</td><td><button id="answerComment${element.id}">Responder</button><button id="deleteComment${element.id}">Eliminar</button></td>`);
+       document.getElementById(`deleteComment${element.id}`).addEventListener('click', async()=> {
+           let result = await DeleteData.deleteComment(element.id,userActive.result.idTecler,element.fromwho,userActive.token);
+           console.log(result);
+           document.getElementById(`commentRow${rows-1}`).remove();
+       })
    });
    
    //Se buscan y muestran los amigos del tecler 
    userActive.friends.result.forEach((element)=> {
     let rows = document.getElementById(`tableFriends`).rows.length;
     //Cada amigo (dependiendo si su solicitud de amistad ha sido aceptada o no) aparece aqui
-       if(element.accepted === 0){
+       if(element.accepted === 0 && element.friend2id === userActive.result.idTecler){
            //Si la solicitud no ha sido aceptada los botones asignados permiten aceptar la invitacion o borrarla de la 
            //base de datos
             Renderizer.addRowTotable('tableFriends',`friendRow${rows}`,'afterbegin',`<td>${element.friend1name} quiere ser tu amigo <button id="butttonAcceptFriend${element.friend1name}">Aceptar</button><button id="deleteFriend${element.friend1name}">Declinar</button></td>`)
             document.getElementById(`butttonAcceptFriend${element.friend1name}`).addEventListener('click', async()=> {
                 if(element.friend1id !== userActive.result.idTecler){
                     let result = await DeleteData.changeFriendship(userActive.token,element.friend1id,userActive.result.idTecler,'accept');
-                }else {
+                }else if(element.accepted === 1){
                     let result = await DeleteData.changeFriendship(userActive.token,element.friend2id,userActive.result.idTecler,'accept');
                 }
                 

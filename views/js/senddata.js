@@ -88,6 +88,24 @@ export class Savedata {
             })
         });
         return result.json();
+    };
+
+    static async sendNewFriendRequest(fromwho,towho,namefrom,nameto,token){
+        let result = await fetch('http://localhost:3000/friendscomments/newfriendship',{
+            method : 'POST',
+            headers:{
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            },
+            body : JSON.stringify({
+                id1 : fromwho ,
+                id2: towho,
+                name1 : namefrom,
+                name2 : nameto,
+                token : token
+            })
+        });
+        return result.json();
     }
 }
 
@@ -234,11 +252,11 @@ export class RetrieveData {
                 'Accept' : 'application/json, text/plain, */*',
                 'Content-type' : 'application/json'
             },
-            body : {
+            body : JSON.stringify({
                 id1 : id,
                 token : token,
                 criteria : criteria
-            }
+            })
             });
             return result.json();
         }else {
@@ -303,6 +321,28 @@ export class DeleteData {
                 id1: fromwho,
                 id2: towho,
                 what : what,
+                token : token
+            })
+        });
+        return result.json();
+    };
+
+    ///Eliminar un comentario
+    //id : id del comentario
+    //id1 :id de uno de los involucrados
+    //id2 : id del otro involucrado
+
+    static async deleteComment(id,id1,id2,token){
+        let result = await fetch('http://localhost:3000/friendscomments/deletecomment', {
+            method : 'POST',
+            headers:{
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            },
+            body : JSON.stringify({
+                id1 : id1,
+                id2 : id2,
+                idcomment : id,
                 token : token
             })
         });
