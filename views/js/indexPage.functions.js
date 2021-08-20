@@ -1,12 +1,16 @@
+//Estas son las funciones que renderizan y dan animacion a la pagina principal 
 import { Renderizer } from "./renderizers.js";
 import {RetrieveData} from "./senddata.js"
 
+//El usuario se guarda en un sessionStorage como useractive (solo la informacio de usuario y contraseña)
 console.log(JSON.parse(sessionStorage.getItem('useractive')));
+//Se buscan todos los usuarios 
 let allOurPeople = await RetrieveData.getEveryone(JSON.parse(sessionStorage.getItem('useractive')).token);
 console.log(allOurPeople);
 if(!allOurPeople.result) {
     alert(allOurPeople.message);
 } else {
+    //Se renderizan tarjetas para cada uno de los usuarios dependiendo de su role
     allOurPeople.result.teclers.forEach((element) => {
         Renderizer.createCards(element.name,'Teclersdivision',null,element.idTecler,element.profilePhoto);
         document.getElementById(element.idTecler).addEventListener('click',async ()=> {

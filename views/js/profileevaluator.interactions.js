@@ -1,13 +1,18 @@
+//Para el perfil de un evaluador estas son las funciones necesarias
 import { Renderizer } from "./renderizers.js";
 import { DeleteData, RetrieveData } from "./senddata.js";
 
+//Se busa a las evaluaciones realizadas por el evaluador
 let evaluations = await RetrieveData.getEvaluations(JSON.parse(sessionStorage.getItem('useractive')).token);
 console.log(evaluations);
+
+
 let userActive = JSON.parse(sessionStorage.getItem('useractive'));
 console.log(userActive);
 document.getElementById('formContainer').style.display = 'none';
 
 if(userActive){
+    //Se llenan los espacios del perfil
     document.getElementById('usernameprofileEvaluator').value = userActive.data.username;
     document.getElementById('mailprofileEvaluator').value = userActive.data.mail;
     document.getElementById('tellUsSomethingprofileEvaluator').value = userActive.data.tellUsSomething;
@@ -15,8 +20,11 @@ if(userActive){
     document.getElementById('jobprofileEvaluator').value = userActive.data.job;
     document.getElementById('passwordprofileEvaluator').value = userActive.data.password;
 
+    //Por cada evaluacion de conocimientos se agreaga un nuevo parrafo que permite ver la evaluacion y actualizarla o borrarla
+    //Lo mismo ocurre con todas las demas evaluaciones (despempeño, entorno profesional, etc.)
     evaluations.result.knowledges.forEach((element) => {
         let rows = document.getElementById('evaluationstable').rows.length;
+        //Ver clase renderizer
         Renderizer.addRowTotable('evaluationstable', `evaluationRow${rows}`,'afterbegin',`Evaluacion de conocimientos de ${element.nameto} <button id="knowledgeof${element.towho}" type="button">Ver</button><button id="knowledgeDeleteof${element.towho}">Eliminar</button>`);
         document.getElementById(`knowledgeof${element.towho}`).addEventListener('click', async ()=> {
             Renderizer.openEvaluationFormforUpdate(element,'knowledge');

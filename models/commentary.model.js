@@ -1,3 +1,4 @@
+//Modelo de un comentario incluyendo los ids de quienes los hicieron, sus nombres y el comentario
 const {Model,DataTypes} = require('sequelize');
 const sequelize = require('../db/connection');
 

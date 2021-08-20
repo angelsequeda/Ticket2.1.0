@@ -1,3 +1,5 @@
+//Los servicios necesarios para las evaluaciones de los teclers
+
 const companyModel = require("../models/company.model");
 const evaluatorModel = require("../models/evaluator.model");
 const knowledgeModel = require("../models/knowledge.model");
@@ -7,7 +9,8 @@ const softSkillsMOdel = require("../models/softskills.model");
 const technologyModel = require("../models/technologies.model");
 const teclerModel = require("../models/tecler.model");
 
-
+//Dependiendo de lo que se envia en el sistema es el modelo de la base de datos a la que se agrega la evaluacion
+//Cada evaluacion va en forma de una lista con las evaluaciones del cero al cinco de cada aspecto
 module.exports.newEvaluationService = async (data) => {
 
     try {
@@ -37,6 +40,7 @@ module.exports.newEvaluationService = async (data) => {
 
 };
 
+//Se puede buscar una evaluacion por criterio (creador, a quien se evaluo, etc.)
 module.exports.searchEvaluationByCriteria = async (criteria) => {
     try {
         let knowledges = await knowledgeModel.findAll({where : criteria,raw: true});
@@ -53,7 +57,7 @@ module.exports.searchEvaluationByCriteria = async (criteria) => {
     }
 }
 
-
+//Eliminar todas las evaluaciones por un tecler
 module.exports.deleteAllEvaluationsService = async(data) => {
     try {
         await knowledgeModel.destroy({where :{ towho : data.idTecler}});
@@ -67,7 +71,7 @@ module.exports.deleteAllEvaluationsService = async(data) => {
     }
 };
 
-
+//Buscar a todas las personas del sistema (incluyendo evaluaciones del tecler)
 module.exports.seeAllPeople = async () => {
     try {
         let teclers = await teclerModel.findAll({attributes:{exclude: ['password','num_usuario']}, where: {active : 1}});
@@ -79,7 +83,7 @@ module.exports.seeAllPeople = async () => {
         throw new Error('Error al buscar todos los usuarios [evaluations.services]')
     }
 };
-
+//Eliminar las evaluaciones por parte de un evaluador
 module.exports.deleteEvaluationByEvaluatorService = async(data) => {
     try {
         if(data.type === "knowledge"){
@@ -98,7 +102,7 @@ module.exports.deleteEvaluationByEvaluatorService = async(data) => {
         throw new Error('Error al borrar evaluacion [evaluations.services]');
     }
 };
-
+//Actualizar una evaluacion
 module.exports.updateEvaluations = async(data) => {
     try {
         if(data.knowledge){ 

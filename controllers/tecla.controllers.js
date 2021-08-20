@@ -5,7 +5,7 @@ const { encryptJsonToken } = require("../services/security.services");
 const { addTeclaEvaluatorService,searchForTeclaEvaluatorService, updateTeclaEvaluatorService, deleteTeclaEvaluatorService } = require("../services/tecla.services");
 
 
-
+//Buscar por un evaluador
 module.exports.searchForTeclaEvaluatorController = async(req,res) => {
 
     try {
@@ -20,7 +20,7 @@ module.exports.searchForTeclaEvaluatorController = async(req,res) => {
         return res.status(400).json({message:'error'});
     }
 };
-
+//Añadir un evaluador
 module.exports.addTeclaEvaluatorController = async(req,res) => {
 
     try {
@@ -36,7 +36,7 @@ module.exports.addTeclaEvaluatorController = async(req,res) => {
         
     }
 };
-
+//Eliminar un evaluador
 module.exports.deleteTeclaEvaluatorController = async(req,res) => {
 
     try {
@@ -50,7 +50,7 @@ module.exports.deleteTeclaEvaluatorController = async(req,res) => {
         return res.status(400).json('Algo ha salido mal con la eliminación del Evaluador');
     }
 };
-
+//Actualizar la informacion de un evaluador
 module.exports.updateTeclaEvaluatorController = async(req,res) => {
 
     try {
@@ -67,7 +67,7 @@ module.exports.updateTeclaEvaluatorController = async(req,res) => {
     }
 };
 
-
+//Buscar la informacion de un evaluador cuando no se es el titular de la cuenta
 module.exports.searchAnotherEvaluator = async(req,res) => {
     try {
         let evaluator = await searchForTeclaEvaluatorService(req.body);

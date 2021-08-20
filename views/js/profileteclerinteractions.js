@@ -1,8 +1,9 @@
+//Estas son las interacciones enre el perfil de un tecler y todo el sistema 
 import { Tecler } from "./classes.js";
 import { Renderizer } from "./renderizers.js";
 import { DeleteData, RetrieveData, Savedata } from "./senddata.js";
 
-
+//El usuario presente esta guardado en el session storage
 let userActiveaux = JSON.parse(sessionStorage.getItem('useractive'));
 let userActive = await RetrieveData.getTecler(userActiveaux.data.username,userActiveaux.data.password);
 userActive.evaluations = await RetrieveData.getEvaluations(userActive.token);
@@ -18,6 +19,7 @@ if (userActive != null) {
     document.getElementById('profilePhotoprofile').setAttribute('src',userActive.result.profilePhoto);
     document.getElementById(`mailprofile`).value = userActive.result.mail;
 
+    //Se muestran las habilidades extras del tecler (lenguajes, hobbies, etc.)
     userActive.extras.habilities.forEach((element)=> {
         let rows = document.getElementById('tableHabilities').rows.length;
         Renderizer.addRowTotable('tableHabilities',`habilityRow${rows-1}`, 'afterbegin',`<td> Mi extra es que : <input type="text" clas ="inputs" id="habilityinput${rows-1}" value="${element.what}" disabled class="inputs">`);
@@ -67,9 +69,13 @@ if (userActive != null) {
        Renderizer.addRowTotable('tableComments',`commentRow${rows-1}`,'afterbegin',`<td>"${element.commentary}"   ${element.fromwhoName}</td>`)
    });
    
+   //Se buscan y muestran los amigos del tecler 
    userActive.friends.result.forEach((element)=> {
     let rows = document.getElementById(`tableFriends`).rows.length;
+    //Cada amigo (dependiendo si su solicitud de amistad ha sido aceptada o no) aparece aqui
        if(element.accepted === 0){
+           //Si la solicitud no ha sido aceptada los botones asignados permiten aceptar la invitacion o borrarla de la 
+           //base de datos
             Renderizer.addRowTotable('tableFriends',`friendRow${rows}`,'afterbegin',`<td>${element.friend1name} quiere ser tu amigo <button id="butttonAcceptFriend${element.friend1name}">Aceptar</button><button id="deleteFriend${element.friend1name}">Declinar</button></td>`)
             document.getElementById(`butttonAcceptFriend${element.friend1name}`).addEventListener('click', async()=> {
                 if(element.friend1id !== userActive.result.idTecler){
@@ -81,6 +87,8 @@ if (userActive != null) {
                 document.getElementById(`butttonAcceptFriend${element.friend1name}`).disabled = true;
             });
        }else {
+           //Si la solicitud fue aceptada se puede borrar la solicitud (quedando como no amigos) o bien
+           //se puede hacer un comentario al compañero
             Renderizer.addRowTotable('tableFriends',`friendRow${rows}`,'afterbegin',`<td>${element.friend1name} es tu amigo, puedes hacerle un comentario desde aqui <button id="buttonSendComment${element.friend1name}">Comentar</button><button id="deleteFriend${element.friend1name}">Eliminar</button></td>`)
        };
         document.getElementById(`deleteFriend${element.friend1name}`).addEventListener('click', async()=> {
@@ -98,7 +106,7 @@ if (userActive != null) {
     window.open('../html/login.html','_self');
 }
 
-
+//A partir de este punto todas son funciones de los distintos botones que permiten actualizar al tecler
 
 document.getElementById('editButton').addEventListener('click', ()=> {
     

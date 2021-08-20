@@ -1,7 +1,9 @@
+//Middlewares de seguridad y que evitan confusiones con las bases de datos
+
 const { searchEvaluationsByEvaluatorService, searchEvaluationByCriteria } = require("../services/evaluations.services");
 const { decryptJsonToken } = require("../services/security.services");
 const { searchForTeclerService } = require("../services/teclers.services");
-
+//No se puede actualizar la informacion de un usuario si no se es el propio usuario 
 module.exports.updateMiddleware = (req,res,next) => {
     let tokenReceived = decryptJsonToken(req.body.token);
     if(tokenReceived.role === 'tecler') {
@@ -26,7 +28,7 @@ module.exports.updateMiddleware = (req,res,next) => {
         return res.status(400).json({message : 'Usuario no autorizado'});
     }
 };
-
+//No se permiten evaluaciones por personas que no son evaluadores
 module.exports.uploadNewEvaluationMiddleware = async (req,res,next) => {
         try {
             let tokenReceived = decryptJsonToken(req.body.token);
@@ -40,7 +42,7 @@ module.exports.uploadNewEvaluationMiddleware = async (req,res,next) => {
             return res.status(500).json({message : 'error'})
         }
 };
-
+//No se permite evaluar dos veces a un mismo tecler por un mismo evaluador
 module.exports.didIEvaluateThisMiddleware = async(req,res,next) => {
     try {
         let evaluationFound = await searchEvaluationByCriteria({towho:req.body.evaluation.towho,fromwho:req.body.evaluation.fromwho});
@@ -63,7 +65,7 @@ module.exports.didIEvaluateThisMiddleware = async(req,res,next) => {
     }
 }
 
-
+//Si no se es un evaluador o un tecler, no se pueden descargar las evaluaciones de nadie de manera directa si no se es un evaluador o el tecler
 module.exports.downloadEvaluationsMiddleware = (req,res,next) => {
 
     try {
@@ -92,7 +94,7 @@ module.exports.downloadEvaluationsMiddleware = (req,res,next) => {
     }
 };
 
-
+//Se pueden eliminar usuarios si no se es el propio usuario
 module.exports.deleteMiddleware = (req,res,next) => {
     try {
         let tokenReceived = decryptJsonToken(req.body.token);
@@ -110,7 +112,7 @@ module.exports.deleteMiddleware = (req,res,next) => {
         return res.status(409).json({message : 'Usuario no autorizado'});
     }
 };
-
+//Se necesita comprobar el token para saber si se puede consultar a los ususarios
 module.exports.getAllDataMiddleware = async(req,res,next) => {
 
     try {
@@ -121,7 +123,7 @@ module.exports.getAllDataMiddleware = async(req,res,next) => {
         return res.status(409).json({message : 'Usuario no autorizado'});
     }
 };
-
+//Si el usuario a evaluar no existe no se permite la evaluacion
 module.exports.doesEvaluatedExistMiddleware = async(req,res,next) => {
     console.log(req.body);
 

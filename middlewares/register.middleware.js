@@ -1,3 +1,5 @@
+//Estos middlewrares permiten evaluar si los datos de un registro o un login son correctos
+
 const Joi = require("joi");
 const { userTeclerDTO, userEvaluatorDTO, userCompanyDTO, userDTOlogin } = require("../dto/users.dto");
 const { searchForCompanyEmployeeService } = require("../services/company.services");
@@ -7,7 +9,7 @@ const { searchForTeclerService } = require("../services/teclers.services")
 
 //Cuando alguien se registra, primero corroboramos que el usuario no existea (depende de si es un tecler, un evaluador o una empresa buscando talento)
 
-
+//Si el usuario ya existe, no se puede volver a registrar un usuario con el mismo nombre hasta eliminar al primero
 module.exports.doesUserAlreaydExist = async(req,res,next) =>{
    
     if (req.body.role === 'tecler') {
@@ -40,7 +42,7 @@ module.exports.doesUserAlreaydExist = async(req,res,next) =>{
     }
 }
 
-
+//Se evaluan los datos del registro dependiendo si es un tecler, un evaluador o un colaborador de una compañia
 module.exports.isUserForregistrationRight = (req,res,next) => {
 
     console.log(req.body);
@@ -79,7 +81,7 @@ module.exports.isUserForregistrationRight = (req,res,next) => {
 
 };
 
-
+//Evalua los datos de inicio de sesion 
 module.exports.isUserForLoginRight = (req,res,next)=> {
     console.log(req.body);
 
@@ -94,7 +96,7 @@ module.exports.isUserForLoginRight = (req,res,next)=> {
 
 };
 
-
+//Si el usuario no esta registrado no puede iniciar sesion
 module.exports.isUserRegistered = async(req,res,next) => {
 
     if (req.body.role === 'tecler') {

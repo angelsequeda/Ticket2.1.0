@@ -1,6 +1,9 @@
+//Como el login implica varias animaciones, se separa en funciones e interacciones dependiendo
+//Las funciones son las necesarias para hacer validaciones y busquedas desde el front
 import { Company, Evaluator, Tecler } from "./classes.js";
 import { RetrieveData, Savedata } from "./senddata.js";
 
+//Si se registra un tecler
 document.getElementById('acceptRegisterButtonTecler').addEventListener('click',async ()=>{
 
     let newTecler ={};
@@ -21,7 +24,7 @@ document.getElementById('acceptRegisterButtonTecler').addEventListener('click',a
     let saved = await Savedata.saveTecler(newTeclerInfo);
     console.log(saved);
 });
-
+//Si se registra un evaluador
 document.getElementById('acceptRegisterButtonEvaluator').addEventListener('click', async ()=> {
 
     let newEvaluator ={};
@@ -39,7 +42,7 @@ document.getElementById('acceptRegisterButtonEvaluator').addEventListener('click
     console.log(result);
 
 });
-
+//Si se registra un colaborador de alguna compañia
 document.getElementById('acceptRegisterButtonCompany').addEventListener('click', async ()=> {
 
     let newCompany = {};
@@ -58,7 +61,7 @@ document.getElementById('acceptRegisterButtonCompany').addEventListener('click',
     console.log(result);
 });
 
-
+//Aunque el login es el mismo formato para todos, cada uno apunta a un endopoint distinto
 document.getElementById('buttonAcceptLoginTecler').addEventListener('click',async()=> {
 
     let username =  document.getElementById('usernameLoginInput').value;

@@ -4,7 +4,9 @@ import { Savedata } from "./senddata.js";
 
 export class Renderizer {
 
-
+    //Añadir una fila a una cierta tabla con un contenido 
+    //table : nombre de la tabla, name : nombre de la fila, criteria : 'afterbegin','beforebegin' dependiendo de lo que se requierea
+    //inner : contenido de la fila a agreagar
     static  addRowTotable(table,name,criteria,inner) {
         let newRow = document.createElement('tr');
         newRow.id = name;
@@ -12,6 +14,7 @@ export class Renderizer {
         document.getElementById(newRow.id).insertAdjacentHTML(criteria,inner);
     };
 
+    //Eliminar ultima fila de una tabla por nombre, table : nombre de la tabla
     static  deleteRowFromTable(table){
         if(document.getElementById(table).rows.length > 1) {
             document.getElementById(table).lastChild.remove();
@@ -19,6 +22,10 @@ export class Renderizer {
         
     };
 
+    //Como se teienen que salvar varios inputs de una tabla a objetos. saveDataFromInputs salva dichos datos a un objeto
+    //tablename : nombre de la tabla, //list : una lista a la que se agregara cada objeto nuevo creado, 
+    //keys : las claves del objeto a 
+    //construir, inputs : los nombres de los inputs a usar
     static saveDataFromInputs(tablename,list,keys,inputs) {
         
         for (let index = 0; index < document.getElementById(tablename).rows.length-1; index++) {
@@ -30,6 +37,7 @@ export class Renderizer {
         };
     };
 
+    //Permite salvar los datos de varios inputs usando sus nombres en una lista y agregando su valor a otra lista a devvolver
     static saveDataFromInputsBynameToList(names) {
         let result =[];
         for (let index = 0; index < names.length; index++) {
@@ -38,6 +46,7 @@ export class Renderizer {
         return result;
     }
 
+    //Crear las cartas para la indexpage dependiendo si es un tecler,un evaluador o un colaborador
     static createCards(name,where,extraInfo,id,foto) {
         let division = document.createElement('div');
         division.className = 'card';
@@ -53,6 +62,7 @@ export class Renderizer {
         document.getElementById(where).appendChild(division);
     };
 
+    //Abrir el formato con los datos de una persona en la pagina principal, dependiendo de si es un tecler, un evaluador o un colaborador
     static openform(role,data) {
         document.getElementById('formContainer').innerHTML = "";
         if(role === 'tecler'){
@@ -124,6 +134,11 @@ export class Renderizer {
         document.getElementById('formContainer').style.display = 'block';
     };
 
+    //Abrir un formato para actualizar las evaluaciones hechas por un evaluador con sesion iniciada
+    //data : los datos para llenar los espacios de los inputs
+    //type :  depende de la evaluacion  a abrir
+    //knowledge : conocimientos, technology :  tecnologias, performance : despempeño , softskills : habilidades blandas
+    //profesional : entorno profesional
     static openEvaluationFormforUpdate(data,type) {
         document.getElementById('formContainer').innerHTML = "";
         if(type ==="knowledge"){
@@ -191,6 +206,14 @@ export class Renderizer {
 
     };
 
+    //Abrir un formato para la primera evaluacion hecha a un tecler, se puede seleccionar el tipo d eevaluacion a hacer
+    //stage : si es 1 abre la seleccion de evaluaciones, si es 2 abre la evaluacion
+    //type : el tipo de evaluacion
+    //namefrom : nombre del evaluador
+    //nameto : nombre del tecler evaluado
+    //fromwho : id del evaluador
+    //towho : id del tecler evaluado
+    //token : token del evaluador
     static openFirstEvaluationForm(stage,type,nameto,namefrom,towho,fromwho,token) {
 
         if(stage === 1){
@@ -335,7 +358,7 @@ export class Renderizer {
         }
     }
 
- 
+    //Esta funcion permite habilitar varios botones o inputs al mismo tiempo usanod sus nombres en una lista
     static disDisabledMany = (data) => {
         data.forEach((element) => {
             document.getElementById(element).disabled = false;

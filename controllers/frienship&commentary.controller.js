@@ -1,5 +1,7 @@
 const { newFriendshipRequestService, deleteFriendshipService, createNewCommentService, acceptFriendshipService, findFriendshipByCriteria } = require("../services/friendship&comments.services")
 
+
+//Generar una solicitud de amistad
 module.exports.newFriendshipRequestController = async(req,res) => {
     try {
         await newFriendshipRequestService(req.body);
@@ -12,7 +14,7 @@ module.exports.newFriendshipRequestController = async(req,res) => {
 
 
 
-
+//Actualizar la solicitud de amistad (aceptarla o borrarla)
 module.exports.changeFrienshipState = async(req,res) => {
     try {
         if(req.body.what === "delete"){
@@ -26,7 +28,7 @@ module.exports.changeFrienshipState = async(req,res) => {
         return res.status(500).json({message : 'error'});
     }
 }
-
+//Crear nuevo comentario
 module.exports.newCommentController = async (req,res) => {
     try {
         await createNewCommentService(req.body);
@@ -36,7 +38,7 @@ module.exports.newCommentController = async (req,res) => {
         return res.status(400).json({message : 'error'});
     }
 }
-
+//Encontrar todos los amigos de un tecler
 module.exports.findAllmyFriendsController = async(req,res) => {
     try {
         let result1 = await findFriendshipByCriteria({friend1id : req.body.id1});

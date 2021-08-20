@@ -1,3 +1,5 @@
+//El modelo de una oferta de empleo
+
 const {Model,DataTypes} = require('sequelize');
 const sequelize = require('../db/connection');
 const companyModel = require('./company.model');

@@ -1,3 +1,4 @@
+//El modelo de los estudios de un tecler, incluyendo donde los realizo, cuanto tiempo y de que se trato
 const sequelize = require("../db/connection");
 const {Model, DataTypes} = require('sequelize');
 

@@ -1,6 +1,8 @@
+//Middlewares para las solicitudes de amistad y los comentarios de los teclers] (son los unicos que pueden tener amigos)
+
 const { findFriendshipByCriteria } = require("../services/friendship&comments.services");
 const { decryptJsonToken } = require("../services/security.services");
-
+//Si dos usuarios no son amigos, no pueden hacer comentarios entre ellos
 module.exports.areTheyFriendsForComment = async(req,res,next) => {
 
     try {
@@ -23,7 +25,7 @@ module.exports.areTheyFriendsForComment = async(req,res,next) => {
         return res.status(500).json({message : 'error'});
     }
 };
-
+//Si ya son amigos, no se permite una segunda solicitud de amistad
 module.exports.areTheyFriendsForRequest = async(req,res,next) => {
     try {
         let result =  await findFriendshipByCriteria({friend1id : req.body.id1,friend2id: req.body.id2});
@@ -38,7 +40,7 @@ module.exports.areTheyFriendsForRequest = async(req,res,next) => {
         return res.status(500).json({message : 'error'});
     }
 };
-
+//Si no se es un tecler o un evaluador, no se permite hacer comentarios
 module.exports.canYouMakeAcomment = async(req,res,next) => {
     try {
         let tokenreceived = decryptJsonToken(req.body.token);
@@ -52,7 +54,7 @@ module.exports.canYouMakeAcomment = async(req,res,next) => {
         return res.status(500).json({message : 'error'})
     }
 };
-
+//no se puede enviar una solicitud e amistad a uno mismo
 module.exports.youCantbeYourOwnfriend = async(req,res,next) => {
     try {
         if(req.body.id1 === req.body.id2){
@@ -65,7 +67,7 @@ module.exports.youCantbeYourOwnfriend = async(req,res,next) => {
         return res.status(500).json({message : 'error'});
     }
 };
-
+//Si el usuario que envia la solicitud de amistad no es el mismo que accede usando el token, no se permite la solicitud
 module.exports.itsMeForfriendship = async(req,res,next) => {
     try {
         let tokenreceived = decryptJsonToken(req.body.token);
@@ -79,7 +81,7 @@ module.exports.itsMeForfriendship = async(req,res,next) => {
         return res.status(500).json({message : 'error'});
     }
 };
-
+//Tampoco se permite un comentario si no se sabe que uno de los usuarios involucrados es el usuario correspondiente
 module.exports.itsMeForComment = async(req,res,next)=> {
     try {
         let tokenreceived = decryptJsonToken(req.body.token);
