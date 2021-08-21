@@ -377,6 +377,17 @@ export class Renderizer {
                     document.getElementById('evaluationForm').style.display = "none";
                 });
                 document.getElementById('evaluationForm').style.display = 'block';
+            }else if(type === 'offer'){
+                document.getElementById('evaluationForm').insertAdjacentHTML('afterbegin',`
+                <h2>Invita a ${nameto} a trabajar contigo</h2>
+                <p>Salario:<input type="number" id="salaryinput"> m/n</p>
+                <p>Puesto: <input type ="text" id="jobinput"></p>
+                <p>Describe brevemente el trabajo</p>
+                <textarea id ="offerinput" rows ="4" cols ="50" maxlength ="2000"></textarea>
+                <button id ="sendOferButton">Enviar</button>
+                <button id="buttonCloseEvaluationForm">Cerrar</button>
+                ` );
+                document.getElementById('evaluationForm').style.display = 'block';
             }
             document.getElementById('buttonCloseEvaluationForm').addEventListener('click', ()=> {
                 document.getElementById('evaluationForm').innerHTML = "";

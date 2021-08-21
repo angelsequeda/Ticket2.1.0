@@ -121,6 +121,27 @@ export class Savedata {
             })
         });
         return result.json();
+    };
+
+    static async sendNewOffer(nameto,namefrom,fromwho,towho,salary,job,ofer,token){
+        let result = await fetch('http://localhost:3000/offers/new',{
+            method : 'POST',
+            headers:{
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            },
+            body : JSON.stringify({
+                nameto : nameto,
+                namefrom : namefrom,
+                fromwho : fromwho,
+                towho : towho,
+                salary : salary,
+                job : job,
+                ofer : ofer,
+                token: token
+            })
+        });
+        return result.json();
     }
 }
 
@@ -278,6 +299,22 @@ export class RetrieveData {
             throw new Error('Solo se admite criteria = "forme" o criteria = "mine');
         }
         
+    };
+
+    static async getAllMyOfers(fromwho,towho,token){
+        let result = await fetch('http://localhost:3000/offers/getoffers',{
+            method : 'POST',
+            headers : {
+                'Accept' : 'application/json, text/plain, */*',
+                'Content-type' : 'application/json'
+            },
+            body : JSON.stringify({
+                fromwho : fromwho,
+                towho : towho,
+                token : token
+            })
+        });
+        return result.json();
     }
 
 };

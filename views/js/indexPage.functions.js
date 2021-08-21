@@ -69,6 +69,14 @@ if(!allOurPeople.result) {
                         alert(result.message);
                     }
                 })
+            };
+            if(!document.getElementById('employeeOferButton').hidden){
+                document.getElementById('employeeOferButton').addEventListener('click', ()=> {
+                    Renderizer.openFirstEvaluationForm(2,'offer',element.username,JSON.parse(sessionStorage.getItem('useractive')).data.username,element.idTecler,JSON.parse(sessionStorage.getItem('useractive')).data.idCompanyUser,JSON.parse(sessionStorage.getItem('useractive')).token);
+                    document.getElementById('sendOferButton').addEventListener('click', async()=> {
+                        let result = await Savedata.sendNewOffer(element.name,JSON.parse(sessionStorage.getItem('useractive')).data.username,JSON.parse(sessionStorage.getItem('useractive')).data.idCompanyUser,element.idTecler,document.getElementById('salaryinput').value,document.getElementById('jobinput').value,document.getElementById('offerinput').value,JSON.parse(sessionStorage.getItem('useractive')).token)
+                    })
+                })
             }
         })
     });

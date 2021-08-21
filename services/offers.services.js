@@ -6,6 +6,8 @@ module.exports.createNewOfer = async(data) => {
     console.log(today.toDateString());
     try {
         await employmentOferModel.create({
+            namefrom : data.namefrom,
+            nameto : data.nameto,
             fromwho : data.fromwho,
             towho : data.towho,
             job : data.job,
@@ -58,5 +60,14 @@ module.exports.findOfersByCriteriaService = async(criteria) => {
     } catch (error) {
         console.log(error.message);
         throw new Error('Error al encontrar oferta [ofers.services.js]');
+    }
+};
+
+module.exports.deleteResponse = async(data) => {
+    try {
+        await responseToOferModel.destroy({where : {idOfOfer : data.id}});
+    } catch (error) {
+        console.log(error.message);
+        throw new Error('Error al eliminar respuesta [ofers.services.js]');
     }
 }

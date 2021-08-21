@@ -14,6 +14,14 @@ employmentOferModel.init({
         type: DataTypes.STRING,
         allowNull: false
     },
+    namefrom : {
+        type : DataTypes.STRING,
+        allowNull : false
+    },
+    nameto :{
+        type : DataTypes.STRING,
+        allowNull : false
+    },
     towho: {
         type: DataTypes.STRING,
         allowNull: true,
