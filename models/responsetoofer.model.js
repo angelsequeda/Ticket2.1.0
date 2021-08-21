@@ -17,7 +17,7 @@ responseToOferModel.init({
         type : DataTypes.STRING,
         allowNull : false
     },
-    Answer : {
+    answer : {
         type : DataTypes.STRING(2000),
         allowNull : false
     }
