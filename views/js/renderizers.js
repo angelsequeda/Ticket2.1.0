@@ -102,7 +102,7 @@ export class Renderizer {
                 document.getElementById('employeeOferButton').hidden = false;
                 document.getElementById('commentButton').hidden = true;
             }else {
-                document.getElementById('makeFriendButton').hidden = false;
+                document.getElementById('makeFriendButton').hidden = true;
                 document.getElementById("evaluationsButton").hidden = false;
                 document.getElementById('doEvaluationButton').hidden = false;
                 document.getElementById('employeeOferButton').hidden = true;

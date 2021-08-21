@@ -105,72 +105,22 @@ module.exports.deleteEvaluationByEvaluatorService = async(data) => {
 //Actualizar una evaluacion
 module.exports.updateEvaluations = async(data) => {
     try {
+        let evaluator = data.fromwho;
+        let evaluated = data.towho;
         if(data.knowledge){ 
-            await knowledgeModel.update({
-                databaseKnowledge : data.knowledge.databaseKnowledge,
-                apis : data.knowledge.apis,
-                testing : data.knowledge.testing,
-                security : data.knowledge.security,
-                objectTeory : data.knowledge.objectTeory
-            }, {
-                where : {
-                    fromwho : data.fromwho,
-                    towho : data.towho
-                }
-            })
+            await knowledgeModel.update({databaseKnowledge: data.knowledge[0],apis: data.knowledge[1], testing:data.knowledge[2], security: data.knowledge[3],objectTeory: data.knowledge[4]},{where : {fromwho: evaluator,towho: evaluated}});
         };
-        if(data.technology){
-            await technologyModel.update({
-                nodejs : data.technology.nodejs,
-                swagger : data.technology.swagger,
-                frontend : data.technology.frontend,
-                javascript : data.javascript
-            },{
-                where : {
-                    fromwho : data.fromwho,
-                    towho : data.towho
-                }
-            })
+        if(data.technologies){
+            await technologyModel.update({nodejs: data.technologies[0],frontend:data.technologies[1],swagger: data.technologies[2],javascript: data.technologies[3]},{where : {fromwho: evaluator,towho: evaluated}});
         };
         if(data.performance) {
-            await performanceModel.update({
-                codequality : data.performance.codequality,
-                speed : data.performance.speed,
-                codePerformance : data.performance.codePerformance
-            },{
-                where : {
-                    fromwho : data.fromwho,
-                    towho : data.towho
-                }
-            })
+            await performanceModel.update({ codequality: data.performance[0],speed: data.performance[1], codePerformance: data.performance[2]},{where : {fromwho: evaluator,towho: evaluated}});
         };
-        if(data.softskills) {
-            await softSkillsMOdel.update({
-                focus : data.focus,
-                teamWork : data.teamWork,
-                compromise : data.compromise,
-                communication : data.communication,
-                learningSkill : data.learningSkill,
-                problemResolution : data.problemResolution
-            },{
-                where : {
-                    fromwho : data.fromwho,
-                    towho : data.towho
-                }
-            })
+        if(data.soft) {
+            await softSkillsMOdel.update({ focus: data.soft[0], teamWork: data.soft[1], compromise: data.soft[2], communication: data.soft[3], learningSkill: data.soft[4],problemResolution: data.soft[5]},{where : {fromwho: evaluator,towho:evaluated}});
         };
         if(data.profesional) {
-            await profesionalEnviromentModel.update({
-                github : data.github,
-                trello_jira : data.trello_jira,
-                Slack : data.Slack,
-                agile : data.agile
-            } ,{
-                where : {
-                    fromwho : data.fromwho,
-                    towho : data.towho
-                }
-            })
+            await profesionalEnviromentModel.update({nameto:data.nameto,github: data.profesional[0],trello_jira: data.profesional[1],Slack: data.profesional[2],agile: data.profesional[3]}, {where : {fromwho: evaluator, towho: evaluated}} );
         };
     } catch (error) {
         console.log(error);

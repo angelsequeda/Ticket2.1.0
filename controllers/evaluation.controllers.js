@@ -60,7 +60,7 @@ module.exports.deleteEvaluationController = async(req,res) => {
 
 module.exports.updateEvaluationController = async(req,res) => {
     try {
-        await updateEvaluations(req.body);
+        await updateEvaluations(req.body.evaluation);
         return res.status(200).json({message : 'correcto'});
     } catch (error) {
         return res.status(500).json({message : 'error'});

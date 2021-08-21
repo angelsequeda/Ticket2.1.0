@@ -71,6 +71,9 @@ if (userActive != null) {
            let result = await DeleteData.deleteComment(element.id,userActive.result.idTecler,element.fromwho,userActive.token);
            console.log(result);
            document.getElementById(`commentRow${rows-1}`).remove();
+       });
+       document.getElementById(`answerComment${element.id}`).addEventListener('click', ()=> {
+            Renderizer.openFirstEvaluationForm(2,'comment',element.fromwhoName,userActive.result.username,element.fromwho,userActive.result.idTecler,userActive.token);
        })
    });
    
