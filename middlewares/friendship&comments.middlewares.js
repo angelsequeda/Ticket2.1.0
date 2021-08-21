@@ -28,12 +28,17 @@ module.exports.areTheyFriendsForComment = async(req,res,next) => {
 //Si ya son amigos, no se permite una segunda solicitud de amistad
 module.exports.areTheyFriendsForRequest = async(req,res,next) => {
     try {
-        let result =  await findFriendshipByCriteria({friend1id : req.body.id1,friend2id: req.body.id2});
-        let result2 = await findFriendshipByCriteria({friend2id : req.body.id1,friend1id: req.body.id2});
-        if(result.length + result2.length > 0){
-            return res.status(400).json({message : 'Ya son amigos'});
-        }else {
-            next();
+        let tokenreceived = decryptJsonToken(req.body.token);
+        if(tokenreceived.role === "evaluator" || tokenreceived.role === 'company' ||req.body.id2.slice(-2) === 'or' || req.body.id2.slice(-2) === 'ny'){
+            return res.status(409).json({message : 'Solo los teclers pueden hacer amigos'});
+        }else{
+            let result =  await findFriendshipByCriteria({friend1id : req.body.id1,friend2id: req.body.id2});
+            let result2 = await findFriendshipByCriteria({friend2id : req.body.id1,friend1id: req.body.id2});
+            if(result.length + result2.length > 0){
+                return res.status(400).json({message : 'Ya son amigos'});
+            }else {
+                next();
+            }
         }
     } catch (error) {
         console.log(error.message);

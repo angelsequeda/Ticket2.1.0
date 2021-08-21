@@ -96,6 +96,9 @@ if (userActive != null) {
                 //Si la solicitud fue aceptada se puede borrar la solicitud (quedando como no amigos) o bien
                 //se puede hacer un comentario al compañero
                 Renderizer.addRowTotable('tableFriends',`friendRow${rows}`,'afterbegin',`<td>${element.friend2name} es tu amigo, puedes hacerle un comentario desde aqui <button id="buttonSendComment${element.friend2name}">Comentar</button><button id="deleteFriend${element.friend2name}">Eliminar</button></td>`);
+                document.getElementById(`buttonSendComment${element.friend2name}`).addEventListener('click', ()=> {
+                    Renderizer.openFirstEvaluationForm(2,'comment',element.friend2name,userActive.result.username,element.friend2id,userActive.result.idTecler,userActive.token);
+                })
                 document.getElementById(`deleteFriend${element.friend2name}`).addEventListener('click', async()=> {
                     if(element.friend1id !== userActive.result.idTecler){
                         let result = await DeleteData.changeFriendship(userActive.token,element.friend1id,userActive.result.idTecler,'delete');
@@ -111,9 +114,12 @@ if (userActive != null) {
                         let result = await DeleteData.changeFriendship(userActive.token,element.friend1id,userActive.result.idTecler,'delete');
                     }else {
                         let result = await DeleteData.changeFriendship(userActive.token,element.friend2id,userActive.result.idTecler,'delete');
-                    }
+                    };
                     document.getElementById(`friendRow${rows}`).remove();
                });
+                document.getElementById(`buttonSendComment${element.friend1name}`).addEventListener('click', ()=> {
+                    Renderizer.openFirstEvaluationForm(2,'comment',element.friend1name,userActive.result.username,element.friend1id,userActive.result.idTecler,userActive.token);
+                })
            }
            
        };
