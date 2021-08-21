@@ -104,5 +104,9 @@ document.getElementById('buttonAcceptLoginCompany').addEventListener('click', as
     let password =  document.getElementById('passwordLoginInput').value;
 
     let result = await RetrieveData.getCompany(username,password);
-    console.log(result);
+    if(result.message === 'correcto'){
+        console.log(result);
+        sessionStorage.setItem('useractive',JSON.stringify({data : result.result,token : result.token}));
+        window.open('../html/profilecompany.html','_self');
+    }
 });

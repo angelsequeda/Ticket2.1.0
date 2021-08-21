@@ -16,7 +16,8 @@ employmentOferModel.init({
     },
     towho: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true,
+        defaultValue : 'public'
     },
     job : {
         type: DataTypes.STRING,
@@ -29,6 +30,15 @@ employmentOferModel.init({
     ofer:{
         type:DataTypes.STRING(2000),
         allowNull: false
+    },
+    answer : {
+        type : DataTypes.STRING(2000),
+        allowNull: true
+    },
+    answered : {
+        type: DataTypes.INTEGER,
+        allowNull : true,
+        defaultValue : 0
     },
     registered: {
         type: DataTypes.DATE,

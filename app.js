@@ -16,6 +16,7 @@ const routeViews = require('./routes/viewsroutes');
 const { seeAllpeopleController } = require('./controllers/evaluation.controllers');
 const { getAllDataMiddleware } = require('./middlewares/security.middlewares');
 const friendshipRouter = require('./routes/friendship&coments.routes');
+const oferRouter = require('./routes/offersroutes');
 
 //Middlewares globales
 app.use(express.json());
@@ -60,4 +61,5 @@ app.use('/teclapartners',routerTecla);
 app.use('/evaluations',routerEvaluations);
 app.get('/mainIndex',getAllDataMiddleware,seeAllpeopleController);
 app.use('/friendscomments',friendshipRouter);
+app.use('/offers',oferRouter);
 routeViews(app)
