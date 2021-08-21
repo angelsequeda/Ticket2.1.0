@@ -116,7 +116,15 @@ export class Renderizer {
             <p>Nombre: ${data.name}</p>
             <p>Soy: ${data.job} en Tecla</p>
             <p>Mail: ${data.mail}</p>
+            <button id="commentButton">Hacer comentario</button>
             <button id = "closeForm">Cerrar</button>`);
+            if(JSON.parse(sessionStorage.getItem('useractive')).data.idTecler) {
+                document.getElementById('commentButton').hidden = false;
+            }else if((JSON.parse(sessionStorage.getItem('useractive')).data.idCompanyUser)){
+                document.getElementById('commentButton').hidden = true;
+            }else {
+                document.getElementById('commentButton').hidden = false;
+            }
         }else if(role === 'company'){
             document.getElementById('formContainer').insertAdjacentHTML('afterbegin', `
             <img src = "${data.profilePhoto}" class ="imageforFormUser"></img>

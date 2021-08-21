@@ -77,7 +77,13 @@ if(!allOurPeople.result) {
         Renderizer.createCards(element.name,'Evaluatorsdivision',null,element.idEvaluator,element.profilePhoto);
         document.getElementById(element.idEvaluator).addEventListener('click', ()=> {
             Renderizer.openform('evaluator',element);
+            if(!document.getElementById('commentButton').hidden){
+                document.getElementById('commentButton').addEventListener('click', ()=> {
+                    Renderizer.openFirstEvaluationForm(2,'comment',element.username,JSON.parse(sessionStorage.getItem('useractive')).data.username,element.idEvaluator,JSON.parse(sessionStorage.getItem('useractive')).data.idEvaluator || JSON.parse(sessionStorage.getItem('useractive')).data.idTecler,JSON.parse(sessionStorage.getItem('useractive')).token);
+                })
+            }
         })
+        
     });
     
     allOurPeople.result.companies.forEach((element) => {

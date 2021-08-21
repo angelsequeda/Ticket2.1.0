@@ -7,12 +7,12 @@ module.exports.areTheyFriendsForComment = async(req,res,next) => {
 
     try {
         let tokenreceived = decryptJsonToken(req.body.token);
-        if(tokenreceived.role !== "evaluator"){
+        if(tokenreceived.role !== "evaluator" && req.body.id2.slice(-2) !=='or'){
             let result =  await findFriendshipByCriteria({friend1id : req.body.id1,friend2id: req.body.id2,accepted:1});
             let result2 = await findFriendshipByCriteria({friend2id : req.body.id1, friend1id: req.body.id2,accepted:1});
 
             if(result.length + result2.length === 0){
-            return res.status(400).json({message : 'No es amigo de esta persona'});
+                return res.status(400).json({message : 'No es amigo de esta persona'});
             }else {
                 next();
             }

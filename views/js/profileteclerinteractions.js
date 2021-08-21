@@ -91,19 +91,33 @@ if (userActive != null) {
                 
                 document.getElementById(`butttonAcceptFriend${element.friend1name}`).disabled = true;
             });
-       }else {
-           //Si la solicitud fue aceptada se puede borrar la solicitud (quedando como no amigos) o bien
-           //se puede hacer un comentario al compañero
-            Renderizer.addRowTotable('tableFriends',`friendRow${rows}`,'afterbegin',`<td>${element.friend1name} es tu amigo, puedes hacerle un comentario desde aqui <button id="buttonSendComment${element.friend1name}">Comentar</button><button id="deleteFriend${element.friend1name}">Eliminar</button></td>`)
+       }else if(element.accepted === 1){
+           if(userActive.result.idTecler === element.friend1id){
+                //Si la solicitud fue aceptada se puede borrar la solicitud (quedando como no amigos) o bien
+                //se puede hacer un comentario al compañero
+                Renderizer.addRowTotable('tableFriends',`friendRow${rows}`,'afterbegin',`<td>${element.friend2name} es tu amigo, puedes hacerle un comentario desde aqui <button id="buttonSendComment${element.friend2name}">Comentar</button><button id="deleteFriend${element.friend2name}">Eliminar</button></td>`);
+                document.getElementById(`deleteFriend${element.friend2name}`).addEventListener('click', async()=> {
+                    if(element.friend1id !== userActive.result.idTecler){
+                        let result = await DeleteData.changeFriendship(userActive.token,element.friend1id,userActive.result.idTecler,'delete');
+                    }else {
+                        let result = await DeleteData.changeFriendship(userActive.token,element.friend2id,userActive.result.idTecler,'delete');
+                    }
+                    document.getElementById(`friendRow${rows}`).remove();
+               });
+           }else if(userActive.result.idTecler === element.friend2id){
+                Renderizer.addRowTotable('tableFriends',`friendRow${rows}`,'afterbegin',`<td>${element.friend1name} es tu amigo, puedes hacerle un comentario desde aqui <button id="buttonSendComment${element.friend1name}">Comentar</button><button id="deleteFriend${element.friend1name}">Eliminar</button></td>`)
+                document.getElementById(`deleteFriend${element.friend1name}`).addEventListener('click', async()=> {
+                    if(element.friend1id !== userActive.result.idTecler){
+                        let result = await DeleteData.changeFriendship(userActive.token,element.friend1id,userActive.result.idTecler,'delete');
+                    }else {
+                        let result = await DeleteData.changeFriendship(userActive.token,element.friend2id,userActive.result.idTecler,'delete');
+                    }
+                    document.getElementById(`friendRow${rows}`).remove();
+               });
+           }
+           
        };
-        document.getElementById(`deleteFriend${element.friend1name}`).addEventListener('click', async()=> {
-            if(element.friend1id !== userActive.result.idTecler){
-                let result = await DeleteData.changeFriendship(userActive.token,element.friend1id,userActive.result.idTecler,'delete');
-            }else {
-                let result = await DeleteData.changeFriendship(userActive.token,element.friend2id,userActive.result.idTecler,'delete');
-            }
-            document.getElementById(`friendRow${rows}`).remove();
-       });
+        
    })
     
 }else {

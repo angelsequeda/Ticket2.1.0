@@ -5,7 +5,8 @@ import { DeleteData, RetrieveData } from "./senddata.js";
 //Se busa a las evaluaciones realizadas por el evaluador
 let evaluations = await RetrieveData.getEvaluations(JSON.parse(sessionStorage.getItem('useractive')).token);
 console.log(evaluations);
-
+let comments = await RetrieveData.findComments(JSON.parse(sessionStorage.getItem('useractive')).data.idEvaluator,JSON.parse(sessionStorage.getItem('useractive')).token,'forme');
+console.log(comments);
 
 let userActive = JSON.parse(sessionStorage.getItem('useractive'));
 console.log(userActive);
@@ -113,5 +114,5 @@ if(userActive){
                 document.getElementById(`evaluationRow${rows}`).remove();
             }
         })
-    })
+    });
 }
