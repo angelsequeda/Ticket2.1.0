@@ -80,4 +80,17 @@ module.exports.findAnswersByCriteriaService = async(criteria) => {
         console.log(error.message);
         throw new Error('Error al encontrar las respuestas [ofers.services.js]');
     }
+};
+
+module.exports.updateAnswerToRead = async(id) => {
+    try {
+        await responseToOferModel.update({
+            readed : 1
+        }, {
+            where : {idOfOfer : id}
+        })
+    } catch (error) {
+        console.log(error.message);
+        throw new Error('Error al leer respuesta');
+    }
 }

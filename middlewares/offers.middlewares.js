@@ -28,4 +28,19 @@ module.exports.whatRoleOfferisYours = async (req,res,next)=> {
         console.log(error.message);
         return res.status(500).json({message : 'error'});
     }
+};
+
+
+module.exports.canYoudeleteThisOfer = async(req,res,next) => {
+    try {
+        let tokenreceived = decryptJsonToken(req.body.token);
+        if(tokenreceived.iduser === req.body.fromwho){
+            req.body.role = tokenreceived.role;
+            next();
+        }else{
+            return res.status(409).json({message  :'No autorizado'});
+        }
+    } catch (error) {
+        
+    }
 }

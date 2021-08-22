@@ -425,12 +425,14 @@ export class DeleteData {
                 "Accept": "application/json, text/plain, */*",
                 "Content-Type": "application/json"
             },
-            body : {
-                id : id,
-                fromwho : fromwho,
-                towho : towho,
-                token
-            }
+            body : JSON.stringify(
+                {
+                    id : id,
+                    fromwho : fromwho,
+                    towho : towho,
+                    token : token
+                }
+            )
         });
         return result.json();
     }

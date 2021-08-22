@@ -1,4 +1,4 @@
-import { RetrieveData } from "./senddata.js";
+import { DeleteData, RetrieveData } from "./senddata.js";
 import {Renderizer} from "./renderizers.js"
 //Estas son todas las funciones usadas para hacer funcionar la pagina de perfil de un colaborador de alguna compañia
 let userActive = await RetrieveData.getCompany(JSON.parse(sessionStorage.getItem('useractive')).data.username,JSON.parse(sessionStorage.getItem('useractive')).data.password);
@@ -15,7 +15,18 @@ if(userActive.result) {
     if(userActive.offers.message === "correcto"){
         userActive.offers.result.forEach((element) => {
             let rows = document.getElementById('tableOfers').rows.length;
-            Renderizer.addRowTotable('tableOfers',`oferRow${rows-1}`,'afterbegin',`<td>Descripción: ${element.ofer}, hecha por mi a ${element.nameto}<td>`)
+            Renderizer.addRowTotable('tableOfers',`oferRow${rows-1}`,'afterbegin',`<td>Descripción: ${element.ofer}, hecha por mi a ${element.nameto}<td><td><button id="deleteOfer${rows-1}">Dar de baja</button></td>`);
+            document.getElementById(`deleteOfer${rows-1}`).addEventListener('click', async()=> {
+                let confirm = window.confirm('¿Seguro que desea eliminar esta propuesta de manera permanente?');
+                if(confirm) {
+                    let result = await DeleteData.deleteOfer(element.id,element.fromwho,element.towho,userActive.token);
+                    if(result.message === "correcto"){
+                        alert('Borrado');
+                    }else {
+                        alert(result.message);
+                    }
+                }
+            })
             userActive.offers.answers.forEach((element2)=> {
                 if(element2.idOfOfer === element.id){
                     let rows = document.getElementById('tableOfers').rows.length;
