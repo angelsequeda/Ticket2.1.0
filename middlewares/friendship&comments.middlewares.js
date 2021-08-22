@@ -1,5 +1,7 @@
 //Middlewares para las solicitudes de amistad y los comentarios de los teclers] (son los unicos que pueden tener amigos)
 
+const Joi = require("joi");
+const commentDTO = require("../dto/comment.dto");
 const { findFriendshipByCriteria } = require("../services/friendship&comments.services");
 const { decryptJsonToken } = require("../services/security.services");
 //Si dos usuarios no son amigos, no pueden hacer comentarios entre ellos
@@ -116,5 +118,15 @@ module.exports.youCantAcceptYourOwnRequest = async(req,res,next) => {
     } catch (error) {
         console.log(error.message);
         return res.status(500).json({message : 'error'});
+    }
+};
+
+module.exports.compareComment = async(req,res,next) => {
+    try {
+        Joi.attempt(req.body,commentDTO);
+        next();
+    } catch (error) {
+        console.log(error.message);
+        return res.status(400).json({message : 'Algo falta'});
     }
 }

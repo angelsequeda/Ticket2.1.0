@@ -79,6 +79,8 @@ if(!allOurPeople.result) {
                             alert('Propuesta enviada');
                             document.getElementById('evaluationForm').style.display = 'none';
                             document.getElementById('evaluationForm').innerHTML ="";
+                        }else{
+                            alert(result.message)
                         }
                     })
                 })
@@ -107,3 +109,10 @@ if(!allOurPeople.result) {
     })
 }
 
+if(JSON.parse(sessionStorage.getItem('useractive')).data.idTecler){
+    document.getElementById('profileRef').setAttribute('href','../html/profiletecler.html');
+}else if(JSON.parse(sessionStorage.getItem('useractive')).data.idEvaluator){
+    document.getElementById('profileRef').setAttribute('href','../html/profileevaluator.html');
+}else if(JSON.parse(sessionStorage.getItem('useractive')).data.idCompanyUser){
+    document.getElementById('profileRef').setAttribute('href','../html/profilecompany.html');
+}

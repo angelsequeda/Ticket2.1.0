@@ -268,10 +268,10 @@ export class Renderizer {
             }else if(type === "technology"){
                 document.getElementById('evaluationForm').insertAdjacentHTML('afterbegin', `
                 <h3>Evaluación de tecnologías de ${nameto}</h3>
-                <p>Frontend: <input type="number" id="inputFrontend" value ="" max="5" min="0"> </p>
-                <p>Javascript: <input type="number" id="inputJavascript" value ="" max="5" min="0"></p>
-                <p>Nodejs:<input type="number" id="inputNodejs" value ="" max="5" min="0"> </p>
-                <p>Swagger:<input type="number" id="inputSwagger" value ="" max="5" min="0"> </p>
+                <p>Frontend: <input type="number" id="inputFrontend" value ="0" max="5" min="0"> </p>
+                <p>Javascript: <input type="number" id="inputJavascript" value ="0" max="5" min="0"></p>
+                <p>Nodejs:<input type="number" id="inputNodejs" value ="0" max="5" min="0"> </p>
+                <p>Swagger:<input type="number" id="inputSwagger" value ="0" max="5" min="0"> </p>
                 <button id="buttonAcceptEvaluation" >Aceptar</button>
                 <button id="buttonCloseEvaluationForm">Cerrar</button>
                 `);
@@ -291,9 +291,9 @@ export class Renderizer {
             }else if(type === "performance"){
                 document.getElementById('evaluationForm').insertAdjacentHTML('afterbegin',`
                 <h3>Evaluación de desempeño de ${nameto}</h3>
-                <p>Eficiencia de código: <input type="number" id="inputCodePerformance" value ="" max="5" min="0" > </p>
-                <p>Calidad de código: <input type="number" id="inputCodeQuality" value ="" max="5" min="0" ></p>
-                <p>Velocidad de entrega:<input type="number" id="inputSpeed" value ="" max="5" min="0" > </p>
+                <p>Eficiencia de código: <input type="number" id="inputCodePerformance" value ="0" max="5" min="0" > </p>
+                <p>Calidad de código: <input type="number" id="inputCodeQuality" value ="0" max="5" min="0" ></p>
+                <p>Velocidad de entrega:<input type="number" id="inputSpeed" value ="0" max="5" min="0" > </p>
                 <button id="buttonAcceptEvaluation" >Aceptar</button>
                 <button id="buttonCloseEvaluationForm">Cerrar</button>
                 `);
@@ -313,12 +313,12 @@ export class Renderizer {
             }else if(type === "soft"){
                 document.getElementById('evaluationForm').insertAdjacentHTML('afterbegin', `
                 <h3>Evaluación de Habilidades blandas de ${nameto}</h3>
-                <p>Comunicación: <input type="number" id="inputcommunication" value ="" max="5" min="0"> </p>
-                <p>Comprometido:<input type="number" id="inputcompromise" value ="" max="5" min="0"> </p>
-                <p>Enfocado: <input type="number" id="inputfocus" value ="" max="5" min="0"></p>
-                <p>Capacidad de aprendizaje:<input type="number" id="inputlearningSkill" value ="" max="5" min="0"> </p>
-                <p>Resolución de problemas:<input type="number" id="inputproblemResolution" value ="" max="5" min="0"> </p>
-                <p>Trabajo en equipo:<input type="number" id="inputteamWork" value ="" max="5" min="0"> </p>
+                <p>Comunicación: <input type="number" id="inputcommunication" value ="0" max="5" min="0"> </p>
+                <p>Comprometido:<input type="number" id="inputcompromise" value ="0" max="5" min="0"> </p>
+                <p>Enfocado: <input type="number" id="inputfocus" value ="0" max="5" min="0"></p>
+                <p>Capacidad de aprendizaje:<input type="number" id="inputlearningSkill" value ="0" max="5" min="0"> </p>
+                <p>Resolución de problemas:<input type="number" id="inputproblemResolution" value ="0" max="5" min="0"> </p>
+                <p>Trabajo en equipo:<input type="number" id="inputteamWork" value ="0" max="5" min="0"> </p>
                 <button id="buttonAcceptEvaluation" >Aceptar</button>
                 <button id="buttonCloseEvaluationForm">Cerrar</button>
                 `);
@@ -338,10 +338,10 @@ export class Renderizer {
             }else if(type === "profesional"){
                 document.getElementById(`evaluationForm`).insertAdjacentHTML('afterbegin', `
                 <h3>Evaluación de entorno profesional de ${nameto}</h3>
-                <p>Slack: <input type="number" id="inputSlack" value ="" max="5" min="0"> </p>
-                <p>Github (versionado):<input type="number" id="inputgithub" value ="" max="5" min="0"> </p>
-                <p>Trello/Jira: <input type="number" id="inputtrello_jira" value ="" max="5" min="0"></p>
-                <p>Metodologías ágiles:<input type="number" id="inputagile" value ="" max="5" min="0"> </p>
+                <p>Slack: <input type="number" id="inputSlack" value ="0" max="5" min="0"> </p>
+                <p>Github (versionado):<input type="number" id="inputgithub" value ="0" max="5" min="0"> </p>
+                <p>Trello/Jira: <input type="number" id="inputtrello_jira" value ="0" max="5" min="0"></p>
+                <p>Metodologías ágiles:<input type="number" id="inputagile" value ="0" max="5" min="0"> </p>
                 <button id="buttonAcceptEvaluation" >Aceptar</button>
                 <button id="buttonCloseEvaluationForm">Cerrar</button>
                 `);

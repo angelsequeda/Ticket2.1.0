@@ -1,5 +1,7 @@
 //Middlewares de seguridad y que evitan confusiones con las bases de datos
 
+const Joi = require("joi");
+const evaluationDTO = require("../dto/evaluations.dto");
 const { searchEvaluationsByEvaluatorService, searchEvaluationByCriteria } = require("../services/evaluations.services");
 const { decryptJsonToken } = require("../services/security.services");
 const { searchForTeclerService } = require("../services/teclers.services");
@@ -135,3 +137,14 @@ module.exports.doesEvaluatedExistMiddleware = async(req,res,next) => {
         return res.status(400).json('Este tecler no existe');
     }
 };
+
+
+module.exports.compareEvaluation = async(req,res,next) => {
+    try {
+        Joi.attempt(req.body.evaluation,evaluationDTO);
+        next();
+    } catch (error) {
+        console.log(error.message);
+        return res.status(400).json({message : 'error'});
+    }
+}
