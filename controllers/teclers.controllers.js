@@ -6,7 +6,6 @@ const { addTeclerService, searchForTeclerService, updateTeclerService, deleteTec
 
 //Añadir un tecler
 module.exports.addTeclerController = async (req,res) => {
-
     try {
         
         let teclerNew =  await addTeclerService(req.body);
