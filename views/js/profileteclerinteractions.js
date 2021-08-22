@@ -307,3 +307,7 @@ document.getElementById('acceptChangesButton').addEventListener('click',async fu
 document.getElementById(`giveUpButton`).addEventListener('click', async ()=> {
     let result = await DeleteData.deleteTecler(userActive.token,userActive.result.idTecler);
 })
+
+document.getElementById('closeSession').addEventListener('click', ()=> {
+    sessionStorage.clear();
+})

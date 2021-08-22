@@ -115,4 +115,8 @@ if(JSON.parse(sessionStorage.getItem('useractive')).data.idTecler){
     document.getElementById('profileRef').setAttribute('href','../html/profileevaluator.html');
 }else if(JSON.parse(sessionStorage.getItem('useractive')).data.idCompanyUser){
     document.getElementById('profileRef').setAttribute('href','../html/profilecompany.html');
-}
+};
+
+document.getElementById('closeSession').addEventListener('click', ()=> {
+    sessionStorage.clear();
+})

@@ -35,4 +35,8 @@ if(userActive.result) {
             })
         })
     }
-}
+};
+
+document.getElementById('closeSession').addEventListener('click', ()=> {
+    sessionStorage.clear();
+})

@@ -174,3 +174,7 @@ if(userActive){
         })
     });
 }
+
+document.getElementById('closeSession').addEventListener('click', ()=> {
+    sessionStorage.clear();
+})
