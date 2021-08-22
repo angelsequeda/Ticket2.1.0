@@ -8,6 +8,7 @@ let userActiveaux = JSON.parse(sessionStorage.getItem('useractive'));
 let userActive = await RetrieveData.getTecler(userActiveaux.data.username,userActiveaux.data.password);
 userActive.evaluations = await RetrieveData.getEvaluations(userActive.token);
 userActive.friends = await RetrieveData.getAllFrieds(userActive.token,userActive.result.idTecler);
+userActive.offers = await RetrieveData.getAllMyOfers(userActive.result.idTecler,userActive.token);
 console.log(userActive);
 if (userActive != null) {
     document.getElementById('usernameprofile').value = userActive.result.username;
@@ -18,6 +19,29 @@ if (userActive != null) {
     document.getElementById(`tellUsSomethingprofile`).value = userActive.result.tellUsSomething;
     document.getElementById('profilePhotoprofile').setAttribute('src',userActive.result.profilePhoto);
     document.getElementById(`mailprofile`).value = userActive.result.mail;
+
+    //Se muestran las ofertas de trabajo hechas al tecler
+
+    userActive.offers.result.forEach((element)=> {
+        if(element.answered === 0){
+            let rows = document.getElementById('tableOffers').rows.length;
+            Renderizer.addRowTotable('tableOffers',`offerRow${rows-1}`,'afterbegin',`<td>${element.namefrom}</td>
+            <td>${element.job}</td><td>${element.ofer}</td><td>$${element.salary}</td><td>${element.registered}</td><td><button id="answerOfer${rows-1}">Enviar respuesta</button>`);
+            document.getElementById(`answerOfer${rows-1}`).addEventListener('click', ()=> {
+            Renderizer.openFirstEvaluationForm(2,'answer');
+            document.getElementById('sendAnswerOferButton').addEventListener('click',async ()=> {
+                let result = await Savedata.sendNewAnswerToOffer(element.id,element.namefrom,userActive.result.username,document.getElementById('answerinput').value,userActive.token);
+                if(result.message === "correcto"){
+                    alert('Respuesta enviada');
+                }else{
+                    alert(result.message);
+                }
+                document.getElementById('evaluationForm').style.display = 'none';
+                document.getElementById('evaluationForm').innerHTML = '';
+            })
+        });
+        }
+    })
 
     //Se muestran las habilidades extras del tecler (lenguajes, hobbies, etc.)
     userActive.extras.habilities.forEach((element)=> {

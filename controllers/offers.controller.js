@@ -1,6 +1,6 @@
 //Los controladores para las ofertas de trabajo
 
-const { createNewOfer, deleteOfer, updateOferAnswer, deleteResponse, findOfersByCriteriaService } = require("../services/offers.services")
+const { createNewOfer, deleteOfer, updateOferAnswer, deleteResponse, findOfersByCriteriaService, findAnswersByCriteriaService } = require("../services/offers.services")
 
 module.exports.newOferController = async(req,res) => {
     try {
@@ -48,12 +48,13 @@ module.exports.getAllOffersController = async(req,res)=> {
             let result = await findOfersByCriteriaService({towho : req.body.id});
             return res.status(200).json({message : 'correcto', result : result});
         }else if(req.body.role === "company"){
-            let result = await findOfersByCriteriaService({fromwho : req.body.id});
-            return res.status(200).json({message : 'correcto', result : result})
+            let result = await findOfersByCriteriaService({namefrom : req.body.id});
+            let answers = await findAnswersByCriteriaService({oferedBy : req.body.id});
+            return res.status(200).json({message : 'correcto', result : result, answers : answers});
         };
         
     } catch (error) {
         console.log(error.message);
         return res.status(500).json({message : 'error'});
     }
-}
+};

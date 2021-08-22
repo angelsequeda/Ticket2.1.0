@@ -9,7 +9,6 @@ let oferRouter = require('express').Router();
 oferRouter.post('/new',newOferController);
 oferRouter.post('/delete',deleteOferController);
 oferRouter.post('/answer',answerOferController);
-oferRouter.post('/deleteanswer',deleteAnswerController);
 oferRouter.post('/getoffers',whatRoleOfferisYours,getAllOffersController);
 
 module.exports = oferRouter;

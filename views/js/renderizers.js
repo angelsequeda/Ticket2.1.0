@@ -383,10 +383,18 @@ export class Renderizer {
                 <p>Salario:<input type="number" id="salaryinput"> m/n</p>
                 <p>Puesto: <input type ="text" id="jobinput"></p>
                 <p>Describe brevemente el trabajo</p>
-                <textarea id ="offerinput" rows ="4" cols ="50" maxlength ="2000"></textarea>
+                <textarea id ="offerinput" rows ="4" cols ="50" maxlength ="1000"></textarea>
                 <button id ="sendOferButton">Enviar</button>
                 <button id="buttonCloseEvaluationForm">Cerrar</button>
                 ` );
+                document.getElementById('evaluationForm').style.display = 'block';
+            }else if(type === "answer"){
+                document.getElementById('evaluationForm').insertAdjacentHTML('afterbegin',`
+                <h2>Responde brevemente</h2>
+                <textarea id="answerinput" rows ="4" cols ="50" maxlength ="1000"></textarea>
+                <button id ="sendAnswerOferButton">Enviar</button>
+                <button id="buttonCloseEvaluationForm">Cerrar</button>
+                `);
                 document.getElementById('evaluationForm').style.display = 'block';
             }
             document.getElementById('buttonCloseEvaluationForm').addEventListener('click', ()=> {

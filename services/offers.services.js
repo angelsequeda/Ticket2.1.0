@@ -70,4 +70,14 @@ module.exports.deleteResponse = async(data) => {
         console.log(error.message);
         throw new Error('Error al eliminar respuesta [ofers.services.js]');
     }
+};
+
+module.exports.findAnswersByCriteriaService = async(criteria) => {
+    try {
+        let result = await responseToOferModel.findAll({where : criteria});
+        return result;
+    } catch (error) {
+        console.log(error.message);
+        throw new Error('Error al encontrar las respuestas [ofers.services.js]');
+    }
 }

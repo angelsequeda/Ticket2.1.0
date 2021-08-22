@@ -24,6 +24,11 @@ responseToOferModel.init({
         type : DataTypes.STRING(2000),
         allowNull : false
     },
+    readed : {
+        type : DataTypes.INTEGER,
+        allowNull : true,
+        defaultValue : 0
+    },
     registered :{
         type : DataTypes.DATEONLY,
         allowNull : true,

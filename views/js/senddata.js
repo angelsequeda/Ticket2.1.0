@@ -142,6 +142,24 @@ export class Savedata {
             })
         });
         return result.json();
+    };
+
+    static async sendNewAnswerToOffer(id,fromwho,towho,answer,token){
+        let result = await fetch('http://localhost:3000/offers/answer',{
+            method : 'POST',
+            headers:{
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            },
+            body : JSON.stringify({
+                id : id,
+                fromwho : fromwho,
+                towho : towho,
+                answer : answer,
+                token : token
+            })
+        });
+        return result.json();
     }
 }
 
@@ -301,7 +319,7 @@ export class RetrieveData {
         
     };
 
-    static async getAllMyOfers(fromwho,towho,token){
+    static async getAllMyOfers(id,token){
         let result = await fetch('http://localhost:3000/offers/getoffers',{
             method : 'POST',
             headers : {
@@ -309,8 +327,7 @@ export class RetrieveData {
                 'Content-type' : 'application/json'
             },
             body : JSON.stringify({
-                fromwho : fromwho,
-                towho : towho,
+                id : id,
                 token : token
             })
         });
@@ -397,6 +414,23 @@ export class DeleteData {
                 idcomment : id,
                 token : token
             })
+        });
+        return result.json();
+    };
+
+    static async deleteOfer(id,fromwho,towho,token){
+        let result = await fetch('http://localhost:3000/offers/delete', {
+            method : 'POST',
+            headers:{
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            },
+            body : {
+                id : id,
+                fromwho : fromwho,
+                towho : towho,
+                token
+            }
         });
         return result.json();
     }
