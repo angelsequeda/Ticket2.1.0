@@ -189,7 +189,7 @@ document.getElementById('editButton').addEventListener('click', ()=> {
 document.getElementById('cancelChangesButton').addEventListener('click',()=>{
 
     let list = ['Lenguage','Social','Hobbie','Study'];
-    let list2 = ['username','name','age','country','city'];
+    let list2 = ['username','name','age','country','city','tellUsSomething','mail'];
 
     list.forEach((element)=> {
         document.getElementById('add'+element).hidden = true;

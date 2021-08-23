@@ -24,7 +24,7 @@ document.getElementById('acceptRegisterButtonTecler').addEventListener('click',a
     await Savedata.saveSomeonePhoto(newTeclerInfo,document.getElementById('image').files[0]).then(async ()=>{
         let result = await Savedata.saveTecler(newTeclerInfo);
         if(result.message === "correcto"){
-            alert('Bienvenido, favor de iniciar sesión')
+            alert('Bienvenido, favor de iniciar sesión');
         }else {
             alert(result.message);
         }
@@ -38,7 +38,6 @@ document.getElementById('acceptRegisterButtonEvaluator').addEventListener('click
 
     let newEvaluator ={};
     newEvaluator.name = document.getElementById('nameRegisterevaluator').value;
-    newEvaluator.profilePhoto = document.getElementById('photoRegisterevaluator').value;
     newEvaluator.tellUsSomething = document.getElementById('tellusRegisterevaluator').value;
     newEvaluator.password = document.getElementById('passwordRegisterevaluator').value;
     newEvaluator.username = document.getElementById('usernameRegisterevaluator').value;
@@ -51,7 +50,7 @@ document.getElementById('acceptRegisterButtonEvaluator').addEventListener('click
     await Savedata.saveSomeonePhoto(newEvaluatorInfo,document.getElementById('image2').files[0]).then(async()=> {
         let result = await Savedata.saveEvaluator(newEvaluatorInfo);
         if(result.message === "correcto"){
-            alert('Bienvenido, favor de iniciar sesión')
+            alert('Bienvenido, favor de iniciar sesión');
         }else {
             alert(result.message);
         }
@@ -75,7 +74,7 @@ document.getElementById('acceptRegisterButtonCompany').addEventListener('click',
     await Savedata.saveSomeonePhoto(newCompanyInfo,document.getElementById('image3').files[0]).then(async()=> {
         let result = await Savedata.saveCompany(newCompanyInfo);
         if(result.message === "correcto"){
-            alert('Bienvenido, favor de iniciar sesión')
+            alert('Bienvenido, favor de iniciar sesión');
         }else {
             alert(result.message);
         }
