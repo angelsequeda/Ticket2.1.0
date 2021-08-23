@@ -67,7 +67,7 @@ export class Renderizer {
         document.getElementById('formContainer').innerHTML = "";
         if(role === 'tecler'){
             document.getElementById('formContainer').insertAdjacentHTML('afterbegin', `
-            <img src = "${data.profilePhoto}" class ="imageforFormUser"></img>
+            <img src = "${data.profilePhoto}" class ="imageforFormUser" style="heigth : 100px; width: 100px"></img>
             <p>${data.username}</p>
             <p>"${data.tellUsSomething}"</p>
             <p>Nombre: ${data.name}</p>
@@ -110,7 +110,7 @@ export class Renderizer {
             }
         }else if(role === "evaluator") {
             document.getElementById('formContainer').insertAdjacentHTML('afterbegin',`
-            <img src = "${data.profilePhoto}" class ="imageforFormUser"></img>
+            <img src = "${data.profilePhoto}" class ="imageforFormUser" style="heigth : 100px; width: 100px"></img>
             <p>${data.username}</p>
             <p>"${data.tellUsSomething}"</p>
             <p>Nombre: ${data.name}</p>
@@ -127,7 +127,7 @@ export class Renderizer {
             }
         }else if(role === 'company'){
             document.getElementById('formContainer').insertAdjacentHTML('afterbegin', `
-            <img src = "${data.profilePhoto}" class ="imageforFormUser"></img>
+            <img src = "${data.profilePhoto}" class ="imageforFormUser" style="heigth : 100px; width: 100px"></img>
             <p>${data.username}</p>
             <p>Nombre: ${data.name}</p>
             <p>Soy: ${data.job} en ${data.companyName}</p>

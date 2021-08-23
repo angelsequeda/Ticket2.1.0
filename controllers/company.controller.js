@@ -9,7 +9,7 @@ module.exports.addCompanyEmployeeController = async(req,res) => {
     try {
         
         let newCompany = await addCompanyEmployeeService(req.body);
-        return res.status(200).json(newCompany);
+        return res.status(200).json({message : 'correcto'});
 
     } catch (error) {
         console.log(error.message);

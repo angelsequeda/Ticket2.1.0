@@ -161,18 +161,16 @@ export class Savedata {
         });
         return result.json();
     };
-    static async saveNewProfilePic(data){
+    //Esta funcion remplaza a savetecler, pues ahora también lo salva con una imagen
+    static async saveSomeonePhoto(someone,photo){
+        let request = new XMLHttpRequest();
         let formdata = new FormData();
-        formdata.append('image',data)
-        let result = await fetch('http://localhost:3000/images/new',{
-            method : 'POST',
-            headers:{
-                "Accept": "application/json, text/plain, */*, multipart/form-data",
-                "Content-Type": "application/json, multipart/form-data"
-            },
-            body : formdata
-        });
-        return result.json();
+        formdata.append('image',photo);
+        request.onload = async function(){
+            someone.profilePhoto = JSON.parse(request.responseText).result;
+        };
+        request.open('POST','http://localhost:3000/images/new',false);
+        request.send(formdata);
     }
 }
 
@@ -249,7 +247,7 @@ export class RetrieveData {
     //evaluador buscando una evaluacion
     static async getEvaluations(token,id) {
         if (!id) {
-            console.log('no ok');
+
             let result = await fetch('http://localhost:3000/evaluations/download',{
                 method: 'POST',
                 headers:{
@@ -262,8 +260,7 @@ export class RetrieveData {
             });
             return result.json();
         }else {
-            console.log('ok');
-            console.log(id);
+
             let result = await fetch('http://localhost:3000/evaluations/download',{
                 method: 'POST',
                 headers:{

@@ -11,7 +11,7 @@ const { searchForTeclerService } = require("../services/teclers.services")
 
 //Si el usuario ya existe, no se puede volver a registrar un usuario con el mismo nombre hasta eliminar al primero
 module.exports.doesUserAlreaydExist = async (req,res,next) =>{
-    console.log(req.body);
+
     if (req.body.role === 'tecler') {
        
         let doesUserexist = await searchForTeclerService(req.body);
@@ -44,7 +44,7 @@ module.exports.doesUserAlreaydExist = async (req,res,next) =>{
 
 //Se evaluan los datos del registro dependiendo si es un tecler, un evaluador o un colaborador de una compañia
 module.exports.isUserForregistrationRight = (req,res,next) => {
-    console.log(req.body);
+
     if(req.body.role === 'tecler') {
 
         try {
@@ -82,7 +82,7 @@ module.exports.isUserForregistrationRight = (req,res,next) => {
 
 //Evalua los datos de inicio de sesion 
 module.exports.isUserForLoginRight = (req,res,next)=> {
-    console.log(req.body);
+
     try {
         Joi.assert({username:req.body.username,password:req.body.password},userDTOlogin);
 
@@ -96,7 +96,7 @@ module.exports.isUserForLoginRight = (req,res,next)=> {
 
 //Si el usuario no esta registrado no puede iniciar sesion
 module.exports.isUserRegistered = async(req,res,next) => {
-    console.log(req.body);
+
     if (req.body.role === 'tecler') {
        
         let doesUserexist = await searchForTeclerService(req.body);

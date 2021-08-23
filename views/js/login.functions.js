@@ -3,6 +3,7 @@
 import { Company, Evaluator, Tecler } from "./classes.js";
 import { RetrieveData, Savedata } from "./senddata.js";
 
+
 //Si se registra un tecler
 document.getElementById('acceptRegisterButtonTecler').addEventListener('click',async ()=>{
 
@@ -16,20 +17,22 @@ document.getElementById('acceptRegisterButtonTecler').addEventListener('click',a
     newTecler.tellUsSomething = document.getElementById('tellusRegistertecler').value;
     newTecler.city = document.getElementById('cityRegistertecler').value;
     newTecler.country = document.getElementById('countryRegistertecler').value;
-    newTecler.profilePhoto = document.getElementById('photoRegistertecler').value;
-
+    
     
     let newTeclerInfo = new Tecler(newTecler);
-    newTeclerInfo.role = 'tecler'
-    let saved = await Savedata.saveTecler(newTeclerInfo);
-    console.log(saved);
+    newTeclerInfo.role = 'tecler';
+    await Savedata.saveSomeonePhoto(newTeclerInfo,document.getElementById('image').files[0]).then(async ()=>{
+        let result = await Savedata.saveTecler(newTeclerInfo);
+        if(result.message === "correcto"){
+            alert('Bienvenido, favor de iniciar sesión')
+        }else {
+            alert(result.message);
+        }
+    })
+    
 });
 
-document.getElementById('formimage').onsubmit((e)=> {
-    e.preventDefault();
-    let result = document.getElementById('formimage');
-    console.log(result);
-})
+
 //Si se registra un evaluador
 document.getElementById('acceptRegisterButtonEvaluator').addEventListener('click', async ()=> {
 
@@ -44,8 +47,15 @@ document.getElementById('acceptRegisterButtonEvaluator').addEventListener('click
 
     let newEvaluatorInfo = new Evaluator(newEvaluator);
     newEvaluatorInfo.role = 'evaluator';
-    let result = await Savedata.saveEvaluator(newEvaluatorInfo);
-    console.log(result);
+    
+    await Savedata.saveSomeonePhoto(newEvaluatorInfo,document.getElementById('image2').files[0]).then(async()=> {
+        let result = await Savedata.saveEvaluator(newEvaluatorInfo);
+        if(result.message === "correcto"){
+            alert('Bienvenido, favor de iniciar sesión')
+        }else {
+            alert(result.message);
+        }
+    });
 
 });
 //Si se registra un colaborador de alguna compañia
@@ -61,10 +71,15 @@ document.getElementById('acceptRegisterButtonCompany').addEventListener('click',
     //newCompany.profilePhoto = document.getElementById('photoRegistercompany').value;
     newCompany.role = 'company';
     newCompany.username = document.getElementById('usernameRegistercompany').value
-
     let newCompanyInfo = new Company(newCompany);
-    let result = await Savedata.saveCompany(newCompanyInfo);
-    console.log(result);
+    await Savedata.saveSomeonePhoto(newCompanyInfo,document.getElementById('image3').files[0]).then(async()=> {
+        let result = await Savedata.saveCompany(newCompanyInfo);
+        if(result.message === "correcto"){
+            alert('Bienvenido, favor de iniciar sesión')
+        }else {
+            alert(result.message);
+        }
+    })
     
 });
 
@@ -76,7 +91,7 @@ document.getElementById('buttonAcceptLoginTecler').addEventListener('click',asyn
     
     
     let result = await RetrieveData.getTecler(username,password);
-    console.log(result);
+
     
 
     if(result.message === 'correcto'){
@@ -112,7 +127,6 @@ document.getElementById('buttonAcceptLoginCompany').addEventListener('click', as
 
     let result = await RetrieveData.getCompany(username,password);
     if(result.message === 'correcto'){
-        console.log(result);
         sessionStorage.setItem('useractive',JSON.stringify({data : result.result,token : result.token}));
         window.open('../html/profilecompany.html','_self');
     }

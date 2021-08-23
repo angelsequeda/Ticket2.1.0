@@ -15,7 +15,6 @@ if(!allOurPeople.result) {
         Renderizer.createCards(element.name,'Teclersdivision',null,element.idTecler,element.profilePhoto);
         document.getElementById(element.idTecler).addEventListener('click',async ()=> {
             let result = await RetrieveData.getAnotherTecler(element.username);
-            console.log(result);
             Renderizer.openform('tecler',result.tecler);
             result.extraInfo.studies.forEach((element)=> {
                 Renderizer.addRowTotable('tableStudies',`studyRow${document.getElementById('tableStudies').rows.length}`,'afterbegin',`Estudié ${element.what} por ${element.howLong} años en ${element.location}`)

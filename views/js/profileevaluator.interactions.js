@@ -4,12 +4,12 @@ import { DeleteData, RetrieveData, Savedata } from "./senddata.js";
 
 //Se busa a las evaluaciones realizadas por el evaluador
 let evaluations = await RetrieveData.getEvaluations(JSON.parse(sessionStorage.getItem('useractive')).token);
-console.log(evaluations);
+
 let comments = await RetrieveData.findComments(JSON.parse(sessionStorage.getItem('useractive')).data.idEvaluator,JSON.parse(sessionStorage.getItem('useractive')).token,'forme');
-console.log(comments);
+
 
 let userActive = JSON.parse(sessionStorage.getItem('useractive'));
-console.log(userActive);
+
 document.getElementById('formContainer').style.display = 'none';
 
 if(userActive){
@@ -20,7 +20,7 @@ if(userActive){
     document.getElementById('nameprofileEvaluator').value = userActive.data.username;
     document.getElementById('jobprofileEvaluator').value = userActive.data.job;
     document.getElementById('passwordprofileEvaluator').value = userActive.data.password;
-
+    document.getElementById('profilePhotoprofile').setAttribute('src',userActive.data.profilePhoto);
     ///Insertamos los comentarios hechos al evaluador
     comments.result.forEach((element) => {
         if(element.towho === userActive.data.idEvaluator){

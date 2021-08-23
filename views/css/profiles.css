@@ -5,6 +5,7 @@
     background: none;
     border: none;
     text-decoration-color: black;
+    width: fit-content;
 }
 
 #bodyProfileTecler{
@@ -25,3 +26,4 @@
     padding: 35px;
     color: black;
 }
+

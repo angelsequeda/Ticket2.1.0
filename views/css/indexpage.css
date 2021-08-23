@@ -1,6 +1,10 @@
 #formContainer{
     display: none;
     position: absolute;
+    height: fit-content;
+    width: fit-content;
+    align-self: center;
+    justify-self: center;
     background-color: rgb(24, 150, 133);
     left: 45%;
     top: 25%;
@@ -23,3 +27,4 @@
     padding: 35px;
     color: black;
 }
+

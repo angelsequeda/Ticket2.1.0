@@ -9,7 +9,7 @@ let userActive = await RetrieveData.getTecler(userActiveaux.data.username,userAc
 userActive.evaluations = await RetrieveData.getEvaluations(userActive.token);
 userActive.friends = await RetrieveData.getAllFrieds(userActive.token,userActive.result.idTecler);
 userActive.offers = await RetrieveData.getAllMyOfers(userActive.result.idTecler,userActive.token);
-console.log(userActive);
+
 if (userActive != null) {
     document.getElementById('usernameprofile').value = userActive.result.username;
     document.getElementById('nameprofile').value = userActive.result.name;
