@@ -160,6 +160,19 @@ export class Savedata {
             })
         });
         return result.json();
+    };
+    static async saveNewProfilePic(data){
+        let formdata = new FormData();
+        formdata.append('image',data)
+        let result = await fetch('http://localhost:3000/images/new',{
+            method : 'POST',
+            headers:{
+                "Accept": "application/json, text/plain, */*, multipart/form-data",
+                "Content-Type": "application/json, multipart/form-data"
+            },
+            body : formdata
+        });
+        return result.json();
     }
 }
 

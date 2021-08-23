@@ -24,6 +24,24 @@ document.getElementById('acceptRegisterButtonTecler').addEventListener('click',a
     let saved = await Savedata.saveTecler(newTeclerInfo);
     console.log(saved);
 });
+
+document.getElementById('buttonimage').addEventListener('click',async()=> {
+
+    const files = document.getElementById('files');
+    console.log(files.files);
+    const formdata = new FormData();
+    formdata.image = files.files[0];
+    console.log(formdata);
+    try {
+        let result =  new XMLHttpRequest();
+        result.open("POST","http://localhost:3000/images/new");
+        result.setRequestHeader('Content-type','multipart/form-data ; boundary : "something"');
+        result.send(formdata);
+        console.log(result);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
 //Si se registra un evaluador
 document.getElementById('acceptRegisterButtonEvaluator').addEventListener('click', async ()=> {
 
@@ -52,13 +70,14 @@ document.getElementById('acceptRegisterButtonCompany').addEventListener('click',
     newCompany.job =document.getElementById('jobRegistercompany').value;
     newCompany.mail =document.getElementById('mailRegistercompany').value;
     newCompany.password = document.getElementById('passwordRegistercompany').value;
-    newCompany.profilePhoto = document.getElementById('photoRegistercompany').value;
+    //newCompany.profilePhoto = document.getElementById('photoRegistercompany').value;
     newCompany.role = 'company';
     newCompany.username = document.getElementById('usernameRegistercompany').value
 
     let newCompanyInfo = new Company(newCompany);
     let result = await Savedata.saveCompany(newCompanyInfo);
     console.log(result);
+    
 });
 
 //Aunque el login es el mismo formato para todos, cada uno apunta a un endopoint distinto

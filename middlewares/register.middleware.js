@@ -1,6 +1,7 @@
 //Estos middlewrares permiten evaluar si los datos de un registro o un login son correctos
 
 const Joi = require("joi");
+const { upload } = require("../db/config/cloudinaryConfig");
 const { userTeclerDTO, userEvaluatorDTO, userCompanyDTO, userDTOlogin } = require("../dto/users.dto");
 const { searchForCompanyEmployeeService } = require("../services/company.services");
 const { decryptPassword } = require("../services/security.services");
@@ -138,4 +139,3 @@ module.exports.isUserRegistered = async(req,res,next) => {
         return res.status(500).json({message:'Usuario o contraseña incorrectas'});
     }
 };
-

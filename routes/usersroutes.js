@@ -3,7 +3,7 @@
 const { addCompanyEmployeeController,updateCompanyEmployeeController, deleteCompanyEmployeeController, searchForCompanyEmployeeController } = require('../controllers/company.controller');
 const { searchForTeclaEvaluatorController, addTeclaEvaluatorController, updateTeclaEvaluatorController, deleteTeclaEvaluatorController } = require('../controllers/tecla.controllers');
 const { addTeclerController, searchForTeclerController, updateTeclerController, deleteTeclerController, searchForOtherTeclerController } = require('../controllers/teclers.controllers');
-const { doesUserAlreaydExist, isUserForregistrationRight, isUserForLoginRight, isUserRegistered } = require('../middlewares/register.middleware');
+const { doesUserAlreaydExist, isUserForregistrationRight, isUserForLoginRight, isUserRegistered, uploadImageMiddleware } = require('../middlewares/register.middleware');
 const { updateMiddleware, deleteMiddleware } = require('../middlewares/security.middlewares');
 
 
