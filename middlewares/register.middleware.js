@@ -1,15 +1,17 @@
+//Estos middlewrares permiten evaluar si los datos de un registro o un login son correctos
+
 const Joi = require("joi");
+const { upload } = require("../db/config/cloudinaryConfig");
 const { userTeclerDTO, userEvaluatorDTO, userCompanyDTO, userDTOlogin } = require("../dto/users.dto");
 const { searchForCompanyEmployeeService } = require("../services/company.services");
 const { decryptPassword } = require("../services/security.services");
 const { searchForTeclaEvaluatorService } = require("../services/tecla.services");
 const { searchForTeclerService } = require("../services/teclers.services")
-
 //Cuando alguien se registra, primero corroboramos que el usuario no existea (depende de si es un tecler, un evaluador o una empresa buscando talento)
 
+//Si el usuario ya existe, no se puede volver a registrar un usuario con el mismo nombre hasta eliminar al primero
+module.exports.doesUserAlreaydExist = async (req,res,next) =>{
 
-module.exports.doesUserAlreaydExist = async(req,res,next) =>{
-   
     if (req.body.role === 'tecler') {
        
         let doesUserexist = await searchForTeclerService(req.body);
@@ -40,10 +42,9 @@ module.exports.doesUserAlreaydExist = async(req,res,next) =>{
     }
 }
 
-
+//Se evaluan los datos del registro dependiendo si es un tecler, un evaluador o un colaborador de una compañia
 module.exports.isUserForregistrationRight = (req,res,next) => {
 
-    console.log(req.body);
     if(req.body.role === 'tecler') {
 
         try {
@@ -53,8 +54,7 @@ module.exports.isUserForregistrationRight = (req,res,next) => {
             console.log(error.message);
             return res.status(400).json({message:'Alguno de los datos esta mal'})
         }
-    } 
-    if(req.body.role === 'evaluator'){
+    }else if(req.body.role === 'evaluator'){
 
         try {
             Joi.assert(req.body,userEvaluatorDTO);
@@ -64,8 +64,7 @@ module.exports.isUserForregistrationRight = (req,res,next) => {
             return res.status(400).json({message:'Alguno de los datos esta mal'})
         }
 
-    }
-    if(req.body.role === 'company') {
+    }else if(req.body.role === 'company') {
 
         try {
             Joi.assert(req.body,userCompanyDTO);
@@ -75,13 +74,14 @@ module.exports.isUserForregistrationRight = (req,res,next) => {
             console.log(error.message);
             return res.status(400).json({message:'Alguno de los datos esta mal'});
         }
+    }else{
+        return res.status(400).json('eeror')
     }
 
 };
 
-
+//Evalua los datos de inicio de sesion 
 module.exports.isUserForLoginRight = (req,res,next)=> {
-    console.log(req.body);
 
     try {
         Joi.assert({username:req.body.username,password:req.body.password},userDTOlogin);
@@ -94,7 +94,7 @@ module.exports.isUserForLoginRight = (req,res,next)=> {
 
 };
 
-
+//Si el usuario no esta registrado no puede iniciar sesion
 module.exports.isUserRegistered = async(req,res,next) => {
 
     if (req.body.role === 'tecler') {
@@ -138,4 +138,4 @@ module.exports.isUserRegistered = async(req,res,next) => {
     }else {
         return res.status(500).json({message:'Usuario o contraseña incorrectas'});
     }
-}
+};

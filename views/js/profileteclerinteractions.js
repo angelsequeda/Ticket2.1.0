@@ -1,12 +1,15 @@
+//Estas son las interacciones enre el perfil de un tecler y todo el sistema 
 import { Tecler } from "./classes.js";
 import { Renderizer } from "./renderizers.js";
 import { DeleteData, RetrieveData, Savedata } from "./senddata.js";
 
-
+//El usuario presente esta guardado en el session storage
 let userActiveaux = JSON.parse(sessionStorage.getItem('useractive'));
 let userActive = await RetrieveData.getTecler(userActiveaux.data.username,userActiveaux.data.password);
 userActive.evaluations = await RetrieveData.getEvaluations(userActive.token);
-console.log(userActive);
+userActive.friends = await RetrieveData.getAllFrieds(userActive.token,userActive.result.idTecler);
+userActive.offers = await RetrieveData.getAllMyOfers(userActive.result.idTecler,userActive.token);
+
 if (userActive != null) {
     document.getElementById('usernameprofile').value = userActive.result.username;
     document.getElementById('nameprofile').value = userActive.result.name;
@@ -17,6 +20,30 @@ if (userActive != null) {
     document.getElementById('profilePhotoprofile').setAttribute('src',userActive.result.profilePhoto);
     document.getElementById(`mailprofile`).value = userActive.result.mail;
 
+    //Se muestran las ofertas de trabajo hechas al tecler
+
+    userActive.offers.result.forEach((element)=> {
+        if(element.answered === 0){
+            let rows = document.getElementById('tableOffers').rows.length;
+            Renderizer.addRowTotable('tableOffers',`offerRow${rows-1}`,'afterbegin',`<td>${element.namefrom}</td>
+            <td>${element.job}</td><td>${element.ofer}</td><td>$${element.salary}</td><td>${element.registered}</td><td><button id="answerOfer${rows-1}">Enviar respuesta</button>`);
+            document.getElementById(`answerOfer${rows-1}`).addEventListener('click', ()=> {
+            Renderizer.openFirstEvaluationForm(2,'answer');
+            document.getElementById('sendAnswerOferButton').addEventListener('click',async ()=> {
+                let result = await Savedata.sendNewAnswerToOffer(element.id,element.namefrom,userActive.result.username,document.getElementById('answerinput').value,userActive.token);
+                if(result.message === "correcto"){
+                    alert('Respuesta enviada');
+                }else{
+                    alert(result.message);
+                }
+                document.getElementById('evaluationForm').style.display = 'none';
+                document.getElementById('evaluationForm').innerHTML = '';
+            })
+        });
+        }
+    })
+
+    //Se muestran las habilidades extras del tecler (lenguajes, hobbies, etc.)
     userActive.extras.habilities.forEach((element)=> {
         let rows = document.getElementById('tableHabilities').rows.length;
         Renderizer.addRowTotable('tableHabilities',`habilityRow${rows-1}`, 'afterbegin',`<td> Mi extra es que : <input type="text" clas ="inputs" id="habilityinput${rows-1}" value="${element.what}" disabled class="inputs">`);
@@ -45,25 +72,85 @@ if (userActive != null) {
    });
 
    userActive.evaluations.result.knowledges.forEach((element) => {
-       Renderizer.addRowTotable('Knows',`knowlegeRow${document.getElementById('Knows').rows.length}`,'afterbegin',`<td>${element.databaseKnowledge}</td><td>${element.apis}</td><td>${element.testing}</td><td>${element.security}</td><td>${element.objectTeory}</td><td>${element.name}</td>`)
+       Renderizer.addRowTotable('Knows',`knowlegeRow${document.getElementById('Knows').rows.length}`,'afterbegin',`<td>${element.databaseKnowledge}</td><td>${element.apis}</td><td>${element.testing}</td><td>${element.security}</td><td>${element.objectTeory}</td><td>${element.namefrom}</td>`)
    });
    userActive.evaluations.result.technologies.forEach((element) => {
-       Renderizer.addRowTotable('Technologies',`technologieRow${document.getElementById('Technologies').rows.length}`,'afterbegin',`<td>${element.nodejs}</td><td>${element.frontend}</td><td>${element.swagger}</td><td>${element.javascript}</td><td>${element.name}</td>`)
+       Renderizer.addRowTotable('Technologies',`technologieRow${document.getElementById('Technologies').rows.length}`,'afterbegin',`<td>${element.nodejs}</td><td>${element.frontend}</td><td>${element.swagger}</td><td>${element.javascript}</td><td>${element.namefrom}</td>`)
    });
    userActive.evaluations.result.performance.forEach((element)=> {
-       Renderizer.addRowTotable('Performance',`performanceRow${document.getElementById(`Performance`).rows.length}`,'afterbegin',`<td>${element.codequality}</td><td>${element.speed}</td><td>${element.codePerformance}</td><td>${element.name}</td>`)
+       Renderizer.addRowTotable('Performance',`performanceRow${document.getElementById(`Performance`).rows.length}`,'afterbegin',`<td>${element.codequality}</td><td>${element.speed}</td><td>${element.codePerformance}</td><td>${element.namefrom}</td>`)
    });
    userActive.evaluations.result.softskills.forEach((element) => {
-       Renderizer.addRowTotable('Softskills',`softskillRow${document.getElementById(`Softskills`).rows.length}`,`afterbegin`, `<td>${element.focus}</td><td>${element.teamWork}</td><td>${element.compromise}</td><td>${element.communication}</td><td>${element.learningSkill}</td><td>${element.problemResolution}</td><td>${element.name}</td>`)
+       Renderizer.addRowTotable('Softskills',`softskillRow${document.getElementById(`Softskills`).rows.length}`,`afterbegin`, `<td>${element.focus}</td><td>${element.teamWork}</td><td>${element.compromise}</td><td>${element.communication}</td><td>${element.learningSkill}</td><td>${element.problemResolution}</td><td>${element.namefrom}</td>`)
    });
 
    userActive.evaluations.result.profesional.forEach((element) => {
-       Renderizer.addRowTotable('Profesional',`profesionalRow${document.getElementById(`Profesional`).rows.length}`,'afterbegin',`<td>${element.github}</td><td>${element.trello_jira}</td><td>${element.Slack}</td><td>${element.agile}</td><td>${element.name}</td>`)
+       Renderizer.addRowTotable('Profesional',`profesionalRow${document.getElementById(`Profesional`).rows.length}`,'afterbegin',`<td>${element.github}</td><td>${element.trello_jira}</td><td>${element.Slack}</td><td>${element.agile}</td><td>${element.namefrom}</td>`);
    });
 
    userActive.extras.comments.forEach((element) => {
        let rows = document.getElementById(`tableComments`).rows.length;
-       Renderizer.addRowTotable('tableComments',`commentRow${rows-1}`,'afterbegin',`<td>${element.commentary}   ${element.registered}</td>`)
+       Renderizer.addRowTotable('tableComments',`commentRow${rows-1}`,'afterbegin',`<td>"${element.commentary}"   ${element.fromwhoName}</td><td><button id="answerComment${element.id}">Responder</button><button id="deleteComment${element.id}">Eliminar</button></td>`);
+       document.getElementById(`deleteComment${element.id}`).addEventListener('click', async()=> {
+           let result = await DeleteData.deleteComment(element.id,userActive.result.idTecler,element.fromwho,userActive.token);
+           console.log(result);
+           document.getElementById(`commentRow${rows-1}`).remove();
+       });
+       document.getElementById(`answerComment${element.id}`).addEventListener('click', ()=> {
+            Renderizer.openFirstEvaluationForm(2,'comment',element.fromwhoName,userActive.result.username,element.fromwho,userActive.result.idTecler,userActive.token);
+       })
+   });
+   
+   //Se buscan y muestran los amigos del tecler 
+   userActive.friends.result.forEach((element)=> {
+    let rows = document.getElementById(`tableFriends`).rows.length;
+    //Cada amigo (dependiendo si su solicitud de amistad ha sido aceptada o no) aparece aqui
+       if(element.accepted === 0 && element.friend2id === userActive.result.idTecler){
+           //Si la solicitud no ha sido aceptada los botones asignados permiten aceptar la invitacion o borrarla de la 
+           //base de datos
+            Renderizer.addRowTotable('tableFriends',`friendRow${rows}`,'afterbegin',`<td>${element.friend1name} quiere ser tu amigo <button id="butttonAcceptFriend${element.friend1name}">Aceptar</button><button id="deleteFriend${element.friend1name}">Declinar</button></td>`)
+            document.getElementById(`butttonAcceptFriend${element.friend1name}`).addEventListener('click', async()=> {
+                if(element.friend1id !== userActive.result.idTecler){
+                    let result = await DeleteData.changeFriendship(userActive.token,element.friend1id,userActive.result.idTecler,'accept');
+                }else if(element.accepted === 1){
+                    let result = await DeleteData.changeFriendship(userActive.token,element.friend2id,userActive.result.idTecler,'accept');
+                }
+                
+                document.getElementById(`butttonAcceptFriend${element.friend1name}`).disabled = true;
+            });
+       }else if(element.accepted === 1){
+           if(userActive.result.idTecler === element.friend1id){
+                //Si la solicitud fue aceptada se puede borrar la solicitud (quedando como no amigos) o bien
+                //se puede hacer un comentario al compañero
+                Renderizer.addRowTotable('tableFriends',`friendRow${rows}`,'afterbegin',`<td>${element.friend2name} es tu amigo, puedes hacerle un comentario desde aqui <button id="buttonSendComment${element.friend2name}">Comentar</button><button id="deleteFriend${element.friend2name}">Eliminar</button></td>`);
+                document.getElementById(`buttonSendComment${element.friend2name}`).addEventListener('click', ()=> {
+                    Renderizer.openFirstEvaluationForm(2,'comment',element.friend2name,userActive.result.username,element.friend2id,userActive.result.idTecler,userActive.token);
+                })
+                document.getElementById(`deleteFriend${element.friend2name}`).addEventListener('click', async()=> {
+                    if(element.friend1id !== userActive.result.idTecler){
+                        let result = await DeleteData.changeFriendship(userActive.token,element.friend1id,userActive.result.idTecler,'delete');
+                    }else {
+                        let result = await DeleteData.changeFriendship(userActive.token,element.friend2id,userActive.result.idTecler,'delete');
+                    }
+                    document.getElementById(`friendRow${rows}`).remove();
+               });
+           }else if(userActive.result.idTecler === element.friend2id){
+                Renderizer.addRowTotable('tableFriends',`friendRow${rows}`,'afterbegin',`<td>${element.friend1name} es tu amigo, puedes hacerle un comentario desde aqui <button id="buttonSendComment${element.friend1name}">Comentar</button><button id="deleteFriend${element.friend1name}">Eliminar</button></td>`)
+                document.getElementById(`deleteFriend${element.friend1name}`).addEventListener('click', async()=> {
+                    if(element.friend1id !== userActive.result.idTecler){
+                        let result = await DeleteData.changeFriendship(userActive.token,element.friend1id,userActive.result.idTecler,'delete');
+                    }else {
+                        let result = await DeleteData.changeFriendship(userActive.token,element.friend2id,userActive.result.idTecler,'delete');
+                    };
+                    document.getElementById(`friendRow${rows}`).remove();
+               });
+                document.getElementById(`buttonSendComment${element.friend1name}`).addEventListener('click', ()=> {
+                    Renderizer.openFirstEvaluationForm(2,'comment',element.friend1name,userActive.result.username,element.friend1id,userActive.result.idTecler,userActive.token);
+                })
+           }
+           
+       };
+        
    })
     
 }else {
@@ -71,7 +158,7 @@ if (userActive != null) {
     window.open('../html/login.html','_self');
 }
 
-
+//A partir de este punto todas son funciones de los distintos botones que permiten actualizar al tecler
 
 document.getElementById('editButton').addEventListener('click', ()=> {
     
@@ -102,7 +189,7 @@ document.getElementById('editButton').addEventListener('click', ()=> {
 document.getElementById('cancelChangesButton').addEventListener('click',()=>{
 
     let list = ['Lenguage','Social','Hobbie','Study'];
-    let list2 = ['username','name','age','country','city'];
+    let list2 = ['username','name','age','country','city','tellUsSomething','mail'];
 
     list.forEach((element)=> {
         document.getElementById('add'+element).hidden = true;
@@ -219,4 +306,8 @@ document.getElementById('acceptChangesButton').addEventListener('click',async fu
 
 document.getElementById(`giveUpButton`).addEventListener('click', async ()=> {
     let result = await DeleteData.deleteTecler(userActive.token,userActive.result.idTecler);
+})
+
+document.getElementById('closeSession').addEventListener('click', ()=> {
+    sessionStorage.clear();
 })

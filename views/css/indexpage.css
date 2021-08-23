@@ -1,6 +1,10 @@
-#formContainer {
+#formContainer{
     display: none;
     position: absolute;
+    height: fit-content;
+    width: fit-content;
+    align-self: center;
+    justify-self: center;
     background-color: rgb(24, 150, 133);
     left: 45%;
     top: 25%;
@@ -10,3 +14,17 @@
     padding: 35px;
     color: black;
 }
+
+#evaluationForm{
+    display: none;
+    position: absolute;
+    background-color: #FFE633;
+    left: 45%;
+    top: 25%;
+    transform: translate(-50%, 5%);
+    border: 3px solid #999999;
+    z-index: 9;
+    padding: 35px;
+    color: black;
+}
+

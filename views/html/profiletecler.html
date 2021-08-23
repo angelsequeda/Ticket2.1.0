@@ -5,158 +5,180 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/indexpage.css">
     <link rel="stylesheet" href="../css/profiles.css">
     <title>Document</title>
 </head>
-<body>
-    <div id="maincontainer">
-        <nav class="navbar navbar-dark bg-dark" style="display: flex; justify-content: flex-start;">
-            <a class="navbar-brand" href="./indexpage.html">Página principal</a>
-            <a class="navbar-brand" href="#">Mi perfil</a>
-            <a class="navbar-brand" href="#">Cosas al azar</a>
-            <a class="navbar-brand" href="#">Videos</a>
-        </nav>
-        <div id="fotocontainer" style="padding: 5px;">
-            <img src="" alt="" style="height: 200px; width: 200px;" id="profilePhotoprofile">
+<body id="bodyProfileTecler">
+    <div id="principalContainer">
+        <div id="maincontainer">
+            <nav class="navbar navbar-dark bg-dark" style="display: flex; justify-content: flex-start;">
+                <a class="navbar-brand" href="./indexpage.html">Página principal</a>
+                <a class="navbar-brand" href="">Mi perfil</a>
+                <a class="navbar-brand" id="closeSession" href="./login.html">Cerrar sesión</a>
+            </nav>
+            <div id="fotocontainer" style="padding: 5px;">
+                <img src="" alt="" style="height: 200px; width: 200px;" id="profilePhotoprofile">
+            </div>
+            <div class="form-group">
+                <input disabled type="text" name="" id="mailprofile" class="form-control">
+            </div>
         </div>
-        <div class="form-group">
-            <input disabled type="text" name="" id="mailprofile" class="form-control">
+        <div class="formats">
+            <form action="" class="formats-profile">
+                <div class="form-group">
+                    <h2>Bienvenido al perfil de</h2>
+                    <input disabled type="text" name="" id="usernameprofile" value="" class="form-control">
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <input type="text" disabled id="tellUsSomethingprofile" value="" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="nameprofile">En la vida real me llamo</label>
+                    <input disabled type="text" name="" id="nameprofile" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="ageprofile">Tengo</label>
+                    <input disabled type="text" name="" id="ageprofile" class="form-control">años
+                </div>
+                <div class="form-group">
+                    <label for="countryprofile">Vivo en </label>
+                    <input disabled type="text" name="" id="countryprofile" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="cityprofile">En la ciudad de </label>
+                    <input disabled type="text" name="" id="cityprofile" class="form-control">
+                </div>
+                <div class="form-group" id="passwordHidden" hidden>
+                    <label for="passwordprofile">Mi nueva contraseña</label>
+                    <input disabled type="password" name="" id="passwordprofile" class="form-control">
+                </div>
+                
+            </form>
+        </div>
+        <div class="tablesprofile">
+            <table class="table" id="tableStudies">
+                <tr>
+                    <th>Aquí he estudiado</th>
+                </tr>
+            </table>
+            <button id="addStudy" hidden class="btn btn-success">+</button>
+            <button id="deleteStudy" hidden class="btn btn-danger">-</button>
+            <table class="table" id="tableLenguages">
+                <tr>
+                    <th>Sé hablar otros idiomas!</th>
+                </tr>
+            </table>
+            <button id="addLenguage" hidden class="btn btn-success">+</button>
+            <button id="deleteLenguage" hidden class="btn btn-danger">-</button>
+            <table class="table" id="tableHobbies">
+                <tr>
+                    <th>Esto me gusta hacer</th>
+                </tr>
+            </table>
+            <button id="addHobbie" hidden class="btn btn-success">+</button>
+            <button id="deleteHobbie" hidden class="btn btn-danger">-</button>
+            <table class="table" id="tableHabilities">
+                <tr>
+                    <th>Otras habilidades que tengo son</th>
+                </tr>
+            </table>
+            <button id="addHability" hidden class="btn btn-success">+</button>
+            <button id="deleteHability" hidden class="btn btn-danger">-</button>
+            <table class="table" id="tableComments">
+                <tr>
+                    <th>Comentarios sobre mi</th>
+                </tr>
+            </table>
+            <h3>Ofertas de trabajo para mi</h3>
+            <table class="table" id="tableOffers">
+                <tr>
+                    <th>¿Quién la hizo?</th>
+                    <th>Puesto</th>
+                    <th>Descripción</th>
+                    <th>Salario (m/n mensual)</th>
+                    <th>Fecha de registro</th>
+                </tr>
+            </table>
+            <table class="table" id="tableSocials">
+                <tr>
+                    <th>Puedes contactarme aquí</th>
+                </tr>
+            </table>
+            <button id="addSocial" hidden class="btn btn-success">+</button>
+            <button id="deleteSocial" hidden class="btn btn-danger">-</button>
+            </div>
+            <div id="Evaluationscontainer">
+                <h2>Conocimientos</h2>
+                <table id="Knows" style="margin-bottom: 20px;" class="table">
+                    <tr>
+                        <th style="width: 150px;">Base de datos</th>
+                        <th style="width: 150px;">API's</th>
+                        <th style="width: 150px;">Pruebas</th>
+                        <th style="width: 150px;">Seguridad</th>
+                        <th style="width: 150px;">Teoría de objetos</th>
+                        <th style="width: 150px;">¿Quién me evaluó?</th>
+                    </tr>
+                </table>
+                <h2>Manejo de tecnologías</h2>
+                <table id="Technologies"style="margin-bottom: 20px;">
+                    <tr>
+                        <th style="width: 150px;">Nodejs</th>
+                        <th style="width: 150px;">Swagger</th>
+                        <th style="width: 150px;">Frontend</th>
+                        <th style="width: 150px;">Javascript</th>
+                        <th style="width: 150px;">¿Quién me evaluó?</th>
+                    </tr>
+                </table>
+                <h2>Desempeño</h2>
+                <table id="Performance" style="margin-bottom: 20px;">
+                    <tr>
+                        <th style="width: 150px;">Calidad de código</th>
+                        <th style="width: 150px;">Velocidad de entrega</th>
+                        <th style="width: 150px;">Desempeño de código</th>
+                        <th style="width: 150px;">¿Quién me evaluó?</th>
+                    </tr>
+                </table>
+                <h2>Habilidades blandas</h2>
+                <table id="Softskills" style="margin-bottom: 20px;">
+                    <tr>
+                        <th style="width: 150px;">Enfocado</th>
+                        <th style="width: 150px;">Trabajo en equipo</th>
+                        <th style="width: 150px;">Compromiso</th>
+                        <th style="width: 150px;">Comunicación</th>
+                        <th style="width: 150px;">Capacidad de aprender</th>
+                        <th style="width: 150px;">Solución de problemas</th>
+                        <th style="width: 150px;">¿Quién me evaluó?</th>
+                    </tr>
+                </table>
+                <h2>Ambiente profesional</h2>
+                <table id="Profesional" style="margin-bottom: 20px;">
+                    <tr>
+                        <th style="width: 150px;">Git-Hub</th>
+                        <th style="width: 150px;">Trello/Jira</th>
+                        <th style="width: 150px;">Stack</th>
+                        <th style="width: 150px;">Metodologías ágiles</th>
+                        <th style="width: 150px;">¿Quién me evaluó?</th>
+                    </tr>
+                </table>
+            </div>
+            <div class="form-group">
+                <button id="editButton" class="buttons">Editar</button>
+                <button id="acceptChangesButton" class="buttons" hidden>Aceptar</button>
+                <button id="cancelChangesButton" class="buttons" hidden>Cancelar</button>
+                <button id="giveUpButton" class="buttons" hidden>Dar de baja</button>
+            </div>
         </div>
     </div>
-    <div class="formats">
-        <form action="" class="formats-profile">
-            <div class="form-group">
-                <h2>Bienvenido al perfil de</h2>
-                <input disabled type="text" name="" id="usernameprofile" value="" class="form-control">
-            </div>
-            <div class="form-group" style="margin-top: 20px;">
-                <input type="text" disabled id="tellUsSomethingprofile" value="" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="nameprofile">En la vida real me llamo</label>
-                <input disabled type="text" name="" id="nameprofile" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="ageprofile">Tengo</label>
-                <input disabled type="text" name="" id="ageprofile" class="form-control">años
-            </div>
-            <div class="form-group">
-                <label for="countryprofile">Vivo en </label>
-                <input disabled type="text" name="" id="countryprofile" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="cityprofile">En la ciudad de </label>
-                <input disabled type="text" name="" id="cityprofile" class="form-control">
-            </div>
-            <div class="form-group" id="passwordHidden" hidden>
-                <label for="passwordprofile">Mi nueva contraseña</label>
-                <input disabled type="password" name="" id="passwordprofile" class="form-control">
-            </div>
-            
-        </form>
+    
+    <div id="friendshipSide">
+        <h2>Mis amigos</h2>
+        <table class="tables" id="tableFriends">
+
+        </table>
     </div>
-    <div class="tablesprofile">
-        <table class="table" id="tableStudies">
-            <tr>
-                <th>Aquí he estudiado</th>
-            </tr>
-        </table>
-        <button id="addStudy" hidden class="btn btn-success">+</button>
-        <button id="deleteStudy" hidden class="btn btn-danger">-</button>
-        <table class="table" id="tableLenguages">
-            <tr>
-                <th>Sé hablar otros idiomas!</th>
-            </tr>
-        </table>
-        <button id="addLenguage" hidden class="btn btn-success">+</button>
-        <button id="deleteLenguage" hidden class="btn btn-danger">-</button>
-        <table class="table" id="tableHobbies">
-            <tr>
-                <th>Esto me gusta hacer</th>
-            </tr>
-        </table>
-        <button id="addHobbie" hidden class="btn btn-success">+</button>
-        <button id="deleteHobbie" hidden class="btn btn-danger">-</button>
-        <table class="table" id="tableHabilities">
-            <tr>
-                <th>Otras habilidades que tengo son</th>
-            </tr>
-        </table>
-        <button id="addHability" hidden class="btn btn-success">+</button>
-        <button id="deleteHability" hidden class="btn btn-danger">-</button>
-        <table class="table" id="tableComments">
-            <tr>
-                <th>Comentarios sobre mi</th>
-            </tr>
-        </table>
-        <table class="table" id="tableSocials">
-            <tr>
-                <th>Puedes contactarme aquí</th>
-            </tr>
-        </table>
-        <button id="addSocial" hidden class="btn btn-success">+</button>
-        <button id="deleteSocial" hidden class="btn btn-danger">-</button>
-        </div>
-        <div id="Evaluationscontainer">
-            <h2>Conocimientos</h2>
-            <table id="Knows" style="margin-bottom: 20px;" class="table">
-                <tr>
-                    <th style="width: 150px;">Base de datos</th>
-                    <th style="width: 150px;">API's</th>
-                    <th style="width: 150px;">Pruebas</th>
-                    <th style="width: 150px;">Seguridad</th>
-                    <th style="width: 150px;">Teoría de objetos</th>
-                    <th style="width: 150px;">¿Quién me evaluó?</th>
-                </tr>
-            </table>
-            <h2>Manejo de tecnologías</h2>
-            <table id="Technologies"style="margin-bottom: 20px;">
-                <tr>
-                    <th style="width: 150px;">Nodejs</th>
-                    <th style="width: 150px;">Swagger</th>
-                    <th style="width: 150px;">Frontend</th>
-                    <th style="width: 150px;">Javascript</th>
-                    <th style="width: 150px;">¿Quién me evaluó?</th>
-                </tr>
-            </table>
-            <h2>Desempeño</h2>
-            <table id="Performance" style="margin-bottom: 20px;">
-                <tr>
-                    <th style="width: 150px;">Calidad de código</th>
-                    <th style="width: 150px;">Velocidad de entrega</th>
-                    <th style="width: 150px;">Desempeño de código</th>
-                    <th style="width: 150px;">¿Quién me evaluó?</th>
-                </tr>
-            </table>
-            <h2>Habilidades blandas</h2>
-            <table id="Softskills" style="margin-bottom: 20px;">
-                <tr>
-                    <th style="width: 150px;">Enfocado</th>
-                    <th style="width: 150px;">Trabajo en equipo</th>
-                    <th style="width: 150px;">Compromiso</th>
-                    <th style="width: 150px;">Comunicación</th>
-                    <th style="width: 150px;">Capacidad de aprender</th>
-                    <th style="width: 150px;">Solución de problemas</th>
-                    <th style="width: 150px;">¿Quién me evaluó?</th>
-                </tr>
-            </table>
-            <h2>Ambiente profesional</h2>
-            <table id="Profesional" style="margin-bottom: 20px;">
-                <tr>
-                    <th style="width: 150px;">Git-Hub</th>
-                    <th style="width: 150px;">Trello/Jira</th>
-                    <th style="width: 150px;">Stack</th>
-                    <th style="width: 150px;">Metodologías ágiles</th>
-                    <th style="width: 150px;">¿Quién me evaluó?</th>
-                </tr>
-            </table>
-        </div>
-        <div class="form-group">
-            <button id="editButton" class="buttons">Editar</button>
-            <button id="acceptChangesButton" class="buttons" hidden>Aceptar</button>
-            <button id="cancelChangesButton" class="buttons" hidden>Cancelar</button>
-            <button id="giveUpButton" class="buttons" hidden>Dar de baja</button>
-        </div>
+    <div id="evaluationForm">
+        
     </div>
     <script src="../css/js/bootstrap.min.js"></script>
     <script src="../js/profileteclerinteractions.js" type="module"></script>

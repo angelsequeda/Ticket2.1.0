@@ -1,3 +1,4 @@
+//Estas son las interacciones con el login (animaciones que le dan vista al login)
 $(document).ready(function() {
     $('#imagesChoicLoginContainer').hide();
     $('#imagesChoicLoginContainer2').hide();

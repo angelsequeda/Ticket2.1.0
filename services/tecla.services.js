@@ -3,6 +3,7 @@
 const evaluatorModel = require("../models/evaluator.model");
 const { encryptPassword } = require("./security.services");
 
+//Buscar un evaluador por su nombre de usuario
 module.exports.searchForTeclaEvaluatorService = async(data) => {
     
     try {

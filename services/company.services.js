@@ -3,6 +3,8 @@
 const companyModel = require("../models/company.model");
 const { encryptPassword } = require("./security.services");
 
+
+//Buscar un colaborador por su nombre de usuario
 module.exports.searchForCompanyEmployeeService = async(data) => {
 
     try {
@@ -22,7 +24,7 @@ module.exports.searchForCompanyEmployeeService = async(data) => {
         throw new Error('Error en busqueda de Compañia [company.service.js]')
     }
 }
-
+//añadir un colaborador 
 module.exports.addCompanyEmployeeService = async(data) =>{
 
     try {
@@ -40,7 +42,7 @@ module.exports.addCompanyEmployeeService = async(data) =>{
         throw new Error('Error en registro de Compañia [company.service.js]');
     }
 };
-
+//actualizar informacion de un colaborador
 module.exports.updateCompanyEmployeeService = async(data) => {
 
     try {
@@ -55,7 +57,7 @@ module.exports.updateCompanyEmployeeService = async(data) => {
         throw new Error('Error en actualizcion de Compañia [company.service.js]');
     }
 };
-
+//eliminar a un colaborador
 module.exports.deleteCompanyEmployeeService = async (data) => {
 
     try {

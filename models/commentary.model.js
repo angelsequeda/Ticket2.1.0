@@ -1,9 +1,11 @@
+//Modelo de un comentario incluyendo los ids de quienes los hicieron, sus nombres y el comentario
 const {Model,DataTypes} = require('sequelize');
 const sequelize = require('../db/connection');
 
 
 class commentaryModel extends Model{};
-let today = new Date();
+let today1 = new Date();
+let today = new Date(today1.toDateString());
 
 commentaryModel.init({
 
@@ -28,9 +30,9 @@ commentaryModel.init({
         allowNull: true
     },
     registered: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false,
-        defaultValue: today.getFullYear()+'-'+today.getMonth()+'-'+today.getDate()
+        defaultValue: today.toISOString()
     }
 }, {
     sequelize,

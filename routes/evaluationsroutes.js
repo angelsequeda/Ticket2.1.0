@@ -1,12 +1,16 @@
 //las rutas para hacer evaluaciones de los teclers, recuperarlas por los teclers y por los evaluadores autorizados
 
-const { searchEvaluationsbyController, newEvaluationController } = require('../controllers/evaluation.controllers');
-const { uploadNewEvaluationMiddleware, downloadEvaluationsMiddleware } = require('../middlewares/security.middlewares');
+const { searchEvaluationsbyController, newEvaluationController, deleteEvaluationController, updateEvaluationController } = require('../controllers/evaluation.controllers');
+const { uploadNewEvaluationMiddleware, downloadEvaluationsMiddleware, didIEvaluateThisMiddleware, doesEvaluatedExistMiddleware, compareEvaluation } = require('../middlewares/security.middlewares');
 
 const routerEvaluations = require('express').Router();
 
-routerEvaluations.post('/new',uploadNewEvaluationMiddleware,newEvaluationController);
+routerEvaluations.post('/new',uploadNewEvaluationMiddleware,doesEvaluatedExistMiddleware,didIEvaluateThisMiddleware,compareEvaluation,newEvaluationController);
 
 routerEvaluations.post('/download',downloadEvaluationsMiddleware,searchEvaluationsbyController);
 
-module.exports = {routerEvaluations};
+routerEvaluations.post('/delete',uploadNewEvaluationMiddleware,deleteEvaluationController);
+
+routerEvaluations.post('/update',uploadNewEvaluationMiddleware,updateEvaluationController)
+
+module.exports = {routerEvaluations}
