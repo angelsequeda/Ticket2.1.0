@@ -5,7 +5,7 @@ const express = require('express');
 const sequelize = require('./db/connection');
 const { routerEvaluations } = require('./routes/evaluationsroutes');
 const {routerTecler, routerCompany, routerTecla} = require('./routes/usersroutes');
-const { routerImages } = require('./routes/imagesrouter')
+
 require('dotenv').config();
 const app = express();
 const path = require('path')
@@ -18,6 +18,9 @@ const routeViews = require('./routes/viewsroutes')
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cors());
+app.use(multer({
+    dest: 'public/uploads'
+}).single('profilePhoto'))
 
 //configuraciones
 app.set('views', path.join(__dirname, './views'))
@@ -26,7 +29,7 @@ app.engine('.hbs', exphbs({
   partialsDir: path.join(app.get('views'), 'partials'),
   layoutsDir: path.join(app.get('views'), 'layouts'),
   extname: '.hbs',  
-  helpers: require('./server/helpers')
+  //helpers: require('./server/helpers')
 }))
 app.set('view engine', '.hbs');
 

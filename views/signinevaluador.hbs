@@ -1,0 +1,70 @@
+<div class='container card'>
+  <form class="formulario" action='/perfil'>
+    <div class="text-center p-1">
+      <h1>¡Bienvenido, nuevo Evaluador!</h1>
+
+      <h4>Hablanos un poco sobre ti</h4>
+    </div>
+
+
+    <div class='contenedor' id='datos'>
+      <div class='input-contenedor'>
+        <i class="fas fa-user icon"></i>
+        <input id='nameRegisterevaluator' type="text" placeholder="Nombre(s)">
+      </div>
+
+
+      <div class='input-contenedor'>
+        <i class="fas fa-user icon"></i>
+        <input id='usernameRegisterevaluator' type="text" placeholder="Nombre de usuario">
+      </div>
+
+      <div class='input-contenedor'>
+        <i class="fas fa-envelope icon"></i>
+        <input id='mailRegisterevaluator' type="text" placeholder="Correo Electronico">
+      </div>
+
+      <div class='input-contenedor'>
+        <i class="fas fa-key icon"></i>
+        <input id='passwordRegisterevaluator' type="password" placeholder="Contraseña">
+      </div>
+
+      <div class='input-contenedor'>
+        <i class="fa fa-file-text icon"></i>
+        <input id='tellusRegisterevaluator' type="text" placeholder="Algo curioso de ti">
+      </div>
+
+      <div class='input-contenedor'>
+        <i class="fa fa-briefcase icon"></i>
+        <input id='jobRegisterevaluator' type="text" placeholder="Rol">
+      </div>
+
+      <div class='input-contenedor'>
+        <i class="fas fa-camera icon"></i>
+        <input name='profilePhoto' id='photoRegisterevaluator' type="text" placeholder="Sube una foto">
+      </div>
+
+      <!--    <div class='input-contenedor'>
+      
+      <p><i class="fas fa-camera icon"></i>Sube una foto</p>
+          <input type="file" name='profilePhoto' placeholder="Sube una foto" >
+
+    </div>
+ -->
+
+
+      <div class='p-5'>
+        <button id='acceptRegisterButtonEvaluator' class='button'>Registrate</button>
+      </div>
+
+
+      <p>Al ingresar, aceptas los términos y condiciones.</p>
+      <p>¿Ya tienes una cuenta? <a class="link" href="/login/"> Inicia sesión</a></p>
+      <p>¿No eres un Evaluador?<a class='link' href='/signin'> Haz click aquí</a></p>
+
+    </div>
+
+  </form>
+</div>
+
+<script src="../public/js/signin/signinEvaluador.js" type="module"></script>

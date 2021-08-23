@@ -81,7 +81,7 @@ module.exports.isUserForregistrationRight = (req,res,next) => {
 
 
 module.exports.isUserForLoginRight = (req,res,next)=> {
-    console.log(req.body);
+
 
     try {
         Joi.assert({username:req.body.username,password:req.body.password},userDTOlogin);
@@ -100,7 +100,7 @@ module.exports.isUserRegistered = async(req,res,next) => {
     if (req.body.role === 'tecler') {
        
         let doesUserexist = await searchForTeclerService(req.body);
-        console.log(doesUserexist);
+
         if(doesUserexist.result == null) {
             return res.status(409).json({message:'Usuario o contraseña incorrectas'});
         }else{

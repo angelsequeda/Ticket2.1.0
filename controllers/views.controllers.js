@@ -24,6 +24,14 @@ ctrl.loginColaborador = (req,res) => {
   res.render('logincolaborador')
 }
 
+ctrl.signin = (req,res) => {
+  res.render('signin')
+}
+
+ctrl.signinColaborador = (req,res) => {
+  res.render('signincolaborador')
+}
+
 ctrl.signinTecler = (req,res) => {
   res.render('signintecler')
 }
@@ -32,8 +40,14 @@ ctrl.signinEvaluador = (req,res) => {
   res.render('signinevaluador')
 }
 
-ctrl.signinColaborador = (req,res) => {
-  res.render('signin')
+ctrl.inicio =(req,res) => {
+  res.render('inicio')
+}
+ctrl.perfilTecler =(req,res) => {
+  res.render('perfilTecler')
 }
 
+ctrl.perfilEvaluador = (req,res) => {
+  res.render('perfilEvaluador')
+}
 module.exports = ctrl;

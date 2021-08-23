@@ -8,7 +8,6 @@ const { addTeclerService, searchForTeclerService, updateTeclerService, deleteTec
 module.exports.addTeclerController = async (req,res) => {
 
     try {
-        
         let teclerNew =  await addTeclerService(req.body);
         console.log(teclerNew);
         return res.status(200).json(teclerNew);
@@ -19,19 +18,22 @@ module.exports.addTeclerController = async (req,res) => {
         return res.status(400).json({message: 'error'})
     }
 };
-
+ 
 
 
 module.exports.searchForTeclerController = async(req,res) => {
     
     try {
         let TeclerFound = await searchForTeclerService(req.body);
-        let extraInfo = await searchTeclerExtraInfo(TeclerFound.result.idTecler);
-        TeclerFound.result.password = req.body.password;
-        let token = encryptJsonToken(TeclerFound.result.username,TeclerFound.result.idTecler,'tecler');
-        
-        return res.status(200).json({message:'correcto',result:TeclerFound.result,token: token, extras : extraInfo});
+        //console.log(TeclerFound.result)
 
+        let extraInfo = await searchTeclerExtraInfo(TeclerFound.result.idTecler);
+
+        let regreso = {message:'correcto',result:TeclerFound.result, extras : extraInfo}
+        let token = encryptJsonToken(TeclerFound.result.username,TeclerFound.result.idTecler,'tecler');
+        return res.status(200).json({message:'correcto',result:TeclerFound.result,token: token, extras : extraInfo});
+        //return res.status(200).json({message:'correcto',result:TeclerFound.result, extras : extraInfo});
+        
     } catch (error) {
         console.log(error.message);
         return res.status(400).json({message: 'error'})
