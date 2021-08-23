@@ -82,9 +82,9 @@
                     <input type="text" id="countryRegistertecler" placeholder="¿En qué país está tu ciudad?" class="form-control">
                 </div>
             </form>
-            <form id="formimages" action="" enctype="" method="">
-                <input type="file" id="files" placeholder="subir archivo">
-                <button type="button" id="buttonimage">Enviar</button>
+            <form id="formimage" action="http://localhost:3000/images/new" enctype="multipart/form-data" method="POST">
+                    <input type="file" id="files" placeholder="subir archivo">
+                    <button type="submit" id="buttonimage">Enviar</button>
             </form>
             <div class="buttons-container">
                 <button class="buttons" id="acceptRegisterButtonTecler">Comenzar</button>

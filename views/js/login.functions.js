@@ -25,22 +25,10 @@ document.getElementById('acceptRegisterButtonTecler').addEventListener('click',a
     console.log(saved);
 });
 
-document.getElementById('buttonimage').addEventListener('click',async()=> {
-
-    const files = document.getElementById('files');
-    console.log(files.files);
-    const formdata = new FormData();
-    formdata.image = files.files[0];
-    console.log(formdata);
-    try {
-        let result =  new XMLHttpRequest();
-        result.open("POST","http://localhost:3000/images/new");
-        result.setRequestHeader('Content-type','multipart/form-data ; boundary : "something"');
-        result.send(formdata);
-        console.log(result);
-    } catch (error) {
-        console.log(error.message);
-    }
+document.getElementById('formimage').onsubmit((e)=> {
+    e.preventDefault();
+    let result = document.getElementById('formimage');
+    console.log(result);
 })
 //Si se registra un evaluador
 document.getElementById('acceptRegisterButtonEvaluator').addEventListener('click', async ()=> {

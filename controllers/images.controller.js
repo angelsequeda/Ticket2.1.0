@@ -4,7 +4,6 @@
 
 module.exports.sendAnImmageController = async (req,res)=> {
     try {
-        console.log(req);
         return res.status(200).json({message : 'correcto', result : req.file.path});
     } catch (error) {
         console.log(error.message);
