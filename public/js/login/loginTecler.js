@@ -9,7 +9,7 @@ document.getElementById('buttonAcceptLoginTecler').addEventListener('click', asy
   let username = document.getElementById('usernameLoginInput').value;
   let password = document.getElementById('passwordLoginInput').value
 
-
+ 
   let result = await RetrieveData.getTecler(username, password);
   localStorage.setItem('datos', JSON.stringify(result.result))
   localStorage.setItem('evaluaciones', JSON.stringify(result.extras))

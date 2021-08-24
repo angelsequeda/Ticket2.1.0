@@ -1,3 +1,5 @@
+//Los servicios necesarios para las evaluaciones de los teclers
+
 const companyModel = require("../models/company.model");
 const evaluatorModel = require("../models/evaluator.model");
 const knowledgeModel = require("../models/knowledge.model");
@@ -7,14 +9,15 @@ const softSkillsMOdel = require("../models/softskills.model");
 const technologyModel = require("../models/technologies.model");
 const teclerModel = require("../models/tecler.model");
 
-
+//Dependiendo de lo que se envia en el sistema es el modelo de la base de datos a la que se agrega la evaluacion
+//Cada evaluacion va en forma de una lista con las evaluaciones del cero al cinco de cada aspecto
 module.exports.newEvaluationService = async (data) => {
 
     try {
         let evaluator = data.fromwho;
         let evaluated = data.towho;
         if(data.knowledge){
-            await knowledgeModel.create({fromwho: evaluator,towho: evaluated,namefrom:data.namefrom,nameto:data.nameto, database: data.knowledge[0],apis: data.knowledge[1], testing:data.knowledge[2], security: data.knowledge[3],objectTeory: data.knowledge[4]});
+            await knowledgeModel.create({fromwho: evaluator,towho: evaluated,namefrom:data.namefrom,nameto:data.nameto, databaseKnowledge: data.knowledge[0],apis: data.knowledge[1], testing:data.knowledge[2], security: data.knowledge[3],objectTeory: data.knowledge[4]});
         }
         if(data.technologies){
             await technologyModel.create({fromwho: evaluator,towho: evaluated,namefrom:data.namefrom,nameto:data.nameto,nodejs: data.technologies[0],frontend:data.technologies[1],swagger: data.technologies[2],javascript: data.technologies[3]});
@@ -24,7 +27,7 @@ module.exports.newEvaluationService = async (data) => {
         }
         
         if(data.soft) {
-            await softSkillsMOdel.create({fromwho: evaluator,towho:evaluated,namefrom:data.namefrom,nameto:data.nameto, focus: data.soft[0], teamWork: data.soft[1], comprmise: data.soft[2], communication: data.soft[3], learningSkill: data.soft[4],problemResolution: data.soft[5]});
+            await softSkillsMOdel.create({fromwho: evaluator,towho:evaluated,namefrom:data.namefrom,nameto:data.nameto, focus: data.soft[0], teamWork: data.soft[1], compromise: data.soft[2], communication: data.soft[3], learningSkill: data.soft[4],problemResolution: data.soft[5]});
         }
         if(data.profesional) {
             await profesionalEnviromentModel.create({fromwho: evaluator, towho: evaluated,namefrom:data.namefrom,nameto:data.nameto,github: data.profesional[0],trello_jira: data.profesional[1],Slack: data.profesional[2],agile: data.profesional[3]} );
@@ -37,6 +40,7 @@ module.exports.newEvaluationService = async (data) => {
 
 };
 
+//Se puede buscar una evaluacion por criterio (creador, a quien se evaluo, etc.)
 module.exports.searchEvaluationByCriteria = async (criteria) => {
     try {
         let knowledges = await knowledgeModel.findAll({where : criteria,raw: true});
@@ -53,25 +57,7 @@ module.exports.searchEvaluationByCriteria = async (criteria) => {
     }
 }
 
-
-module.exports.deleteEvaluationByEvaluatorService = async(data) => {
-
-    try {
-        if(data.role != 'evaluator') {
-            throw new Error('Usuario no autorizado');
-        }else {
-            await knowledgeModel.destroy({where :{fromwho : data.idUser, towho : data.idDeleter}});
-            await technologyModel.destroy({where :{fromwho : data.idUser, towho : data.idDeleter}});
-            await softSkillsMOdel.destroy({where :{fromwho : data.idUser, towho : data.idDeleter}});
-            await performanceModel.destroy({where :{fromwho : data.idUser, towho : data.idDeleter}});
-            await profesionalEnviromentModel.destroy({where :{fromwho : data.idUser, towho : data.idDeleter}});
-        }
-    } catch (error) {
-        console.log(error.message);
-        throw new Error('Error al eliminar evaluaciones por evaluador [evaluations.services]')
-    }
-};
-
+//Eliminar todas las evaluaciones por un tecler
 module.exports.deleteAllEvaluationsService = async(data) => {
     try {
         await knowledgeModel.destroy({where :{ towho : data.idTecler}});
@@ -85,7 +71,7 @@ module.exports.deleteAllEvaluationsService = async(data) => {
     }
 };
 
-
+//Buscar a todas las personas del sistema (incluyendo evaluaciones del tecler)
 module.exports.seeAllPeople = async () => {
     try {
         let teclers = await teclerModel.findAll({attributes:{exclude: ['password','num_usuario']}, where: {active : 1}});
@@ -97,3 +83,47 @@ module.exports.seeAllPeople = async () => {
         throw new Error('Error al buscar todos los usuarios [evaluations.services]')
     }
 };
+//Eliminar las evaluaciones por parte de un evaluador
+module.exports.deleteEvaluationByEvaluatorService = async(data) => {
+    try {
+        if(data.type === "knowledge"){
+            await knowledgeModel.destroy({where : {fromwho : data.fromwho, towho:data.towho}});
+        }else if(data.type === "technology") {
+            await technologyModel.destroy({where : {fromwho : data.fromwho, towho:data.towho}});
+        }else if(data.type === "performance"){
+            await performanceModel.destroy({where : {fromwho : data.fromwho, towho:data.towho}});
+        }else if(data.type === "softskills"){
+            await softSkillsMOdel.destroy({where : {fromwho : data.fromwho, towho:data.towho}});
+        }else if(data.type === "profesional") {
+            await profesionalEnviromentModel.destroy({where : {fromwho : data.fromwho, towho:data.towho}});
+        }
+    } catch (error) {
+        console.log(error.message);
+        throw new Error('Error al borrar evaluacion [evaluations.services]');
+    }
+};
+//Actualizar una evaluacion
+module.exports.updateEvaluations = async(data) => {
+    try {
+        let evaluator = data.fromwho;
+        let evaluated = data.towho;
+        if(data.knowledge){ 
+            await knowledgeModel.update({databaseKnowledge: data.knowledge[0],apis: data.knowledge[1], testing:data.knowledge[2], security: data.knowledge[3],objectTeory: data.knowledge[4]},{where : {fromwho: evaluator,towho: evaluated}});
+        };
+        if(data.technologies){
+            await technologyModel.update({nodejs: data.technologies[0],frontend:data.technologies[1],swagger: data.technologies[2],javascript: data.technologies[3]},{where : {fromwho: evaluator,towho: evaluated}});
+        };
+        if(data.performance) {
+            await performanceModel.update({ codequality: data.performance[0],speed: data.performance[1], codePerformance: data.performance[2]},{where : {fromwho: evaluator,towho: evaluated}});
+        };
+        if(data.soft) {
+            await softSkillsMOdel.update({ focus: data.soft[0], teamWork: data.soft[1], compromise: data.soft[2], communication: data.soft[3], learningSkill: data.soft[4],problemResolution: data.soft[5]},{where : {fromwho: evaluator,towho:evaluated}});
+        };
+        if(data.profesional) {
+            await profesionalEnviromentModel.update({nameto:data.nameto,github: data.profesional[0],trello_jira: data.profesional[1],Slack: data.profesional[2],agile: data.profesional[3]}, {where : {fromwho: evaluator, towho: evaluated}} );
+        };
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error al actualizar evaluacion [evaluation.services]');
+    }
+}

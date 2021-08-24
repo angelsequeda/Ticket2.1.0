@@ -3,13 +3,13 @@
 const {  addCompanyEmployeeService, updateCompanyEmployeeService, searchForCompanyEmployee, searchForCompanyEmployeeService, deleteCompanyEmployeeService } = require("../services/company.services");
 const { encryptJsonToken } = require("../services/security.services");
 
-
+//Para añadir un nuevo colaborador a la base de datos
 module.exports.addCompanyEmployeeController = async(req,res) => {
 
     try {
         
         let newCompany = await addCompanyEmployeeService(req.body);
-        return res.status(200).json(newCompany);
+        return res.status(200).json({message : 'correcto'});
 
     } catch (error) {
         console.log(error.message);
@@ -17,7 +17,7 @@ module.exports.addCompanyEmployeeController = async(req,res) => {
     }
 };
 
-
+//Actualizar datos del usuario tipo compañia
 module.exports.updateCompanyEmployeeController = async (req,res) => {
 
     try {
@@ -32,7 +32,7 @@ module.exports.updateCompanyEmployeeController = async (req,res) => {
         return res.status(400).json({message:'Algo ha salido mal con la actualizacion del usuario'});
     }
 };
-
+//Dar de baja a un usuario tipo compañia
 module.exports.deleteCompanyEmployeeController = async (req,res) => {
 
     try {
@@ -47,13 +47,14 @@ module.exports.deleteCompanyEmployeeController = async (req,res) => {
         
     }
 };
-
+//Buscar un usuario tipo compañia 
 module.exports.searchForCompanyEmployeeController = async (req,res) => {
 
     try {
         
         let userFound = await searchForCompanyEmployeeService(req.body);
-        let token = encryptJsonToken(userFound.result.username,userFound.result.idCompanyUser,'comapny');
+        userFound.result.password = req.body.password;
+        let token = encryptJsonToken(userFound.result.username,userFound.result.idCompanyUser,'company');
         return res.status(200).json({message:'correcto',result:userFound.result,token:token});
 
     } catch (error) {

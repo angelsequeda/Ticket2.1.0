@@ -1,11 +1,14 @@
-const { newCommentController } = require('../controllers/frienship&commentary.controller');
-const { areTheyFriendsForComment, areTheyFriendsForRequest } = require('../middlewares/friendship&comments.middlewares');
-const { newFriendshipRequestService } = require('../services/friendship&comments.services');
+//Rutas para hacer comentarios y solicitudes de amistad
+const { newCommentController, changeFrienshipState, newFriendshipRequestController, findAllmyFriendsController, findAllmyCommentsController, deleteCommentController } = require('../controllers/frienship&commentary.controller');
+const { areTheyFriendsForComment, areTheyFriendsForRequest, canYouMakeAcomment, itsMeForfriendship, itsMeForComment, youCantAcceptYourOwnRequest, youCantbeYourOwnfriend, compareComment } = require('../middlewares/friendship&comments.middlewares');
 
 let friendshipRouter = require('express').Router();
 
-friendshipRouter.post('/newcomment',areTheyFriendsForComment,newCommentController);
-friendshipRouter.post('/newfriendship',areTheyFriendsForRequest,newFriendshipRequestService);
-
+friendshipRouter.post('/newcomment',canYouMakeAcomment,youCantbeYourOwnfriend,itsMeForComment,areTheyFriendsForComment,compareComment,newCommentController);
+friendshipRouter.post('/newfriendship',itsMeForfriendship,youCantbeYourOwnfriend,areTheyFriendsForRequest,newFriendshipRequestController);
+friendshipRouter.post('/changefrienship',itsMeForfriendship,youCantAcceptYourOwnRequest,changeFrienshipState);
+friendshipRouter.post('/getmyfriends',itsMeForfriendship,findAllmyFriendsController);
+friendshipRouter.post('/getmycomments',itsMeForComment,findAllmyCommentsController);
+friendshipRouter.post('/deletecomment',itsMeForfriendship,deleteCommentController);
 
 module.exports = friendshipRouter;

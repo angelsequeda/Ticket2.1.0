@@ -1,3 +1,4 @@
+//Estas clases son las basicas para la plataforma (los usuarios se dividen en compañias, teclers y evaluadores)
 import { Savedata } from "./senddata.js"
 
 export class Tecler {

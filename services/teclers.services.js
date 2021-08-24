@@ -66,7 +66,7 @@ module.exports.updateTeclerService = async(data) => {
 };
 
 module.exports.deleteTeclerService = async(data) => {
-    console.log(data);
+
     try {
         await teclerModel.update({active:0},{
             where:{
@@ -80,6 +80,7 @@ module.exports.deleteTeclerService = async(data) => {
     }
 };
 
+//Este servicio permite encontrar toda la informacion extra del tecler (hobbies, educacion, lenguajes que maneja, etc)
 module.exports.searchTeclerExtraInfo = async(data) => {
     try {
        let habilities = await habilityModel.findAll({where : {who : data}});
@@ -95,6 +96,8 @@ module.exports.searchTeclerExtraInfo = async(data) => {
     }
 };
 
+
+//Eliminar la informacion extra del usuario
 module.exports.deleteTeclerExtraInfo = async(data) => {
     try {
         await habilityModel.destroy({where : {who : data.idTecler}});

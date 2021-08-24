@@ -1,9 +1,12 @@
+//Servicios de comentarios y solicitudes de amistad
+
 const commentaryModel = require("../models/commentary.model");
 const friendshipModel = require("../models/friendship.model");
 
-
+//Para generar una nueva solicitud de amistad se requiere el id de los dos usuarios y sus nombres de usuario
 module.exports.newFriendshipRequestService = async(data) => {
     try {
+        console.log(data);
         await friendshipModel.create({
             friend1id : data.id1,
             friend2id: data.id2,
@@ -15,15 +18,19 @@ module.exports.newFriendshipRequestService = async(data) => {
         throw new Error('Error al solicitar amistad f&c services.js');
     }
 };
+
+//Encontrar una solicitud pormedio de un criterio (quien la realizo id1, quien la recibio id2 etc)
 module.exports.findFriendshipByCriteria = async(criteria) => {
     try {
-        let result = await friendshipModel.findAll({where : criteria});
+        let result = await friendshipModel.findAll({where : criteria,raw: true});
         return result;
     } catch (error) {
         console.log(error.message);
         throw new Error('Error al encontrar amistad entre los dos f&c services.js');
     }
 }
+
+//Eliminar una solicitud (se checan ambos casos en que el usuario hizo la soliciutd o la recibio)
 module.exports.deleteFriendshipService = async(data) => {
     try {
         await friendshipModel.destroy(
@@ -32,10 +39,22 @@ module.exports.deleteFriendshipService = async(data) => {
                 friend2id : data.id2
             }}
         );
+        await friendshipModel.destroy(
+            {where : {
+                friend1id : data.id2,
+                friend2id : data.id1
+            }}
+        );
         await commentaryModel.destroy({
             where : {
                 fromwho : data.id1,
                 towho : data.id2
+            }
+        });
+        await commentaryModel.destroy({
+            where : {
+                fromwho : data.id2,
+                towho : data.id1
             }
         });
     } catch (error) {
@@ -43,14 +62,14 @@ module.exports.deleteFriendshipService = async(data) => {
         throw new Error('Error al eliminar amistad f&c services.js');
     }
 };
-
+//Crear un nuevo comentario usando los ids de los usuarios (fromwho,towho) y sus nombres (towhoname,fromwhoname)
 module.exports.createNewCommentService = async(data) => {
     try {
         await commentaryModel.create({
-            frowho : data.id1,
+            fromwho : data.id1,
             towho : data.id2,
-            fromwhoname : data.id1,
-            towhoName : data.id2,
+            fromwhoName : data.name1,
+            towhoName : data.name2,
             commentary : data.commentary
         })
     } catch (error) {
@@ -59,3 +78,44 @@ module.exports.createNewCommentService = async(data) => {
     }
 };
 
+//Aceptar una solicitud cambia su estado accepted de 0 a 1
+
+module.exports.acceptFriendshipService = async (data) => {
+    try {
+        await friendshipModel.update({accepted : 1},{where : {friend2id : data.id2, friend1id : data.id1}}),
+        await friendshipModel.update({accepted : 1}, {where : {friend1id : data.id2, friend2id : data.id1}});
+    } catch (error) {
+        console.log(error.message);
+        throw new Error('Error al aceptar solicitud de amistad f&c services.js');
+    }
+};
+
+
+//Obtener todos los comentarios hechos a un tecler
+
+module.exports.getAllmyCommentsService = async(data) => {
+    try {
+        if(data.criteria === 'mine'){
+            let result = await commentaryModel.findAll({where : { fromwho : data.id1}});
+            return result;
+        }else if(data.criteria === 'forme') {
+            let result = await commentaryModel.findAll({where : {towho : data.id1}});
+            return result;
+        }
+        
+    } catch (error) {
+        console.log(error.message);
+        throw new Error('Error al buscar comentarios f&c services.js');
+    }
+};
+
+//Eliminar un comentario
+module.exports.deleteCommentService = async(data) => {
+    try {
+        await commentaryModel.destroy({where : {fromwho : data.id1, towho : data.id2, id : data.idcomment}});
+        await commentaryModel.destroy({where : {fromwho : data.id2, towho : data.id1, id : data.idcomment}})
+    } catch (error) {
+        console.log(error.message);
+        throw new Error('Error al eliminar comentario f&c services.js');
+    }
+};
