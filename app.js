@@ -24,6 +24,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cors());
 
+app.use(multer({
+    dest: 'public/uploads'
+}).single('profilePhoto'))
+
 //configuraciones
 app.set('views', path.join(__dirname, './views'))
 app.engine('.hbs', exphbs({
@@ -38,6 +42,7 @@ app.set('view engine', '.hbs');
 //static files
 
 app.use('/public',express.static(path.join(__dirname, './public/')))
+
 
 
 
