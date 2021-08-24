@@ -67,7 +67,7 @@ document.getElementById('acceptRegisterButtonCompany').addEventListener('click',
     newCompany.job =document.getElementById('jobRegistercompany').value;
     newCompany.mail =document.getElementById('mailRegistercompany').value;
     newCompany.password = document.getElementById('passwordRegistercompany').value;
-    //newCompany.profilePhoto = document.getElementById('photoRegistercompany').value;
+
     newCompany.role = 'company';
     newCompany.username = document.getElementById('usernameRegistercompany').value
     let newCompanyInfo = new Company(newCompany);
